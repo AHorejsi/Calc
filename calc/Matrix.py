@@ -5,6 +5,10 @@ class Matrix:
     def __init__(self, table):
         self.__table = np.array(table)
 
+    @property
+    def values(self):
+        return self.__table
+
     def rowLength(self):
         return len(self.__table)
 
@@ -38,6 +42,27 @@ class Matrix:
     def __isub__(self, matrix):
         return self - matrix
 
+    def __mul__(self, mathEntity):
+        from calc.Vector import Vector
+
+        typeOfArg = type(mathEntity)
+
+        if typeOfArg is Matrix:
+            return Matrix(self.__table @ mathEntity.__table)
+        elif typeOfArg is Vector:
+            result = self.__table @ mathEntity
+            result = np.array([result]).transpose()
+
+            return Matrix(result)
+        else:
+            return Matrix(self.__table * mathEntity)
+
+    def __imul__(self, mathEntity):
+        return self * mathEntity
+
+    def __rmul__(self, scalar):
+        return self * scalar
+
     def transpose(self):
         return self.__table.transpose()
 
@@ -51,7 +76,7 @@ class Matrix:
             for value in row:
                 hashCode += 31 * hash(value)
 
-        return int(hashCode)
+        return hashCode
 
     def __eq__(self, matrix):
         if type(matrix) is Matrix:

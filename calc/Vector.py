@@ -5,6 +5,10 @@ class Vector:
     def __init__(self, point):
         self.__point = tuple(point)
 
+    @property
+    def values(self):
+        return self.__point
+
     def __len__(self):
         return len(self.__point)
 
@@ -42,16 +46,25 @@ class Vector:
     def __isub__(self, vector):
         return self - vector
 
-    def __mul__(self, realNumber):
-        point = []
+    def __mul__(self, mathEntity):
+        from calc.Matrix import Matrix
 
-        for value in self:
-            point.append(value * realNumber)
+        typeOfArg = type(mathEntity)
 
-        return Vector(point)
+        if typeOfArg is Matrix:
+            result = self @ mathEntity.values
 
-    def __imul__(self, realNumber):
-        return self * realNumber
+            return Matrix([result])
+        else:
+            point = []
+
+            for value in self:
+                point.append(value * mathEntity)
+
+            return Vector(point)
+
+    def __imul__(self, mathEntity):
+        return self * mathEntity
 
     def __rmul__(self, realNumber):
         return self * realNumber
