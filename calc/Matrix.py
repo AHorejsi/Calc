@@ -1,34 +1,31 @@
 import numpy as np
+from scipy.linalg import inv, det
 
 
 class Matrix:
     def __init__(self, table):
-        self.__table = np.array(table)
-
-    @property
-    def values(self):
-        return self.__table
+        self.table = np.array(table)
 
     def rowLength(self):
-        return len(self.__table)
+        return len(self.table)
 
     def columnLength(self):
         if self.rowLength() == 0:
             return 0
         else:
-            return len(self.__table[0])
+            return len(self.table[0])
 
     def equalDimensions(self, matrix):
         return self.rowLength() == matrix.rowLength() and self.columnLength() == matrix.columnLength()
 
     def __getitem__(self, coordinates):
-        return self.__table[coordinates]
+        return self.table[coordinates]
 
     def __add__(self, matrix):
         if not self.equalDimensions(matrix):
             raise ArithmeticError("Matrices must be of equal dimensions to be added together")
 
-        return Matrix(self.__table + matrix.__table)
+        return Matrix(self.table + matrix.__table)
 
     def __iadd__(self, matrix):
         return self + matrix
@@ -37,7 +34,7 @@ class Matrix:
         if not self.equalDimensions(matrix):
             raise ArithmeticError("Matrices must be of equal dimensions to be subtracted from each other")
 
-        return Matrix(self.__table - matrix.__table)
+        return Matrix(self.table - matrix.__table)
 
     def __isub__(self, matrix):
         return self - matrix
@@ -48,14 +45,14 @@ class Matrix:
         typeOfArg = type(mathEntity)
 
         if typeOfArg is Matrix:
-            return Matrix(self.__table @ mathEntity.__table)
+            return Matrix(self.table @ mathEntity.__table)
         elif typeOfArg is Vector:
-            result = self.__table @ mathEntity
+            result = self.table @ mathEntity
             result = np.array([result]).transpose()
 
             return Matrix(result)
         else:
-            return Matrix(self.__table * mathEntity)
+            return Matrix(self.table * mathEntity)
 
     def __imul__(self, mathEntity):
         return self * mathEntity
@@ -63,11 +60,28 @@ class Matrix:
     def __rmul__(self, scalar):
         return self * scalar
 
+    def __truediv__(self, mathEntity):
+        typeOfArg = type(mathEntity)
+
+        if typeOfArg is Matrix:
+            return self * mathEntity.inverse()
+        else:
+            return self * (1 / mathEntity)
+
+    def __itruediv__(self, mathEntity):
+        return self / mathEntity
+
+    def determinant(self):
+        return det(self.table)
+
+    def inverse(self):
+        return inv(self.table)
+
     def transpose(self):
-        return self.__table.transpose()
+        return self.table.transpose()
 
     def __iter__(self):
-        return self.__table.__iter__()
+        return self.table.__iter__()
 
     def __hash__(self):
         hashCode = 0
@@ -80,7 +94,7 @@ class Matrix:
 
     def __eq__(self, matrix):
         if type(matrix) is Matrix:
-            return self.__table == matrix.__table
+            return self.table == matrix.table
         else:
             return False
 
@@ -88,4 +102,4 @@ class Matrix:
         return not self == matrix
 
     def __str__(self):
-        return str(self.__table)
+        return str(self.table)

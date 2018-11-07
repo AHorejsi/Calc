@@ -3,20 +3,16 @@ from math import sqrt, acos
 
 class Vector:
     def __init__(self, point):
-        self.__point = tuple(point)
-
-    @property
-    def values(self):
-        return self.__point
+        self.point = tuple(point)
 
     def __len__(self):
-        return len(self.__point)
+        return len(self.point)
 
     def equalDimensions(self, vector):
         return len(self) == len(vector)
 
     def __getitem__(self, index):
-        return self.__point[index]
+        return self.point[index]
 
     def __add__(self, vector):
         if not self.equalDimensions(vector):
@@ -117,14 +113,14 @@ class Vector:
         return acos(self.dot(vector) / (self.magnitude() * vector.magnitude()))
 
     def __iter__(self):
-        return self.__point.__iter__()
+        return self.point.__iter__()
 
     def __hash__(self):
-        return hash(self.__point)
+        return hash(self.point)
 
     def __eq__(self, vector):
         if type(vector) is Vector:
-            return self.__point == vector.__point
+            return self.point == vector.point
         else:
             return False
 
