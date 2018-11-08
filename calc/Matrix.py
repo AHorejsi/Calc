@@ -18,14 +18,14 @@ class Matrix:
     def equalDimensions(self, matrix):
         return self.rowLength() == matrix.rowLength() and self.columnLength() == matrix.columnLength()
 
-    def __getitem__(self, coordinates):
-        return self.table[coordinates]
+    def __getitem__(self, indices):
+        return self.table[indices]
 
     def __add__(self, matrix):
         if not self.equalDimensions(matrix):
             raise ArithmeticError("Matrices must be of equal dimensions to be added together")
 
-        return Matrix(self.table + matrix.__table)
+        return Matrix(self.table + matrix.table)
 
     def __iadd__(self, matrix):
         return self + matrix
@@ -34,7 +34,7 @@ class Matrix:
         if not self.equalDimensions(matrix):
             raise ArithmeticError("Matrices must be of equal dimensions to be subtracted from each other")
 
-        return Matrix(self.table - matrix.__table)
+        return Matrix(self.table - matrix.table)
 
     def __isub__(self, matrix):
         return self - matrix
@@ -45,7 +45,7 @@ class Matrix:
         typeOfArg = type(mathEntity)
 
         if typeOfArg is Matrix:
-            return Matrix(self.table @ mathEntity.__table)
+            return Matrix(self.table @ mathEntity.table)
         elif typeOfArg is Vector:
             result = self.table @ mathEntity
             result = np.array([result]).transpose()

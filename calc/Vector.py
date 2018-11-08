@@ -1,9 +1,10 @@
+import numpy as np
 from math import sqrt, acos
 
 
 class Vector:
     def __init__(self, point):
-        self.point = tuple(point)
+        self.point = np.array(point)
 
     def __len__(self):
         return len(self.point)
