@@ -1,5 +1,6 @@
 from cal.Vector import Vector
 from cal.Quaternion import Quaternion
+from cal.Matrix import Matrix
 
 
 def addition(leftOperand, rightOperand):
@@ -20,6 +21,11 @@ def addition(leftOperand, rightOperand):
             return quaternionPlusComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
             return quaternionPlusQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Matrix:
+        # The below "if" statements indicate what types can be added to Matrices
+
+        if typeOfRight is Matrix:
+            return matrixPlusMatrix(leftOperand, rightOperand)
 
     raise TypeError(str(typeOfLeft) + " + " + str(typeOfRight) + " is not possible")
 
@@ -57,6 +63,24 @@ def quaternionPlusQuaternion(leftQuaternion, rightQuaternion):
                       leftQuaternion.imag2 + rightQuaternion.imag2)
 
 
+def matrixPlusMatrix(leftMatrix, rightMatrix):
+    if not leftMatrix.equalDimensions(rightMatrix):
+        raise ArithmeticError("Matrices must be of equal dimensions to be added together")
+
+    table = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        newRow = []
+
+        for colIndex in range(leftMatrix.columnLength):
+            result = addition(leftMatrix[rowIndex, colIndex], rightMatrix[rowIndex, colIndex])
+            newRow.append(result)
+
+        table.extend(newRow)
+
+    return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
+
+
 def subtraction(leftOperand, rightOperand):
     typeOfLeft = type(leftOperand)
     typeOfRight = type(rightOperand)
@@ -67,7 +91,7 @@ def subtraction(leftOperand, rightOperand):
         if typeOfRight is Vector:
             return vectorMinusVector(leftOperand, rightOperand)
     elif typeOfLeft is Quaternion:
-        # The below "if" statements indicate what types can be
+        # The below "if" statements indicate what types can be subtracted from Quaternions
 
         if (typeOfRight is int) or (typeOfRight is float):
             return quaternionMinusReal(leftOperand, rightOperand)
@@ -75,6 +99,11 @@ def subtraction(leftOperand, rightOperand):
             return quaternionMinusComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
             return quaternionMinusQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Matrix:
+        # The below "if" statements indicate what types can be subtracted from Matrices
+
+        if typeOfRight is Matrix:
+            return matrixMinusMatrix(leftOperand, rightOperand)
 
     raise TypeError(str(typeOfLeft) + " - " + str(typeOfRight) + " is not possible")
 
@@ -112,6 +141,24 @@ def quaternionMinusQuaternion(leftQuaternion, rightQuaternion):
                       leftQuaternion.imag2 - rightQuaternion.imag2)
 
 
+def matrixMinusMatrix(leftMatrix, rightMatrix):
+    if not leftMatrix.equalDimensions(rightMatrix):
+        raise ArithmeticError("Matrices must be of equal dimensions to be subtracted from each other")
+
+    table = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        newRow = []
+
+        for colIndex in range(leftMatrix.columnLength):
+            result = subtraction(leftMatrix[rowIndex, colIndex], rightMatrix[rowIndex, colIndex])
+            newRow.append(result)
+
+        table.extend(newRow)
+
+    return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
+
+
 def multiplication(leftOperand, rightOperand):
     typeOfLeft = type(leftOperand)
     typeOfRight = type(rightOperand)
@@ -130,6 +177,11 @@ def multiplication(leftOperand, rightOperand):
             return quaternionTimesComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
             return quaternionTimesQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Matrix:
+        # The below "if" statements indicate what types can be multiplied to Matrices
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex) or (typeOfRight is Quaternion):
+            return matrixTimesScalar(leftOperand, rightOperand)
 
     raise TypeError(str(typeOfLeft) + " * " + str(typeOfRight) + " is not possible")
 
@@ -166,6 +218,21 @@ def quaternionTimesQuaternion(leftQuaterion, rightQuaternion):
                       leftQuaterion.imag1 * rightQuaternion.real - leftQuaterion.imag2 * rightQuaternion.imag,
                       leftQuaterion.real * rightQuaternion.imag2 - leftQuaterion.imag * rightQuaternion.imag1 +
                       leftQuaterion.imag1 * rightQuaternion.imag + leftQuaterion.imag2 * rightQuaternion.real)
+
+
+def matrixTimesScalar(leftMatrix, rightScalar):
+    table = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        newRow = []
+
+        for colIndex in range(leftMatrix.columnLength):
+            result = multiplication(leftMatrix[rowIndex, colIndex], rightScalar)
+            newRow.append(result)
+
+        table.extend(newRow)
+
+    return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
 
 
 def division(leftOperand, rightOperand):

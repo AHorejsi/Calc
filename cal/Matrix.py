@@ -10,7 +10,7 @@ class Matrix:
                 self.columnLength = len(self.table[0])
 
             for row in table:
-                self.table += row
+                self.table.extend(row)
         else:
             self.table = table
             self.rowLength = rowLength
