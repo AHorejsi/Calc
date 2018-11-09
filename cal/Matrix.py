@@ -7,7 +7,7 @@ class Matrix:
             if self.rowLength == 0:
                 self.columnLength = 0
             else:
-                self.columnLength = len(self.table[0])
+                self.columnLength = len(table[0])
 
             for row in table:
                 self.table.extend(row)
@@ -24,3 +24,6 @@ class Matrix:
 
     def __getitem__(self, coordinates):
         return self.table[coordinates[0] * self.columnLength + coordinates[1]]
+
+    def __str__(self):
+        return str(self.table)
