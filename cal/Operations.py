@@ -7,7 +7,21 @@ def addition(leftOperand, rightOperand):
     typeOfLeft = type(leftOperand)
     typeOfRight = type(rightOperand)
 
-    if typeOfLeft is Vector:
+    if (typeOfLeft is int) or (typeOfLeft is float):
+        # The below "if" statements indicate what types can be added to real numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (complex):
+            return leftOperand + rightOperand
+        elif typeOfRight is Quaternion:
+            return quaternionPlusReal(rightOperand, leftOperand)
+    elif typeOfLeft is complex:
+        # The below "if" statements indicate what types can be added to Complex Numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
+            return leftOperand + rightOperand
+        elif typeOfRight is Quaternion:
+            return quaternionPlusComplex(rightOperand, leftOperand)
+    elif typeOfLeft is Vector:
         # The below "if" statements indicate what types can be added to Vectors
 
         if typeOfRight is Vector:
@@ -85,7 +99,21 @@ def subtraction(leftOperand, rightOperand):
     typeOfLeft = type(leftOperand)
     typeOfRight = type(rightOperand)
 
-    if typeOfLeft is Vector:
+    if (typeOfLeft is int) or (typeOfLeft is float):
+        # The below "if" statements indicate what types can be subtracted from real numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
+            return leftOperand - rightOperand
+        elif typeOfRight is Quaternion:
+            return realMinusQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is complex:
+        # The below "if" statements indicates what types can be subtracted from Complex Numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
+            return leftOperand - rightOperand
+        elif typeOfRight is Quaternion:
+            return complexMinusQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Vector:
         # The below "if" statements indicate what types can be subtracted from Vectors
 
         if typeOfRight is Vector:
@@ -106,6 +134,20 @@ def subtraction(leftOperand, rightOperand):
             return matrixMinusMatrix(leftOperand, rightOperand)
 
     raise TypeError(str(typeOfLeft) + " - " + str(typeOfRight) + " is not possible")
+
+
+def realMinusQuaternion(leftReal, rightQuaternion):
+    return Quaternion(leftReal - rightQuaternion.real,
+                      -rightQuaternion.imag,
+                      -rightQuaternion.imag1,
+                      -rightQuaternion.imag2)
+
+
+def complexMinusQuaternion(leftComplex, rightQuaternion):
+    return Quaternion(leftComplex.real - rightQuaternion.real,
+                      leftComplex.imag - rightQuaternion.imag,
+                      -rightQuaternion.imag1,
+                      -rightQuaternion.imag2)
 
 
 def vectorMinusVector(leftVector, rightVector):
@@ -163,7 +205,21 @@ def multiplication(leftOperand, rightOperand):
     typeOfLeft = type(leftOperand)
     typeOfRight = type(rightOperand)
 
-    if typeOfLeft is Vector:
+    if (typeOfLeft is int) or (typeOfLeft is float):
+        # The below "if" statements indicate what types can be multiplied to real numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
+            return leftOperand * rightOperand
+        elif typeOfRight is Quaternion:
+            return quaternionTimesReal(rightOperand, leftOperand)
+    elif typeOfLeft is complex:
+        # The below "if" statements indicate what types can be multiplied to Complex Numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
+            return leftOperand + rightOperand
+        elif typeOfRight is Quaternion:
+            return complexTimesQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Vector:
         # The below "if" statements indicate what types can be multiplied to Vectors
 
         if (typeOfRight is int) or (typeOfRight is float):
@@ -186,6 +242,13 @@ def multiplication(leftOperand, rightOperand):
             return matrixTimesMatrix(leftOperand, rightOperand)
 
     raise TypeError(str(typeOfLeft) + " * " + str(typeOfRight) + " is not possible")
+
+
+def complexTimesQuaternion(leftComplex, rightQuaternion):
+    return Quaternion(leftComplex.real * rightQuaternion.real - leftComplex.imag * rightQuaternion.imag,
+                      leftComplex.real * rightQuaternion.imag + rightQuaternion.real * leftComplex.imag,
+                      leftComplex.real * rightQuaternion.imag1 - leftComplex.imag * rightQuaternion.imag2,
+                      leftComplex.real * rightQuaternion.imag2 + leftComplex.imag * rightQuaternion.imag1)
 
 
 def vectorTimesReal(leftVector, rightReal):
@@ -268,7 +331,21 @@ def division(leftOperand, rightOperand):
     typeOfLeft = type(leftOperand)
     typeOfRight = type(rightOperand)
 
-    if typeOfLeft is Vector:
+    if (typeOfLeft is int) or (typeOfLeft is float):
+        # The below "if" statements indicate what types can be divided from real numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
+            return leftOperand / rightOperand
+        elif typeOfRight is Quaternion:
+            return realDividedByQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is complex:
+        # The below "if" statements indicate what types can be divided from Complex Numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
+            return leftOperand / rightOperand
+        elif typeOfLeft is Quaternion:
+            return complexDividedByQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Vector:
         # The below "if" statements indicate what types can be divided from Vectors
 
         if (typeOfRight is int) or (typeOfRight is float):
@@ -291,6 +368,29 @@ def division(leftOperand, rightOperand):
             return matrixDividedByMatrix(leftOperand, rightOperand)
 
     raise TypeError(str(typeOfLeft) + " / " + str(typeOfRight) + " is not possible")
+
+
+def realDividedByQuaternion(leftReal, rightQuaternion):
+    absoluteValueOfRight = abs(rightQuaternion)
+
+    return Quaternion((leftReal * rightQuaternion.real) / absoluteValueOfRight,
+                      (-leftReal * rightQuaternion.imag) / absoluteValueOfRight,
+                      (-leftReal * rightQuaternion.imag1) / absoluteValueOfRight,
+                      (-leftReal * rightQuaternion.imag2) / absoluteValueOfRight)
+
+
+def complexDividedByQuaternion(leftComplex, rightQuaternion):
+    absoluteValueOfRight = abs(rightQuaternion)
+
+    realOfResult = leftComplex.real * rightQuaternion.real + leftComplex.imag * rightQuaternion.imag
+    imagOfResult = leftComplex.imag * rightQuaternion.real - leftComplex.real * rightQuaternion.imag
+    imag1OfResult = -leftComplex.real * rightQuaternion.imag1 - leftComplex.imag * rightQuaternion.imag2
+    imag2OfResult = leftComplex.imag * rightQuaternion.imag1 - leftComplex.real * rightQuaternion.imag2
+
+    return Quaternion(realOfResult / absoluteValueOfRight,
+                      imagOfResult / absoluteValueOfRight,
+                      imag1OfResult / absoluteValueOfRight,
+                      imag2OfResult / absoluteValueOfRight)
 
 
 def vectorDividedByReal(leftVector, rightReal):
@@ -342,7 +442,9 @@ def matrixDividedByMatrix(leftMatrix, rightMatrix):
 def negation(operand):
     typeOfOperand = type(operand)
 
-    if typeOfOperand is Vector:
+    if (typeOfOperand is int) or (typeOfOperand is float) or (typeOfOperand is complex):
+        return -operand
+    elif typeOfOperand is Vector:
         return negateVector(operand)
     elif typeOfOperand is Quaternion:
         return negateQuaternion(operand)
@@ -368,7 +470,21 @@ def equality(leftOperand, rightOperand):
     typeOfLeft = type(leftOperand)
     typeOfRight = type(rightOperand)
 
-    if typeOfLeft is Vector:
+    if (typeOfLeft is int) or (typeOfLeft is float):
+        # The below "if" statements indicate what types can be equal to real numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
+            return leftOperand == rightOperand
+        elif typeOfRight is Quaternion:
+            return quaternionEqualsReal(rightOperand, leftOperand)
+    elif typeOfLeft is complex:
+        # The below "if" statements indicate what types can be equal to Complex Numbers
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
+            return leftOperand == rightOperand
+        elif typeOfRight is Quaternion:
+            return quaternionEqualsComplex(rightOperand, leftOperand)
+    elif typeOfLeft is Vector:
         # The below "if" statements indicate what types can be equal to Vectors
 
         if typeOfRight is Vector:
@@ -387,6 +503,8 @@ def equality(leftOperand, rightOperand):
 
         if typeOfRight is Matrix:
             return matrixEqualsMatrix(leftOperand, rightOperand)
+
+    return False
 
 
 def vectorEqualsVector(leftVector, rightVector):
@@ -414,7 +532,7 @@ def quaternionEqualsQuaternion(leftQuaternion, rightQuaternion):
            leftQuaternion.imag2 == rightQuaternion.imag2
 
 
-def matrixEqualMatrix(leftMatrix, rightMatrix):
+def matrixEqualsMatrix(leftMatrix, rightMatrix):
     if not leftMatrix.equalDimensions(rightMatrix):
         return False
 
