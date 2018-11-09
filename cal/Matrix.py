@@ -32,6 +32,13 @@ class Matrix(MathEntity):
     def __getitem__(self, coordinates):
         return self.table[coordinates[0] * self.columnLength + coordinates[1]]
 
+    def __contains__(self, searchValue):
+        for value in self:
+            if value == searchValue:
+                return True
+
+        return False
+
     def determinant(self):
         if not self.isSquare():
             raise ArithmeticError("Only square Matrices have determinants")

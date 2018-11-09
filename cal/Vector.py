@@ -15,6 +15,13 @@ class Vector(MathEntity):
     def __getitem__(self, index):
         return self.point[index]
 
+    def __contains__(self, searchValue):
+        for value in self:
+            if value == searchValue:
+                return True
+
+        return False
+
     def dot(self, vector):
         if not self.equalDimensions(vector):
             raise ArithmeticError("Two Vectors must be of equal dimensions to have a dot product")
