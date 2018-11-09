@@ -13,3 +13,18 @@ class Quaternion:
 
     def conjugate(self):
         return Quaternion(self.real, -self.imag, -self.imag1, -self.imag2)
+
+    def __str__(self):
+        return Quaternion.__value(self.real, "") + \
+               Quaternion.__value(self.imag, "i") + \
+               Quaternion.__value(self.imag1, "j") + \
+               Quaternion.__value(self.imag2, "k")
+
+    @staticmethod
+    def __value(value, axis):
+        if value == 0:
+            return ""
+        elif value < 0:
+            return "-" + str(abs(value)) + axis
+        else:
+            return "+" + str(value) + axis

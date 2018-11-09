@@ -362,3 +362,7 @@ def negateQuaternion(quaternion):
 
 def negateMatrix(matrix):
     return matrixTimesScalar(matrix, -1)
+
+
+x = Matrix([[1,2,3,0],[4,5,6,3],[7,8,9,9],[7,1,1,6]])
+print(x.determinant())
