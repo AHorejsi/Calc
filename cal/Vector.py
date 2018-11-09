@@ -1,7 +1,8 @@
 from math import sqrt, acos
+from cal.MathEntity import MathEntity
 
 
-class Vector:
+class Vector(MathEntity):
     def __init__(self, point):
         self.point = tuple(point)
 

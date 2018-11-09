@@ -546,3 +546,7 @@ def matrixEqualsMatrix(leftMatrix, rightMatrix):
 
 def inequality(leftOperand, rightOperand):
     return not equality(leftOperand, rightOperand)
+
+
+x = Vector([1,2,3])
+print(x)

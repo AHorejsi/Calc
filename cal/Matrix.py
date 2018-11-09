@@ -1,7 +1,8 @@
 from scipy.linalg import det, inv
+from cal.MathEntity import MathEntity
 
 
-class Matrix:
+class Matrix(MathEntity):
     def __init__(self, table, rowLength=None, columnLength=None):
         if (rowLength is None) and (columnLength is None):
             self.table = []

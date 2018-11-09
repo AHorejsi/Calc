@@ -1,7 +1,8 @@
 from math import sqrt
+from cal.MathEntity import MathEntity
 
 
-class Quaternion:
+class Quaternion(MathEntity):
     def __init__(self, real, imag, imag1, imag2):
         self.real = real
         self.imag = imag
