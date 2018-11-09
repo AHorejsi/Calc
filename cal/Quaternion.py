@@ -15,6 +15,14 @@ class Quaternion(MathEntity):
     def conjugate(self):
         return Quaternion(self.real, -self.imag, -self.imag1, -self.imag2)
 
+    def __hash__(self):
+        modifier = 31
+
+        return modifier * hash(self.real) + \
+               modifier * hash(self.imag) + \
+               modifier * hash(self.imag1) + \
+               modifier * hash(self.imag2)
+
     def __str__(self):
         return Quaternion.__value(self.real, "") + \
                Quaternion.__value(self.imag, "i") + \

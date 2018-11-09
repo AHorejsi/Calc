@@ -42,6 +42,15 @@ class Vector(MathEntity):
     def __iter__(self):
         return self.point.__iter__()
 
+    def __hash__(self):
+        hash = 0
+        modifier = 31
+
+        for value in self:
+            hash += modifier * value
+
+        return hash
+
     def __str__(self):
         strRep = "<"
 

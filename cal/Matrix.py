@@ -61,5 +61,17 @@ class Matrix(MathEntity):
 
         return Matrix(np.linalg.inv(table).tolist())
 
+    def __iter__(self):
+        return self.table.__iter__()
+
+    def __hash__(self):
+        hash = 0
+        modifier = 31
+
+        for value in self:
+            hash += modifier * hash(value)
+
+        return hash
+
     def __str__(self):
         return str(self.table)
