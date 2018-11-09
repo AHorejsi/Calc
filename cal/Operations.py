@@ -364,5 +364,67 @@ def negateMatrix(matrix):
     return matrixTimesScalar(matrix, -1)
 
 
-x = Matrix([[1,2,3,0],[4,5,6,3],[7,8,9,9],[7,1,1,6]])
-print(x.determinant())
+def equality(leftOperand, rightOperand):
+    typeOfLeft = type(leftOperand)
+    typeOfRight = type(rightOperand)
+
+    if typeOfLeft is Vector:
+        # The below "if" statements indicate what types can be equal to Vectors
+
+        if typeOfRight is Vector:
+            return vectorEqualsVector(leftOperand, rightOperand)
+    elif typeOfLeft is Quaternion:
+        # The below "if" statements indicates what types can be equal to Quaternions
+
+        if (typeOfRight is int) or (typeOfRight is float):
+            return quaternionEqualsReal(leftOperand, rightOperand)
+        elif typeOfRight is complex:
+            return quaternionEqualsComplex(leftOperand, rightOperand)
+        elif typeOfRight is Quaternion:
+            return quaternionEqualsQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Matrix:
+        # The below "if" statements indicate what types can be equal to Matrices
+
+        if typeOfRight is Matrix:
+            return matrixEqualsMatrix(leftOperand, rightOperand)
+
+
+def vectorEqualsVector(leftVector, rightVector):
+    return leftVector.point == rightVector.point
+
+
+def quaternionEqualsReal(leftQuaternion, rightReal):
+    return leftQuaternion.real == rightReal and \
+           leftQuaternion.imag == 0 and \
+           leftQuaternion.imag1 == 0 and \
+           leftQuaternion.imag2 == 0
+
+
+def quaternionEqualsComplex(leftQuaternion, rightComplex):
+    return leftQuaternion.real == rightComplex.real and \
+           leftQuaternion.imag == rightComplex.imag and \
+           leftQuaternion.imag1 == 0 and \
+           leftQuaternion.imag2 == 0
+
+
+def quaternionEqualsQuaternion(leftQuaternion, rightQuaternion):
+    return leftQuaternion.real == rightQuaternion.real and \
+           leftQuaternion.imag == rightQuaternion.imag and \
+           leftQuaternion.imag1 == rightQuaternion.imag1 and \
+           leftQuaternion.imag2 == rightQuaternion.imag2
+
+
+def matrixEqualMatrix(leftMatrix, rightMatrix):
+    if not leftMatrix.equalDimensions(rightMatrix):
+        return False
+
+    for rowIndex in range(leftMatrix.rowLength):
+        for colIndex in range(leftMatrix.columnLength):
+            if not equality(leftMatrix[rowIndex, colIndex], rightMatrix[rowIndex, colIndex]):
+                return False
+
+    return True
+
+
+def inequality(leftOperand, rightOperand):
+    return not equality(leftOperand, rightOperand)
