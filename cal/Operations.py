@@ -219,6 +219,8 @@ def multiplication(leftOperand, rightOperand):
             return leftOperand + rightOperand
         elif typeOfRight is Quaternion:
             return complexTimesQuaternion(leftOperand, rightOperand)
+        elif typeOfRight is Matrix:
+            return matrixTimesScalar(rightOperand, leftOperand)
     elif typeOfLeft is Vector:
         # The below "if" statements indicate what types can be multiplied to Vectors
 
@@ -233,6 +235,8 @@ def multiplication(leftOperand, rightOperand):
             return quaternionTimesComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
             return quaternionTimesQuaternion(leftOperand, rightOperand)
+        elif typeOfRight is Matrix:
+            return matrixTimesScalar(rightOperand, leftOperand)
     elif typeOfLeft is Matrix:
         # The below "if" statements indicate what types can be multiplied to Matrices
 
@@ -546,7 +550,3 @@ def matrixEqualsMatrix(leftMatrix, rightMatrix):
 
 def inequality(leftOperand, rightOperand):
     return not equality(leftOperand, rightOperand)
-
-
-x = Vector([1,2,3])
-print(x)
