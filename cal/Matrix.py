@@ -22,8 +22,16 @@ class Matrix:
     def multipliable(self, matrix):
         return self.columnLength == matrix.rowLength
 
+    def isSquare(self):
+        return self.rowLength == self.columnLength
+
+    def determinant(self):
+        # TODO
+        pass
+
+    def inverse(self):
+        # TODO
+        pass
+
     def __getitem__(self, coordinates):
         return self.table[coordinates[0] * self.columnLength + coordinates[1]]
-
-    def __str__(self):
-        return str(self.table)

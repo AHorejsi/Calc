@@ -40,3 +40,16 @@ class Vector:
 
     def __iter__(self):
         return self.point.__iter__()
+
+    def __str__(self):
+        strRep = "<"
+
+        for index in range(len(self)):
+            strRep += str(self[index])
+
+            if index == len(self) - 1:
+                strRep += ">"
+            else:
+                strRep += ", "
+
+        return strRep

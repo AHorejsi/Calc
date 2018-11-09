@@ -182,6 +182,8 @@ def multiplication(leftOperand, rightOperand):
 
         if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex) or (typeOfRight is Quaternion):
             return matrixTimesScalar(leftOperand, rightOperand)
+        elif typeOfRight is Matrix:
+            return matrixTimesMatrix(leftOperand, rightOperand)
 
     raise TypeError(str(typeOfLeft) + " * " + str(typeOfRight) + " is not possible")
 
@@ -235,6 +237,33 @@ def matrixTimesScalar(leftMatrix, rightScalar):
     return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
 
 
+def matrixTimesMatrix(leftMatrix, rightMatrix):
+    if not leftMatrix.multipliable(rightMatrix):
+        raise ArithmeticError("Left Matrix must have the same amount of columns and the right Matrix has rows")
+
+    table = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        newRow = []
+
+        for colIndex in range(rightMatrix.columnLength):
+            value = _calculateValue(leftMatrix, rightMatrix, rowIndex, colIndex)
+            newRow.append(value)
+
+        table.extend(newRow)
+
+    return Matrix(table, leftMatrix.rowLength, rightMatrix.columnLength)
+
+
+def _calculateValue(leftMatrix, rightMatrix, rowIndex, colIndex):
+    value = 0.0
+
+    for index in range(leftMatrix.rowLength):
+        value += leftMatrix[rowIndex, index] * rightMatrix[index, colIndex]
+
+    return value
+
+
 def division(leftOperand, rightOperand):
     typeOfLeft = type(leftOperand)
     typeOfRight = type(rightOperand)
@@ -253,6 +282,13 @@ def division(leftOperand, rightOperand):
             return quaternionDividedByComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
             return quaternionDividedByQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Matrix:
+        # The below "if" statements indicate what types can be divided from Matrices
+
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex) or (typeOfRight is Quaternion):
+            return matrixDividedByScalar(leftOperand, rightOperand)
+        elif typeOfRight is Matrix:
+            return matrixDividedByMatrix(leftOperand, rightOperand)
 
     raise TypeError(str(typeOfLeft) + " / " + str(typeOfRight) + " is not possible")
 
@@ -295,6 +331,14 @@ def quaternionDividedByQuaternion(leftQuaternion, rightQuaternion):
                       imag2OfResult / absoluteValueOfLeft)
 
 
+def matrixDividedByScalar(leftMatrix, rightScalar):
+    return matrixTimesScalar(leftMatrix, 1 / rightScalar)
+
+
+def matrixDividedByMatrix(leftMatrix, rightMatrix):
+    return matrixTimesMatrix(leftMatrix, rightMatrix.inverse())
+
+
 def negation(operand):
     typeOfOperand = type(operand)
 
@@ -302,6 +346,8 @@ def negation(operand):
         return negateVector(operand)
     elif typeOfOperand is Quaternion:
         return negateQuaternion(operand)
+    elif typeOfOperand is Matrix:
+        return negateMatrix(operand)
 
     raise TypeError(str(typeOfOperand) + "s do not have a negation")
 
@@ -312,3 +358,7 @@ def negateVector(vector):
 
 def negateQuaternion(quaternion):
     return quaternionTimesReal(quaternion, -1)
+
+
+def negateMatrix(matrix):
+    return matrixTimesScalar(matrix, -1)
