@@ -51,6 +51,19 @@ class MathEntity:
 
         return division(entity, self)
 
+    def __floordiv__(self, entity):
+        from cal.Operations import floorDivision
+
+        return floorDivision(self, entity)
+
+    def __ifloordiv__(self, entity):
+        return self // entity
+
+    def __rfloordiv__(self, entity):
+        from cal.Operations import floorDivision
+
+        return floorDivision(entity, self)
+
     def __neg__(self):
         from cal.Operations import negation
 

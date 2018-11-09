@@ -443,6 +443,116 @@ def matrixDividedByMatrix(leftMatrix, rightMatrix):
     return matrixTimesMatrix(leftMatrix, rightMatrix.inverse())
 
 
+def floorDivision(leftOperand, rightOperand):
+    typeOfLeft = type(leftOperand)
+    typeofRight = type(rightOperand)
+
+    if (typeOfLeft is int) or (typeOfLeft is float):
+        # The below "if" statements indicate what types can be floor divided by real numbers
+
+        if (typeofRight is int) or (typeofRight is float) or (typeofRight is complex):
+            return leftOperand // rightOperand
+        elif typeofRight is Quaternion:
+            return realFloorDividedByQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is complex:
+        # The below "if" statements indicate what types can be floor divided by Complex Numbers
+
+        if (typeofRight is int) or (typeofRight is float) or (typeofRight is complex):
+            return leftOperand // rightOperand
+        elif typeofRight is Quaternion:
+            return complexFloorDividedByQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Vector:
+        # The below "if" statements indicate what types can be floor divided from Vectors
+
+        if (typeofRight is int) or (typeofRight is float):
+            return vectorFloorDividedByReal(leftOperand, rightOperand)
+    elif typeOfLeft is Quaternion:
+        # The below "if" statements indicate what types can be floor divided from Quaternions
+
+        if (typeofRight is int) or (typeofRight is float):
+            return quaternionFloorDividedByReal(leftOperand, rightOperand)
+        elif typeofRight is complex:
+            return quaternionFloorDividedByComplex(leftOperand, rightOperand)
+        elif typeofRight is Quaternion:
+            return quaternionFloorDividedByQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Matrix:
+        # The below "if" statements indicate what types can be floor divided from Matrices
+
+        if typeofRight is Matrix:
+            return matrixFloorDividedByMatrix(leftOperand, rightOperand)
+
+    raise TypeError(str(typeOfLeft) + " // " + str(typeofRight) + " is not possible")
+
+
+def realFloorDividedByQuaternion(leftReal, rightQuaternion):
+    trueDivided = realDividedByQuaternion(leftReal, rightQuaternion)
+    trueDivided.real = int(trueDivided.real)
+    trueDivided.imag = int(trueDivided.imag)
+    trueDivided.imag1 = int(trueDivided.imag1)
+    trueDivided.imag2 = int(trueDivided.imag2)
+
+    return trueDivided
+
+
+def complexFloorDividedByQuaternion(leftComplex, rightQuaternion):
+    trueDivided = complexDividedByQuaternion(leftComplex, rightQuaternion)
+    trueDivided.real = int(trueDivided.real)
+    trueDivided.imag = int(trueDivided.imag)
+    trueDivided.imag1 = int(trueDivided.imag1)
+    trueDivided.imag2 = int(trueDivided.imag2)
+
+    return trueDivided
+
+
+def vectorFloorDividedByReal(leftVector, rightReal):
+    point = []
+
+    for value in leftVector:
+        point.append(value // rightReal)
+
+    return Vector(point)
+
+
+def quaternionFloorDividedByReal(leftQuaternion, rightReal):
+    trueDivided = quaternionDividedByReal(leftQuaternion, rightReal)
+    trueDivided.real = int(trueDivided.real)
+    trueDivided.imag = int(trueDivided.imag)
+    trueDivided.imag1 = int(trueDivided.imag1)
+    trueDivided.imag2 = int(trueDivided.imag2)
+
+    return trueDivided
+
+
+def quaternionFloorDividedByComplex(leftQuaternion, rightComplex):
+    trueDivided = quaternionDividedByComplex(leftQuaternion, rightComplex)
+    trueDivided.real = int(trueDivided.real)
+    trueDivided.imag = int(trueDivided.imag)
+    trueDivided.imag1 = int(trueDivided.imag1)
+    trueDivided.imag2 = int(trueDivided.imag2)
+
+    return trueDivided
+
+
+def quaternionFloorDividedByQuaternion(leftQuaternion, rightQuaternion):
+    trueDivided = quaternionDividedByQuaternion(leftQuaternion, rightQuaternion)
+    trueDivided.real = int(trueDivided.real)
+    trueDivided.imag = int(trueDivided.imag)
+    trueDivided.imag1 = int(trueDivided.imag1)
+    trueDivided.imag2 = int(trueDivided.imag2)
+
+    return trueDivided
+
+
+def matrixFloorDividedByMatrix(leftMatrix, rightMatrix):
+    trueDivided = matrixDividedByMatrix(leftMatrix, rightMatrix)
+
+    for rowIndex in range(trueDivided.rowLength):
+        for colIndex in range(trueDivided.columnLength):
+            trueDivided.table[rowIndex * trueDivided.columnLength +  colIndex] = int(trueDivided[rowIndex, colIndex])
+
+    return trueDivided
+
+
 def negation(operand):
     typeOfOperand = type(operand)
 

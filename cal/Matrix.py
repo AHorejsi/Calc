@@ -1,4 +1,4 @@
-from scipy.linalg import det, inv
+import numpy as np
 from cal.MathEntity import MathEntity
 
 
@@ -29,6 +29,9 @@ class Matrix(MathEntity):
     def isSquare(self):
         return self.rowLength == self.columnLength
 
+    def __getitem__(self, coordinates):
+        return self.table[coordinates[0] * self.columnLength + coordinates[1]]
+
     def determinant(self):
         if not self.isSquare():
             raise ArithmeticError("Only square Matrices have determinants")
@@ -43,7 +46,7 @@ class Matrix(MathEntity):
 
             table.append(newRow)
 
-        return det(table)
+        return np.linalg.det(table)
 
     def inverse(self):
         table = []
@@ -56,7 +59,7 @@ class Matrix(MathEntity):
 
             table.append(newRow)
 
-        return inv(table)
+        return Matrix(np.linalg.inv(table).tolist())
 
-    def __getitem__(self, coordinates):
-        return self.table[coordinates[0] * self.columnLength + coordinates[1]]
+    def __str__(self):
+        return str(self.table)
