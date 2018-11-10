@@ -1,5 +1,6 @@
 from math import sqrt, acos
 from cal.MathEntity import MathEntity
+from cal.Matrix import Matrix
 
 
 class Vector(MathEntity):
@@ -22,6 +23,25 @@ class Vector(MathEntity):
 
         return False
 
+    def component(self, index):
+        point = []
+
+        for currentIndex in range(len(self)):
+            if currentIndex == index:
+                point.append(self[currentIndex])
+            else:
+                point.append(0)
+
+        return Vector(point)
+
+    def allComponents(self):
+        components = []
+
+        for index in range(len(self)):
+            components.append(self.component(index))
+
+        return components
+
     def dot(self, vector):
         if not self.equalDimensions(vector):
             raise ArithmeticError("Two Vectors must be of equal dimensions to have a dot product")
@@ -33,6 +53,32 @@ class Vector(MathEntity):
 
         return dotProduct
 
+    def cross(self, vector):
+        if len(self) == 3 or len(vector) == 3:
+            point = []
+
+            point.append(self[1] * vector[2] - self[2] * vector[1])
+            point.append(self[2] * vector[0] - self[0] * vector[2])
+            point.append(self[0] * vector[1] - self[1] * vector[0])
+
+            return Vector(point)
+
+        raise ArithmeticError("Vectors must be of 3 dimensions to have a cross product")
+
+    def scale(self, vector):
+        if not self.equalDimensions(vector):
+            raise ArithmeticError("Vectors must be of equal dimensions")
+
+        point = []
+
+        for value1, value2 in zip(self, vector):
+            point.append(value1 * value2)
+
+        return Vector(point)
+
+    def lerp(self, vector, floatValue):
+        return self * floatValue + vector * (1.0 - floatValue)
+
     def magnitude(self):
         mag = 0.0
 
@@ -43,20 +89,50 @@ class Vector(MathEntity):
 
         return mag
 
+    def normalize(self):
+        return self / self.magnitude()
+
+    def scalarTripleProduct(self, vector1, vector2):
+        return self.dot(vector1.cross(vector2))
+
+    def vectorTripleProduct(self, vector1, vector2):
+        return self.cross(vector1.cross(vector2))
+
     def angleBetween(self, vector):
         return acos(self.dot(vector) / (self.magnitude() * vector.magnitude()))
+
+    def distance(self, vector):
+        distance = 0.0
+
+        for value1, value2 in zip(self, vector):
+            distance = (value1 - value2) ** 2
+
+        distance = sqrt(distance)
+
+        return distance
+
+    def toRowVector(self):
+        return Matrix([self.point])
+
+    def toColumnVector(self):
+        table = []
+
+        for value in self:
+            table.append([value])
+
+        return Matrix(table)
 
     def __iter__(self):
         return self.point.__iter__()
 
     def __hash__(self):
-        hash = 0
+        hashCode = 0
         modifier = 31
 
         for value in self:
-            hash += modifier * value
+            hashCode += modifier * value
 
-        return hash
+        return hashCode
 
     def __str__(self):
         strRep = "<"

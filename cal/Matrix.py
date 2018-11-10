@@ -1,10 +1,10 @@
-import numpy as np
+from scipy.linalg import inv, det
 from cal.MathEntity import MathEntity
 
 
 class Matrix(MathEntity):
     def __init__(self, table, rowLength=None, columnLength=None):
-        if (rowLength is None) and (columnLength is None):
+        if (rowLength is None) or (columnLength is None):
             self.table = []
             self.rowLength = len(table)
 
@@ -30,6 +30,10 @@ class Matrix(MathEntity):
         return self.rowLength == self.columnLength
 
     def __getitem__(self, coordinates):
+        if coordinates[0] < 0 or coordinates[0] >= self.rowLength or \
+           coordinates[1] < 0 or coordinates[1] >= self.columnLength:
+            raise Exception("Invalid indices")
+
         return self.table[coordinates[0] * self.columnLength + coordinates[1]]
 
     def __contains__(self, searchValue):
@@ -53,7 +57,7 @@ class Matrix(MathEntity):
 
             table.append(newRow)
 
-        return np.linalg.det(table)
+        return det(table)
 
     def inverse(self):
         table = []
@@ -66,19 +70,28 @@ class Matrix(MathEntity):
 
             table.append(newRow)
 
-        return Matrix(np.linalg.inv(table).tolist())
+        return Matrix(inv(table).tolist())
+
+    def transpose(self):
+        table = []
+
+        for colIndex in range(self.rowLength):
+            for rowIndex in range(self.columnLength):
+                table.append(self[rowIndex, colIndex])
+
+        return Matrix(table, self.rowLength, self.columnLength)
 
     def __iter__(self):
         return self.table.__iter__()
 
     def __hash__(self):
-        hash = 0
+        hashCode = 0
         modifier = 31
 
         for value in self:
-            hash += modifier * hash(value)
+            hashCode += modifier * hash(value)
 
-        return hash
+        return hashCode
 
     def __str__(self):
         return str(self.table)
