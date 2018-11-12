@@ -1,6 +1,5 @@
 from math import sqrt, acos
 from cal.MathEntity import MathEntity
-from cal.Matrix import Matrix
 
 
 class Vector(MathEntity):
@@ -65,19 +64,8 @@ class Vector(MathEntity):
 
         raise ArithmeticError("Vectors must be of 3 dimensions to have a cross product")
 
-    def scale(self, vector):
-        if not self.equalDimensions(vector):
-            raise ArithmeticError("Vectors must be of equal dimensions")
-
-        point = []
-
-        for value1, value2 in zip(self, vector):
-            point.append(value1 * value2)
-
-        return Vector(point)
-
-    def lerp(self, vector, floatValue):
-        return self * floatValue + vector * (1.0 - floatValue)
+    def linearlyInterpolate(self, vector, floatValue):
+        return (self * floatValue) + (vector * (1.0 - floatValue))
 
     def magnitude(self):
         mag = 0.0
@@ -101,7 +89,7 @@ class Vector(MathEntity):
     def angleBetween(self, vector):
         return acos(self.dot(vector) / (self.magnitude() * vector.magnitude()))
 
-    def distance(self, vector):
+    def distanceFrom(self, vector):
         distance = 0.0
 
         for value1, value2 in zip(self, vector):
@@ -110,17 +98,6 @@ class Vector(MathEntity):
         distance = sqrt(distance)
 
         return distance
-
-    def toRowVector(self):
-        return Matrix([self.point])
-
-    def toColumnVector(self):
-        table = []
-
-        for value in self:
-            table.append([value])
-
-        return Matrix(table)
 
     def __iter__(self):
         return self.point.__iter__()
