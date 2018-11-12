@@ -60,6 +60,9 @@ class Matrix(MathEntity):
         return det(table)
 
     def inverse(self):
+        if not self.isSquare():
+            raise ArithmeticError("Only square Matrices have inverses")
+
         table = []
 
         for rowIndex in range(self.rowLength):

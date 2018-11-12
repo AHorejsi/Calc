@@ -1,5 +1,6 @@
 from math import sqrt
 from cal.MathEntity import MathEntity
+from cal.Matrix import Matrix
 
 
 class Quaternion(MathEntity):
@@ -14,6 +15,21 @@ class Quaternion(MathEntity):
 
     def conjugate(self):
         return Quaternion(self.real, -self.imag, -self.imag1, -self.imag2)
+
+    def inverse(self):
+        return self.conjugate() / (abs(self) ** 2)
+
+    def toComplexMatrix(self):
+        return Matrix([complex(self.real,   self.imag),  complex(self.imag1, self.imag2),
+                       complex(-self.imag1, self.imag2), complex(self.real, -self.imag)],
+                      2, 2)
+
+    def toRealMatrix(self):
+        return Matrix([self.real,  -self.imag, -self.imag1, -self.imag2,
+                       self.imag,   self.real, -self.imag2,  self.imag1,
+                       self.imag1,  self.imag2, self.real,  -self.imag,
+                       self.imag2, -self.imag1, self.imag,   self.real],
+                      4, 4)
 
     def __hash__(self):
         modifier = 31
