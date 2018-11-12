@@ -39,6 +39,9 @@ class Quaternion(MathEntity):
                modifier * hash(self.imag1) + \
                modifier * hash(self.imag2)
 
+    def __iter__(self):
+        return self.__values.__iter__()
+
     def __str__(self):
         strRep = Quaternion.__value(self.real, "") + \
                  Quaternion.__value(self.imag, "i") + \
