@@ -94,4 +94,11 @@ class Matrix(MathEntity):
         return hashCode
 
     def __str__(self):
-        return str(self.table)
+        strRep = ""
+        index = 0
+
+        while index < len(self.table):
+            strRep += str(self.table[index : index + self.columnLength]) + "\n"
+            index += self.columnLength
+
+        return strRep

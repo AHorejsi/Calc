@@ -74,7 +74,17 @@ class MathEntity:
 
         return equality(self, entity)
 
+    def __req__(self, entity):
+        from cal.Operations import equality
+
+        return equality(entity, self)
+
     def __ne__(self, entity):
         from cal.Operations import inequality
 
         return inequality(self, entity)
+
+    def __rne__(self, entity):
+        from cal.Operations import inequality
+
+        return inequality(entity, self)
