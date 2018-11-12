@@ -1,4 +1,5 @@
 from math import sqrt, acos
+from copy import copy
 from cal.MathEntity import MathEntity
 
 
@@ -98,6 +99,9 @@ class Vector(MathEntity):
         distance = sqrt(distance)
 
         return distance
+
+    def toList(self):
+        return copy(self.__point)
 
     def __iter__(self):
         return self.__point.__iter__()

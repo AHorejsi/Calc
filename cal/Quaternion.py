@@ -43,10 +43,10 @@ class Quaternion(MathEntity):
         return self.__values.__iter__()
 
     def __str__(self):
-        strRep = Quaternion.__value(self.real, "") + \
-                 Quaternion.__value(self.imag, "i") + \
-                 Quaternion.__value(self.imag1, "j") + \
-                 Quaternion.__value(self.imag2, "k")
+        strRep = Quaternion.__symbol(self.real, "") + \
+                 Quaternion.__symbol(self.imag, "i") + \
+                 Quaternion.__symbol(self.imag1, "j") + \
+                 Quaternion.__symbol(self.imag2, "k")
 
         if strRep.startswith("+"):
             return strRep[1:]
@@ -54,7 +54,7 @@ class Quaternion(MathEntity):
             return strRep
 
     @staticmethod
-    def __value(value, axis):
+    def __symbol(value, axis):
         if value == 0:
             return ""
         elif value < 0:

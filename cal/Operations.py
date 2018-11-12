@@ -83,14 +83,9 @@ def matrixPlusMatrix(leftMatrix, rightMatrix):
 
     table = []
 
-    for rowIndex in range(leftMatrix.rowLength):
-        newRow = []
-
-        for colIndex in range(leftMatrix.columnLength):
-            result = addition(leftMatrix[rowIndex, colIndex], rightMatrix[rowIndex, colIndex])
-            newRow.append(result)
-
-        table.extend(newRow)
+    for value1, value2 in zip(leftMatrix, rightMatrix):
+        result = addition(value1, value2)
+        table.append(result)
 
     return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
 
@@ -189,14 +184,9 @@ def matrixMinusMatrix(leftMatrix, rightMatrix):
 
     table = []
 
-    for rowIndex in range(leftMatrix.rowLength):
-        newRow = []
-
-        for colIndex in range(leftMatrix.columnLength):
-            result = subtraction(leftMatrix[rowIndex, colIndex], rightMatrix[rowIndex, colIndex])
-            newRow.append(result)
-
-        table.extend(newRow)
+    for value1, value2 in zip(leftMatrix, rightMatrix):
+        result = subtraction(value1, value2)
+        table.append(result)
 
     return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
 
@@ -292,14 +282,9 @@ def quaternionTimesQuaternion(leftQuaterion, rightQuaternion):
 def matrixTimesScalar(leftMatrix, rightScalar):
     table = []
 
-    for rowIndex in range(leftMatrix.rowLength):
-        newRow = []
-
-        for colIndex in range(leftMatrix.columnLength):
-            result = multiplication(leftMatrix[rowIndex, colIndex], rightScalar)
-            newRow.append(result)
-
-        table.extend(newRow)
+    for value in leftMatrix:
+        result = multiplication(value, rightScalar)
+        table.append(result)
 
     return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
 
@@ -486,14 +471,14 @@ def floorDivision(leftOperand, rightOperand):
 
 def realFloorDividedByQuaternion(leftReal, rightQuaternion):
     trueDivided = realDividedByQuaternion(leftReal, rightQuaternion)
-    trueDivided = round(trueDivided)
+    trueDivided = rounding(trueDivided)
 
     return trueDivided
 
 
 def complexFloorDividedByQuaternion(leftComplex, rightQuaternion):
     trueDivided = complexDividedByQuaternion(leftComplex, rightQuaternion)
-    trueDivided = round(trueDivided)
+    trueDivided = rounding(trueDivided)
 
     return trueDivided
 
@@ -509,21 +494,21 @@ def vectorFloorDividedByReal(leftVector, rightReal):
 
 def quaternionFloorDividedByReal(leftQuaternion, rightReal):
     trueDivided = quaternionDividedByReal(leftQuaternion, rightReal)
-    trueDivided = round(trueDivided)
+    trueDivided = rounding(trueDivided)
 
     return trueDivided
 
 
 def quaternionFloorDividedByComplex(leftQuaternion, rightComplex):
     trueDivided = quaternionDividedByComplex(leftQuaternion, rightComplex)
-    trueDivided = round(trueDivided)
+    trueDivided = rounding(trueDivided)
 
     return trueDivided
 
 
 def quaternionFloorDividedByQuaternion(leftQuaternion, rightQuaternion):
     trueDivided = quaternionDividedByQuaternion(leftQuaternion, rightQuaternion)
-    trueDivided = round(trueDivided)
+    trueDivided = rounding(trueDivided)
 
     return trueDivided
 
@@ -533,7 +518,7 @@ def matrixFloorDividedByMatrix(leftMatrix, rightMatrix):
 
     for rowIndex in range(trueDivided.rowLength):
         for colIndex in range(trueDivided.columnLength):
-            trueDivided.table[rowIndex * trueDivided.columnLength +  colIndex] = int(trueDivided[rowIndex, colIndex])
+            trueDivided[rowIndex, colIndex] = rounding(trueDivided[rowIndex, colIndex])
 
     return trueDivided
 
