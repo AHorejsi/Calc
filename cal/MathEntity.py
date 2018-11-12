@@ -69,6 +69,11 @@ class MathEntity:
 
         return negation(self)
 
+    def __round__(self, decimalNum=None):
+        from cal.Operations import rounding
+
+        rounding(self, decimalNum)
+
     def __eq__(self, entity):
         from cal.Operations import equality
 

@@ -486,20 +486,14 @@ def floorDivision(leftOperand, rightOperand):
 
 def realFloorDividedByQuaternion(leftReal, rightQuaternion):
     trueDivided = realDividedByQuaternion(leftReal, rightQuaternion)
-    trueDivided.real = int(trueDivided.real)
-    trueDivided.imag = int(trueDivided.imag)
-    trueDivided.imag1 = int(trueDivided.imag1)
-    trueDivided.imag2 = int(trueDivided.imag2)
+    trueDivided = round(trueDivided)
 
     return trueDivided
 
 
 def complexFloorDividedByQuaternion(leftComplex, rightQuaternion):
     trueDivided = complexDividedByQuaternion(leftComplex, rightQuaternion)
-    trueDivided.real = int(trueDivided.real)
-    trueDivided.imag = int(trueDivided.imag)
-    trueDivided.imag1 = int(trueDivided.imag1)
-    trueDivided.imag2 = int(trueDivided.imag2)
+    trueDivided = round(trueDivided)
 
     return trueDivided
 
@@ -515,30 +509,21 @@ def vectorFloorDividedByReal(leftVector, rightReal):
 
 def quaternionFloorDividedByReal(leftQuaternion, rightReal):
     trueDivided = quaternionDividedByReal(leftQuaternion, rightReal)
-    trueDivided.real = int(trueDivided.real)
-    trueDivided.imag = int(trueDivided.imag)
-    trueDivided.imag1 = int(trueDivided.imag1)
-    trueDivided.imag2 = int(trueDivided.imag2)
+    trueDivided = round(trueDivided)
 
     return trueDivided
 
 
 def quaternionFloorDividedByComplex(leftQuaternion, rightComplex):
     trueDivided = quaternionDividedByComplex(leftQuaternion, rightComplex)
-    trueDivided.real = int(trueDivided.real)
-    trueDivided.imag = int(trueDivided.imag)
-    trueDivided.imag1 = int(trueDivided.imag1)
-    trueDivided.imag2 = int(trueDivided.imag2)
+    trueDivided = round(trueDivided)
 
     return trueDivided
 
 
 def quaternionFloorDividedByQuaternion(leftQuaternion, rightQuaternion):
     trueDivided = quaternionDividedByQuaternion(leftQuaternion, rightQuaternion)
-    trueDivided.real = int(trueDivided.real)
-    trueDivided.imag = int(trueDivided.imag)
-    trueDivided.imag1 = int(trueDivided.imag1)
-    trueDivided.imag2 = int(trueDivided.imag2)
+    trueDivided = round(trueDivided)
 
     return trueDivided
 
@@ -660,3 +645,41 @@ def matrixEqualsMatrix(leftMatrix, rightMatrix):
 
 def inequality(leftOperand, rightOperand):
     return not equality(leftOperand, rightOperand)
+
+
+def rounding(operand, decimalNum=None):
+    typeOfOperand = type(operand)
+
+    if typeOfOperand is int:
+        return operand
+    elif typeOfOperand is float:
+        return round(operand, decimalNum)
+    elif typeOfOperand is complex:
+        real = round(operand.real, decimalNum)
+        imag = round(operand.imag, decimalNum)
+
+        return complex(real, imag)
+    elif typeOfOperand is Quaternion:
+        real = round(operand.real, decimalNum)
+        imag = round(operand.imag, decimalNum)
+        imag1 = round(operand.imag1, decimalNum)
+        imag2 = round(operand.imag2, decimalNum)
+
+        return Quaternion(real, imag, imag1, imag2)
+    elif typeOfOperand is Vector:
+        point = []
+
+        for value in operand:
+            point.append(round(value, decimalNum))
+
+        return Vector(point)
+    elif typeOfOperand is Matrix:
+        table = []
+
+        for row in operand:
+            for value in row:
+                table.append(round(value, decimalNum))
+
+        return Matrix(table, operand.rowLength, operand.columnLength)
+
+    raise TypeError(str(typeOfOperand) + "s cannot be rounded")

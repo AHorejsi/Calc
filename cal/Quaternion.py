@@ -4,10 +4,23 @@ from cal.MathEntity import MathEntity
 
 class Quaternion(MathEntity):
     def __init__(self, real, imag, imag1, imag2):
-        self.real = real
-        self.imag = imag
-        self.imag1 = imag1
-        self.imag2 = imag2
+        self.__values = [real, imag, imag1, imag2]
+
+    @property
+    def real(self):
+        return self.__values[0]
+
+    @property
+    def imag(self):
+        return self.__values[1]
+
+    @property
+    def imag1(self):
+        return self.__values[2]
+
+    @property
+    def imag2(self):
+        return self.__values[3]
 
     def __abs__(self):
         return sqrt((self.real ** 2) + (self.imag ** 2) + (self.imag1 ** 2) + (self.imag2 ** 2))
@@ -27,10 +40,15 @@ class Quaternion(MathEntity):
                modifier * hash(self.imag2)
 
     def __str__(self):
-        return Quaternion.__value(self.real, "") + \
-               Quaternion.__value(self.imag, "i") + \
-               Quaternion.__value(self.imag1, "j") + \
-               Quaternion.__value(self.imag2, "k")
+        strRep = Quaternion.__value(self.real, "") + \
+                 Quaternion.__value(self.imag, "i") + \
+                 Quaternion.__value(self.imag1, "j") + \
+                 Quaternion.__value(self.imag2, "k")
+
+        if strRep.startswith("+"):
+            return strRep[1:]
+        else:
+            return strRep
 
     @staticmethod
     def __value(value, axis):

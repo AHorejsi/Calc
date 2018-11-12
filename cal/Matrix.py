@@ -75,6 +75,15 @@ class Matrix(MathEntity):
 
         return Matrix(inv(table).tolist())
 
+    def conjugation(self):
+        table = []
+
+        for row in self:
+            for value in row:
+                table.append(value.conjugate())
+
+        return Matrix(table, self.rowLength, self.columnLength)
+
     def transpose(self):
         table = []
 

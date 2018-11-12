@@ -4,16 +4,16 @@ from cal.MathEntity import MathEntity
 
 class Vector(MathEntity):
     def __init__(self, point):
-        self.point = tuple(point)
+        self.__point = tuple(point)
 
     def __len__(self):
-        return len(self.point)
+        return len(self.__point)
 
     def equalDimensions(self, vector):
         return len(self) == len(vector)
 
     def __getitem__(self, index):
-        return self.point[index]
+        return self.__point[index]
 
     def __contains__(self, searchValue):
         for value in self:
@@ -100,7 +100,7 @@ class Vector(MathEntity):
         return distance
 
     def __iter__(self):
-        return self.point.__iter__()
+        return self.__point.__iter__()
 
     def __hash__(self):
         hashCode = 0
