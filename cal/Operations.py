@@ -10,7 +10,7 @@ def addition(leftOperand, rightOperand):
     if (typeOfLeft is int) or (typeOfLeft is float):
         # The below "if" statements indicate what types can be added to real numbers
 
-        if (typeOfRight is int) or (typeOfRight is float) or (complex):
+        if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is complex):
             return leftOperand + rightOperand
         elif typeOfRight is Quaternion:
             return quaternionPlusReal(rightOperand, leftOperand)
@@ -40,7 +40,6 @@ def addition(leftOperand, rightOperand):
 
         if typeOfRight is Matrix:
             return matrixPlusMatrix(leftOperand, rightOperand)
-
     raise TypeError(str(typeOfLeft) + " + " + str(typeOfRight) + " is not possible")
 
 
@@ -397,13 +396,13 @@ def quaternionDividedByComplex(leftQuaternion, rightComplex):
     conjugateOfRightComplex = rightComplex.conjugate()
     numerator = quaternionTimesComplex(leftQuaternion, conjugateOfRightComplex)
     denominator = rightComplex * conjugateOfRightComplex
-    result = quaternionDividedByReal(numerator, denominator)
+    result = quaternionDividedByReal(numerator, denominator.real)
 
     return result
 
 
 def quaternionDividedByQuaternion(leftQuaternion, rightQuaternion):
-    absoluteValueOfLeft = abs(leftQuaternion)
+    absoluteValueOfLeft = abs(rightQuaternion)
 
     realOfResult = leftQuaternion.real * rightQuaternion.real + leftQuaternion.imag * rightQuaternion.imag + \
                    leftQuaternion.imag1 * rightQuaternion.imag1 + leftQuaternion.imag2 * rightQuaternion.imag2
@@ -640,31 +639,47 @@ def rounding(operand, decimalNum=None):
     elif typeOfOperand is float:
         return round(operand, decimalNum)
     elif typeOfOperand is complex:
-        real = round(operand.real, decimalNum)
-        imag = round(operand.imag, decimalNum)
-
-        return complex(real, imag)
+        return roundComplex(operand, decimalNum)
     elif typeOfOperand is Quaternion:
-        real = round(operand.real, decimalNum)
-        imag = round(operand.imag, decimalNum)
-        imag1 = round(operand.imag1, decimalNum)
-        imag2 = round(operand.imag2, decimalNum)
-
-        return Quaternion(real, imag, imag1, imag2)
+        return roundQuaternion(operand, decimalNum)
     elif typeOfOperand is Vector:
-        point = []
-
-        for value in operand:
-            point.append(round(value, decimalNum))
-
-        return Vector(point)
+        return roundVector(operand, decimalNum)
     elif typeOfOperand is Matrix:
-        table = []
-
-        for row in operand:
-            for value in row:
-                table.append(round(value, decimalNum))
-
-        return Matrix(table, operand.rowLength, operand.columnLength)
+        return roundMatrix(operand, decimalNum)
 
     raise TypeError(str(typeOfOperand) + "s cannot be rounded")
+
+
+def roundComplex(cmplx, decimalNum):
+    real = round(cmplx.real, decimalNum)
+    imag = round(cmplx.imag, decimalNum)
+
+    return complex(real, imag)
+
+
+def roundQuaternion(quaternion, decimalNum):
+    real = round(quaternion.real, decimalNum)
+    imag = round(quaternion.imag, decimalNum)
+    imag1 = round(quaternion.imag1, decimalNum)
+    imag2 = round(quaternion.imag2, decimalNum)
+
+    return Quaternion(real, imag, imag1, imag2)
+
+
+def roundVector(vector, decimalNum):
+    point = []
+
+    for value in vector:
+        point.append(round(value, decimalNum))
+
+    return Vector(point)
+
+
+def roundMatrix(matrix, decimalNum):
+    table = []
+
+    for value in matrix:
+        result = rounding(value, decimalNum)
+        table.append(result)
+
+    return Matrix(table, matrix.rowLength, matrix.columnLength)

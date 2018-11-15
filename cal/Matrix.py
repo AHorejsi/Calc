@@ -4,8 +4,27 @@ from cal.MathEntity import MathEntity
 
 
 class Matrix(MathEntity):
+    """
+    Instances of this class represent Matrices. All instances of
+    this class cannot be jagged
+
+    Written by: Alex Horejsi
+    """
+
     def __init__(self, table, rowLength=None, columnLength=None):
-        if (rowLength is None) or (columnLength is None):
+        """
+        Constructs a Matrix. If a 2D list is provided, then rowLength and columnLength parameters
+        should be ignored. If a 1D list is provided, then rowLength and columnLength must be
+        given values so that the dimensions of the Matrix can be known
+
+        :param table: A 1D or 2D list of numbers that this Matrix will contain
+        :param rowLength: The number of rows for this Matrix. Should only be
+            given a value if the "table" parameter is a 1D list
+        :param columnLength: The number of columns for this Matrix. Should only be
+            given a value if the "table" parameter is a 1D list
+        """
+
+        if (rowLength is None) and (columnLength is None):
             self.__table = []
             self.__rowLength = len(table)
 
@@ -23,19 +42,69 @@ class Matrix(MathEntity):
 
     @property
     def rowLength(self):
+        """
+        Returns the number of rows that this Matrix has
+
+        :return: The number of rows that this Matrix has
+        """
+
         return self.__rowLength
 
     @property
     def columnLength(self):
+        """
+        Returns the number of columns that this Matrix has
+
+        :return: The number of columns that this Matrix has
+        """
+
         return self.__columnLength
 
     def equalDimensions(self, matrix):
+        """
+        Checks if two Matrices have the same dimensions
+
+        :param matrix: Another Matrix
+        :return: True if both Matrices have the same dimensions, False otherwise
+        """
+
         return self.rowLength == matrix.rowLength and self.columnLength == matrix.columnLength
 
     def multipliable(self, matrix):
+        """
+        Checks if two Matrices can be multiplied together. Note that which
+        Matrix is on the left and which is on the right has an effect on whether
+        multiplication is possible
+
+        :param matrix: The Matrix to be checked for if it can be multiplied
+            to this Matrix
+        :return: True if (self * matrix) is possible, False otherwise
+        """
+
         return self.columnLength == matrix.rowLength
 
+    def divisible(self, matrix):
+        """
+        Checks if this Matrix can be divided by another Matrix. Note that which
+        Matrix is on the left and which is on the right has an effect on whether
+        division is possible
+
+        :param matrix: The Matrix to be checked for if it can be divided
+            from this Matrix
+        :return: True if (self / matrix) is possible, False otherwise
+        """
+
+        return self.multipliable(matrix) and matrix.isSquare
+
+    @property
     def isSquare(self):
+        """
+        Checks if this Matrix is square. A square Matrix has the same number of
+        rows as it has columns
+
+        :return: True if this Matrix has the same number of rows and columns
+        """
+
         return self.rowLength == self.columnLength
 
     def __getitem__(self, coordinates):
@@ -59,8 +128,9 @@ class Matrix(MathEntity):
 
         return False
 
+    @property
     def determinant(self):
-        if not self.isSquare():
+        if not self.isSquare:
             raise ArithmeticError("Only square Matrices have determinants")
 
         table = []
@@ -76,7 +146,7 @@ class Matrix(MathEntity):
         return det(table, check_finite=False)
 
     def inverse(self):
-        if not self.isSquare():
+        if not self.isSquare:
             raise ArithmeticError("Only square Matrices have inverses")
 
         table = []
@@ -135,3 +205,6 @@ class Matrix(MathEntity):
             index += self.columnLength
 
         return strRep
+
+    def __repr__(self):
+        return self.__str__()
