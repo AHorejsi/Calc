@@ -108,6 +108,17 @@ class Matrix(MathEntity):
         return self.rowLength == self.columnLength
 
     def __getitem__(self, coordinates):
+        """
+        Returns an element of this Matrix
+
+        :param coordinates: A tuple containing the row and column indices
+            of the element to be retrieved
+        :return: The element in this Matrix that is located at the given
+            row and column indices
+        :exception Exception: Raised when the given row and column indices
+            are outside of the bounds of this Matrix
+        """
+
         if coordinates[0] < 0 or coordinates[0] >= self.rowLength or \
            coordinates[1] < 0 or coordinates[1] >= self.columnLength:
             raise Exception("Invalid indices")
@@ -115,6 +126,17 @@ class Matrix(MathEntity):
         return self.__table[coordinates[0] * self.columnLength + coordinates[1]]
 
     def __setitem__(self, coordinates, value):
+        """
+        Swaps out one of the elements of this Matrix with another element
+
+        :param coordinates: The row and column indices of the element to be
+            changed
+        :param value: The new value to be placed into the given position
+        :return: None
+        :exception Exception: Raised when the given row and column indices
+            are outside of the bounds of this Matrix
+        """
+
         if coordinates[0] < 0 or coordinates[0] >= self.rowLength or \
            coordinates[1] < 0 or coordinates[1] >= self.columnLength:
             raise Exception("Invalid indices")
@@ -122,6 +144,13 @@ class Matrix(MathEntity):
         self.__table[coordinates[0] * self.columnLength + coordinates[1]] = value
 
     def __contains__(self, searchValue):
+        """
+        Checks if this Matrix contains a given value
+
+        :param searchValue: The value to be searched for
+        :return: True if this Matrix contains the provided value, False otherwise
+        """
+
         for value in self:
             if value == searchValue:
                 return True
@@ -130,6 +159,14 @@ class Matrix(MathEntity):
 
     @property
     def determinant(self):
+        """
+        Calculates the determinant of this Matrix
+
+        :return: The determinant of this Matrix
+        :exception ArithmeticError: Raised if this Matrix
+            is not square
+        """
+
         if not self.isSquare:
             raise ArithmeticError("Only square Matrices have determinants")
 
@@ -146,6 +183,13 @@ class Matrix(MathEntity):
         return det(table, check_finite=False)
 
     def inverse(self):
+        """
+        Calculates the inverse of this Matrix
+
+        :return: The inverse of this Matrix
+        :exception ArithmeticError: Raised if this Matrix is not square
+        """
+
         if not self.isSquare:
             raise ArithmeticError("Only square Matrices have inverses")
 
@@ -162,6 +206,14 @@ class Matrix(MathEntity):
         return Matrix(inv(table, check_finite=False).tolist())
 
     def conjugation(self):
+        """
+        Returns this Matrix with all nonreal numbers replaced with their conjugates.
+        If this Matrix has no nonreal numbers, then a shallow copy of this Matrix
+        is returned
+
+        :return: This Matrix with all nonreal numbers replaced with their conjugates
+        """
+
         table = []
 
         for value in self:
@@ -173,6 +225,12 @@ class Matrix(MathEntity):
         return Matrix(table, self.rowLength, self.columnLength)
 
     def transpose(self):
+        """
+        Returns the transpose of this Matrix
+
+        :return: The transpose of this Matrix
+        """
+
         table = []
 
         for colIndex in range(self.rowLength):
@@ -182,12 +240,30 @@ class Matrix(MathEntity):
         return Matrix(table, self.rowLength, self.columnLength)
 
     def to2DList(self):
+        """
+        Converts this Matrix to a 2D list
+
+        :return: A 2D list with the same values as this Matrix
+        """
+
         return deepcopy(self.__table)
 
     def __iter__(self):
+        """
+        Returns an iterator over the elements of this Matrix
+
+        :return: An iterator over the elements of this Matrix
+        """
+
         return self.__table.__iter__()
 
     def __hash__(self):
+        """
+        Calculates a hash code for this Matrix
+
+        :return: Calculates a hash code for this Matrix
+        """
+
         hashCode = 0
         modifier = 31
 
@@ -197,6 +273,12 @@ class Matrix(MathEntity):
         return hashCode
 
     def __str__(self):
+        """
+        Creates a string representation of this Matrix
+
+        :return: A string representation of this Matrix
+        """
+
         strRep = ""
         index = 0
 
@@ -207,4 +289,10 @@ class Matrix(MathEntity):
         return strRep
 
     def __repr__(self):
+        """
+        Creates a string representation of this Matrix
+
+        :return: A string representation of this Matrix
+        """
+
         return self.__str__()
