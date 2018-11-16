@@ -33,7 +33,7 @@ def addition(leftOperand, rightOperand):
         # The below "if" statements indicate what types can be added to Complex
 
         if (typeOfRight is int) or (typeOfRight is float):
-            return complexPlusReal(leftOperand, rightOperand)
+            return realPlusComplex(rightOperand, leftOperand)
         elif typeOfRight is Complex:
             return complexPlusComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
@@ -62,20 +62,32 @@ def addition(leftOperand, rightOperand):
 
 
 def realPlusComplex(leftReal, rightComplex):
+    """
+    Adds the given real number to the given complex number
+
+    :param leftReal: The real number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The sum of the given real number and the given complex number
+    """
+
     return Complex(leftReal + rightComplex.real, rightComplex.imag)
 
 
-def complexPlusReal(leftComplex, rightReal):
-    return Complex(leftComplex.real + rightReal, leftComplex.imag)
-
-
 def complexPlusComplex(leftComplex, rightComplex):
+    """
+    Adds two complex numbers together
+
+    :param leftComplex: The complex number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The sum of the two given complex numbers
+    """
+
     return Complex(leftComplex.real + rightComplex.real, leftComplex.imag + rightComplex.imag)
 
 
 def vectorPlusVector(leftVector, rightVector):
     """
-    Adds to Vectors together
+    Adds two Vectors together
 
     :param leftVector: The Vector on the left side of the operator
     :param rightVector: The Vector on the right side of the operator
@@ -220,6 +232,14 @@ def subtraction(leftOperand, rightOperand):
 
 
 def realMinusComplex(leftReal, rightComplex):
+    """
+    Subtracts the given real number from the given complex number
+
+    :param leftReal: The real number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The difference between the given real number and the given complex number
+    """
+
     return Complex(leftReal - rightComplex.real, -rightComplex.imag)
 
 
@@ -239,10 +259,27 @@ def realMinusQuaternion(leftReal, rightQuaternion):
 
 
 def complexMinusReal(leftComplex, rightReal):
+    """
+    Subtracts the given complex number by the given real number
+
+    :param leftComplex: The complex number on the left side of the operator
+    :param rightReal: The real number on the right side of the operator
+    :return: The difference between the given complex number and the given real
+        number
+    """
+
     return Complex(leftComplex.real - rightReal, leftComplex.imag)
 
 
 def complexMinusComplex(leftComplex, rightComplex):
+    """
+    Subtracts a complex number by another complex number
+
+    :param leftComplex: The complex number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The difference between the two given complex numbers
+    """
+
     return Complex(leftComplex.real - rightComplex.real, leftComplex.imag - rightComplex.imag)
 
 
@@ -418,10 +455,26 @@ def multiplication(leftOperand, rightOperand):
 
 
 def realTimesComplex(leftReal, rightComplex):
+    """
+    Multiplies the given real number by the given complex number
+
+    :param leftReal: The real number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The product of the given real number and the given complex number
+    """
+
     return Complex(leftReal * rightComplex.real, leftReal * rightComplex.imag)
 
 
 def complexTimesComplex(leftComplex, rightComplex):
+    """
+    Multiplies two complex numbers together
+
+    :param leftComplex: The complex number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The product of the two given complex numbers
+    """
+
     return Complex(leftComplex.real * rightComplex.real - leftComplex.imag * rightComplex.imag,
                    leftComplex.real * rightComplex.imag + leftComplex.imag * rightComplex.real)
 
@@ -602,7 +655,7 @@ def division(leftOperand, rightOperand):
         # The below "if" statements indicate what types can be divided from Complex Numbers
 
         if (typeOfRight is int) or (typeOfRight is float):
-            return leftOperand / rightOperand
+            return complexDividedByReal(leftOperand, rightOperand)
         elif typeOfRight is Complex:
             return complexDividedByComplex(leftOperand, rightOperand)
         elif typeOfLeft is Quaternion:
@@ -633,6 +686,14 @@ def division(leftOperand, rightOperand):
 
 
 def realDividedByComplex(leftReal, rightComplex):
+    """
+    Divides the given real number by the given complex number
+
+    :param leftReal: The real number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The quotient of the given real number and the given complex number
+    """
+
     conj = rightComplex.conjugate()
     numerator = leftReal * conj
     denominator = (rightComplex * conj).real
@@ -657,7 +718,27 @@ def realDividedByQuaternion(leftReal, rightQuaternion):
                       (-leftReal * rightQuaternion.imag2) / absoluteValueOfRight)
 
 
+def complexDividedByReal(leftComplex, rightReal):
+    """
+    Divides the given complex number by the given real number
+
+    :param leftComplex: The complex number on the left side of the operator
+    :param rightReal: The real number on the right side of the operator
+    :return: The quotient of the given complex number and the given real number
+    """
+
+    return Complex(leftComplex.real / rightReal, leftComplex.imag / rightReal)
+
+
 def complexDividedByComplex(leftComplex, rightComplex):
+    """
+    Divides a complex number by another complex number
+
+    :param leftComplex: The complex number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The quotient of the two given complex numbers
+    """
+
     conj = rightComplex.conjugate()
     numerator = complexTimesComplex(leftComplex, conj)
     denominator = (rightComplex * conj).real
@@ -814,7 +895,7 @@ def floorDivision(leftOperand, rightOperand):
         # The below "if" statements indicate what types can be floor divided by Complex Numbers
 
         if (typeOfRight is int) or (typeOfRight is float):
-            return leftOperand // rightOperand
+            return complexFloorDividedReal(leftOperand, rightOperand)
         elif typeOfRight is Complex:
             return complexFloorDividedByComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
@@ -845,6 +926,14 @@ def floorDivision(leftOperand, rightOperand):
 
 
 def realFloorDividedByComplex(leftReal, rightComplex):
+    """
+    Floor divides the given real number by the given complex number
+
+    :param leftReal: The real number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The floor quotient of the given real number and the given complex number
+    """
+
     trueDivided = realDividedByComplex(leftReal, rightComplex)
     floorDivided = flooring(trueDivided)
 
@@ -867,7 +956,30 @@ def realFloorDividedByQuaternion(leftReal, rightQuaternion):
     return trueDivided
 
 
+def complexFloorDividedByReal(leftComplex, rightReal):
+    """
+    Floor divides the given complex number by the given real number
+
+    :param leftComplex: The complex number on the left side of the operator
+    :param rightReal: The real number on the right side of the operator
+    :return: The floor quotient of the given complex number and the given real number
+    """
+
+    result = complexDividedByReal(leftComplex, rightReal)
+    result = flooring(result)
+
+    return result
+
+
 def complexFloorDividedByComplex(leftComplex, rightComplex):
+    """
+    Floor divides a complex number by another complex number
+
+    :param leftComplex: The complex number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: The floor quotient of the two complex numbers
+    """
+
     trueDivided = complexDividedByComplex(leftComplex, rightComplex)
     floorDivided = flooring(trueDivided)
 
@@ -1016,6 +1128,13 @@ def negation(operand):
 
 
 def negateComplex(complex):
+    """
+    Negates the given complex number
+
+    :param complex: The complex number to be negated
+    :return: The negation of the given complex number
+    """
+
     return Complex(-complex.real, -complex.imag)
 
 
@@ -1106,10 +1225,31 @@ def equality(leftOperand, rightOperand):
 
 
 def realEqualsComplex(leftReal, rightComplex):
+    """
+    Checks if  the given real number is equal to the given complex number.
+    For a real number to be equal to a complex number, the real number must
+    be equal to the complex number's real component and the complex number's
+    imaginary component must be equal to zero
+
+    :param leftReal: The real number on the left side of the operator
+    :param rightComplex: The complex on the right side of the operator
+    :return: True if the given real number is equal to the given
+        complex number, False otherwise
+    """
+
     return leftReal == rightComplex.real and rightComplex.imag == 0
 
 
 def complexEqualsComplex(leftComplex, rightComplex):
+    """
+    Checks if two complex numbers are equal to each other. All components
+    must be the same for the two complex numbers to be equal
+
+    :param leftComplex: The complex number on the left side of the operator
+    :param rightComplex: The complex number on the right side of the operator
+    :return: True if both complex numbers are equal, False otherwise
+    """
+
     return leftComplex.real == rightComplex.real and leftComplex.imag == rightComplex.imag
 
 
@@ -1213,6 +1353,15 @@ def inequality(leftOperand, rightOperand):
 
 
 def ceiling(operand):
+    """
+    Handles all rounding up operations on mathematical entities.
+    If an entity consists of multiple components, each component
+    will be rounded individually
+
+    :param operand: The entity to be rounded
+    :return: The entity rounded up
+    """
+
     typeOfOperand = type(operand)
 
     if typeOfOperand is int:
@@ -1232,6 +1381,15 @@ def ceiling(operand):
 
 
 def ceilComplex(complex):
+    """
+    Rounds the real and imaginary components of
+    the given complex number
+
+    :param complex: The complex number to be rounded
+    :return: The given complex number with its components
+        rounded up
+    """
+
     real = ceil(complex.real)
     imag = ceil(complex.imag)
 
@@ -1239,6 +1397,13 @@ def ceilComplex(complex):
 
 
 def ceilQuaternion(quaternion):
+    """
+    Rounds the real and imaginary components of the given Quaternion up
+
+    :param quaternion: The Quaternion to be rounded
+    :return: The given Quaternion with its components rounded up
+    """
+
     real = ceil(quaternion.real)
     imag = ceil(quaternion.imag)
     imag1 = ceil(quaternion.imag1)
@@ -1248,6 +1413,13 @@ def ceilQuaternion(quaternion):
 
 
 def ceilVector(vector):
+    """
+    Rounds each of the values in the given Vector upward
+
+    :param vector: The Vector to have its values rounded up
+    :return: The given Vector with its values rounded up
+    """
+
     point = []
 
     for value in vector:
@@ -1258,6 +1430,13 @@ def ceilVector(vector):
 
 
 def ceilMatrix(matrix):
+    """
+    Rounds the values in the given Matrix upward
+
+    :param matrix: The Matrix to have its values rounded up
+    :return: The given Matrix with its values rounded up
+    """
+
     table = []
 
     for value in matrix:
@@ -1268,6 +1447,15 @@ def ceilMatrix(matrix):
 
 
 def flooring(operand):
+    """
+        Handles all rounding down operations on mathematical entities.
+        If an entity consists of multiple components, each component
+        will be rounded individually
+
+        :param operand: The entity to be rounded
+        :return: The entity rounded down
+        """
+
     typeOfOperand = type(operand)
 
     if typeOfOperand is int:
@@ -1285,6 +1473,15 @@ def flooring(operand):
 
 
 def floorComplex(complex):
+    """
+    Rounds the real and imaginary components of
+    the given complex number down
+
+    :param complex: The complex number to be rounded
+    :return: The given complex number with its components
+        rounded down
+    """
+
     real = floor(complex.real)
     imag = floor(complex.imag)
 
@@ -1292,6 +1489,13 @@ def floorComplex(complex):
 
 
 def floorQuaternion(quaternion):
+    """
+    Rounds the real and imaginary components of the given Quaternion down
+
+    :param quaternion: The Quaternion to be rounded
+    :return: The given Quaternion with its components rounded down
+    """
+
     real = floor(quaternion.real)
     imag = floor(quaternion.imag)
     imag1 = floor(quaternion.imag1)
@@ -1301,6 +1505,13 @@ def floorQuaternion(quaternion):
 
 
 def floorVector(vector):
+    """
+    Rounds each of the values in the given Vector downward
+
+    :param vector: The Vector to have its values rounded down
+    :return: The given Vector with its values rounded down
+    """
+
     point = []
 
     for value in vector:
@@ -1311,6 +1522,13 @@ def floorVector(vector):
 
 
 def floorMatrix(matrix):
+    """
+    Rounds the values in the given Matrix downward
+
+    :param matrix: The Matrix to have its values rounded down
+    :return: The given Matrix with its values rounded down
+    """
+
     table = []
 
     for value in matrix:
