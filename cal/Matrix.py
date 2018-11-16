@@ -1,5 +1,4 @@
 from scipy.linalg import inv, det
-from copy import deepcopy
 from cal.MathEntity import MathEntity
 
 
@@ -7,8 +6,6 @@ class Matrix(MathEntity):
     """
     Instances of this class represent Matrices. All instances of
     this class cannot be jagged
-
-    Written by: Alex Horejsi
     """
 
     def __init__(self, table, rowLength=None, columnLength=None):
@@ -246,7 +243,18 @@ class Matrix(MathEntity):
         :return: A 2D list with the same values as this Matrix
         """
 
-        return deepcopy(self.__table)
+        table = []
+
+        for rowIndex in range(self.rowLength):
+            row = []
+
+            for colIndex in range(self.columnLength):
+                row.append(self[rowIndex, colIndex])
+
+            table.append(row)
+
+        return table
+
 
     def __iter__(self):
         """
