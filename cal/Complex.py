@@ -55,6 +55,17 @@ class Complex(MathEntity):
 
         return Complex(self.real, -self.imag)
 
+    @staticmethod
+    def fromBuiltInComplex(cmplx):
+        """
+        Creates a Complex from one of the Python built in "complex" type
+
+        :param cmplx: a number of type "complex"
+        :return: A Complex equal to the given "complex" value
+        """
+
+        return Complex(cmplx.real, cmplx.imag)
+
     def __iter__(self):
         """
         Returns iterator over the components of this Complex

@@ -19,7 +19,7 @@ class MathEntity:
         :exception TypeError: Raised when (self + entity) is not possible
         """
 
-        from cal.Operations import addition
+        from cal._Operations import addition
 
         return addition(self, entity)
 
@@ -48,7 +48,7 @@ class MathEntity:
         :exception TypeError: Raised when (entity + self) is not possible
         """
 
-        from cal.Operations import addition
+        from cal._Operations import addition
 
         return addition(entity, self)
 
@@ -63,7 +63,7 @@ class MathEntity:
         :exception TypeError: Raised when (self - entity) is not possible
         """
 
-        from cal.Operations import subtraction
+        from cal._Operations import subtraction
 
         return subtraction(self, entity)
 
@@ -91,7 +91,7 @@ class MathEntity:
         :exception TypeError: Raised when (entity - self) is not possible
         """
 
-        from cal.Operations import subtraction
+        from cal._Operations import subtraction
 
         return subtraction(entity, self)
 
@@ -106,7 +106,7 @@ class MathEntity:
         :exception TypeError: Raise when (self * entity) is not possible
         """
 
-        from cal.Operations import multiplication
+        from cal._Operations import multiplication
 
         return multiplication(self, entity)
 
@@ -134,7 +134,7 @@ class MathEntity:
         :exception TypeError: Raised when (entity - self) is not possible
         """
 
-        from cal.Operations import multiplication
+        from cal._Operations import multiplication
 
         return multiplication(entity, self)
 
@@ -149,7 +149,7 @@ class MathEntity:
         :exception TypeError: Raised when (self / entity) is not possible
         """
 
-        from cal.Operations import division
+        from cal._Operations import division
 
         return division(self, entity)
 
@@ -177,7 +177,7 @@ class MathEntity:
         :exception TypeError: Raised when (entity / self) is not possible
         """
 
-        from cal.Operations import division
+        from cal._Operations import division
 
         return division(entity, self)
 
@@ -192,7 +192,7 @@ class MathEntity:
         :exception TypeError: Raised when (self // entity) is not possible
         """
 
-        from cal.Operations import floorDivision
+        from cal._Operations import floorDivision
 
         return floorDivision(self, entity)
 
@@ -220,7 +220,7 @@ class MathEntity:
         :exception TypeError: Raised when (entity // self) is not possible
         """
 
-        from cal.Operations import floorDivision
+        from cal._Operations import floorDivision
 
         return floorDivision(entity, self)
 
@@ -232,7 +232,7 @@ class MathEntity:
         :exception TypeError: Raised when (-self) is not possible
         """
 
-        from cal.Operations import negation
+        from cal._Operations import negation
 
         return negation(self)
 
@@ -246,7 +246,7 @@ class MathEntity:
         :exception TypeError: Raised when no rounding can be done
         """
 
-        from cal.Operations import ceiling
+        from cal._Operations import ceiling
 
         return ceiling(self)
 
@@ -260,7 +260,7 @@ class MathEntity:
         :exception TypeError: Raised when no rounding can be done
         """
 
-        from cal.Operations import flooring
+        from cal._Operations import flooring
 
         return flooring(self)
 
@@ -275,7 +275,7 @@ class MathEntity:
         :exception TypeError: Raised when no rounding can be done
         """
 
-        from cal.Operations import rounding
+        from cal._Operations import rounding
 
         if decimalNum is None:
             return rounding(self)
@@ -291,7 +291,7 @@ class MathEntity:
         :return: True if both entities are equal, False otherwise
         """
 
-        from cal.Operations import equality
+        from cal._Operations import equality
 
         return equality(self, entity)
 
