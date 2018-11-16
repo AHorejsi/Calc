@@ -2,6 +2,7 @@ from cal.Vector import Vector
 from cal.Quaternion import Quaternion
 from cal.Matrix import Matrix
 from cal.Complex import Complex
+from math import ceil, floor
 
 
 def addition(leftOperand, rightOperand):
@@ -56,6 +57,7 @@ def addition(leftOperand, rightOperand):
 
         if typeOfRight is Matrix:
             return matrixPlusMatrix(leftOperand, rightOperand)
+
     raise TypeError(str(typeOfLeft) + " + " + str(typeOfRight) + " is not possible")
 
 
@@ -844,7 +846,7 @@ def floorDivision(leftOperand, rightOperand):
 
 def realFloorDividedByComplex(leftReal, rightComplex):
     trueDivided = realDividedByComplex(leftReal, rightComplex)
-    floorDivided = rounding(trueDivided)
+    floorDivided = flooring(trueDivided)
 
     return floorDivided
 
@@ -860,14 +862,14 @@ def realFloorDividedByQuaternion(leftReal, rightQuaternion):
     """
 
     trueDivided = realDividedByQuaternion(leftReal, rightQuaternion)
-    trueDivided = rounding(trueDivided)
+    trueDivided = flooring(trueDivided)
 
     return trueDivided
 
 
 def complexFloorDividedByComplex(leftComplex, rightComplex):
     trueDivided = complexDividedByComplex(leftComplex, rightComplex)
-    floorDivided = rounding(trueDivided)
+    floorDivided = flooring(trueDivided)
 
     return floorDivided
 
@@ -883,7 +885,7 @@ def complexFloorDividedByQuaternion(leftComplex, rightQuaternion):
     """
 
     trueDivided = complexDividedByQuaternion(leftComplex, rightQuaternion)
-    trueDivided = rounding(trueDivided)
+    trueDivided = flooring(trueDivided)
 
     return trueDivided
 
@@ -916,7 +918,7 @@ def quaternionFloorDividedByReal(leftQuaternion, rightReal):
     """
 
     trueDivided = quaternionDividedByReal(leftQuaternion, rightReal)
-    trueDivided = rounding(trueDivided)
+    trueDivided = flooring(trueDivided)
 
     return trueDivided
 
@@ -932,7 +934,7 @@ def quaternionFloorDividedByComplex(leftQuaternion, rightComplex):
     """
 
     trueDivided = quaternionDividedByComplex(leftQuaternion, rightComplex)
-    trueDivided = rounding(trueDivided)
+    trueDivided = flooring(trueDivided)
 
     return trueDivided
 
@@ -947,7 +949,7 @@ def quaternionFloorDividedByQuaternion(leftQuaternion, rightQuaternion):
     """
 
     trueDivided = quaternionDividedByQuaternion(leftQuaternion, rightQuaternion)
-    trueDivided = rounding(trueDivided)
+    trueDivided = flooring(trueDivided)
 
     return trueDivided
 
@@ -965,7 +967,7 @@ def matrixFloorDividedByScalar(leftMatrix, rightScalar):
 
     for rowIndex in result.rowLength:
         for colIndex in result.columnLength:
-            result[rowIndex, colIndex] = rounding(result[rowIndex, colIndex])
+            result[rowIndex, colIndex] = flooring(result[rowIndex, colIndex])
 
     return result
 
@@ -983,7 +985,7 @@ def matrixFloorDividedByMatrix(leftMatrix, rightMatrix):
 
     for rowIndex in range(trueDivided.rowLength):
         for colIndex in range(trueDivided.columnLength):
-            trueDivided[rowIndex, colIndex] = rounding(trueDivided[rowIndex, colIndex])
+            trueDivided[rowIndex, colIndex] = flooring(trueDivided[rowIndex, colIndex])
 
     return trueDivided
 
@@ -1208,6 +1210,114 @@ def inequality(leftOperand, rightOperand):
     """
 
     return not equality(leftOperand, rightOperand)
+
+
+def ceiling(operand):
+    typeOfOperand = type(operand)
+
+    if typeOfOperand is int:
+        return operand
+    elif typeOfOperand is float:
+        return ceil(operand)
+    elif typeOfOperand is Complex:
+        return ceilComplex(operand)
+    elif typeOfOperand is Quaternion:
+        return ceilQuaternion(operand)
+    elif typeOfOperand is Vector:
+        return ceilVector(operand)
+    elif typeOfOperand is Matrix:
+        return ceilMatrix(operand)
+
+    raise TypeError(str(typeOfOperand) + "s cannot be rounded")
+
+
+def ceilComplex(complex):
+    real = ceil(complex.real)
+    imag = ceil(complex.imag)
+
+    return Complex(real, imag)
+
+
+def ceilQuaternion(quaternion):
+    real = ceil(quaternion.real)
+    imag = ceil(quaternion.imag)
+    imag1 = ceil(quaternion.imag1)
+    imag2 = ceil(quaternion.imag2)
+
+    return Quaternion(real, imag, imag1, imag2)
+
+
+def ceilVector(vector):
+    point = []
+
+    for value in vector:
+        result = ceil(value)
+        point.append(result)
+
+    return Vector(point)
+
+
+def ceilMatrix(matrix):
+    table = []
+
+    for value in matrix:
+        result = ceiling(value)
+        table.append(result)
+
+    return Matrix(table, matrix.rowLength, matrix.columnLength)
+
+
+def flooring(operand):
+    typeOfOperand = type(operand)
+
+    if typeOfOperand is int:
+        return operand
+    elif typeOfOperand is float:
+        return floor(operand)
+    elif typeOfOperand is Complex:
+        return floorComplex(operand)
+    elif typeOfOperand is Quaternion:
+        return floorQuaternion(operand)
+    elif typeOfOperand is Vector:
+        return floorVector(operand)
+    elif typeOfOperand is Matrix:
+        return floorMatrix(operand)
+
+
+def floorComplex(complex):
+    real = floor(complex.real)
+    imag = floor(complex.imag)
+
+    return Complex(real, imag)
+
+
+def floorQuaternion(quaternion):
+    real = floor(quaternion.real)
+    imag = floor(quaternion.imag)
+    imag1 = floor(quaternion.imag1)
+    imag2 = floor(quaternion.imag2)
+
+    return Quaternion(real, imag, imag1, imag2)
+
+
+def floorVector(vector):
+    point = []
+
+    for value in vector:
+        result = floor(value)
+        point.append(result)
+
+    return Vector(point)
+
+
+def floorMatrix(matrix):
+    table = []
+
+    for value in matrix:
+        result = flooring(value)
+        table.append(result)
+
+    return Matrix(table, matrix.rowLength, matrix.columnLength)
 
 
 def rounding(operand, decimalNum=None):

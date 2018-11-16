@@ -6,8 +6,6 @@ class MathEntity:
     multiplication, division, floor division, negation, rounding, equality.
     If a particular unary or binary operation cannot be performed on particular
     entity or entities, a TypeError should be raised
-
-    Written by: Alex Horejsi
     """
 
     def __add__(self, entity):
@@ -237,6 +235,34 @@ class MathEntity:
         from cal.Operations import negation
 
         return negation(self)
+
+    def __ceil__(self):
+        """
+        Rounds this mathematical entity upward to the nearest integer.
+        If the given entity mathematical entity is composed of multiple
+        numbers, then each component will be rounded upward
+
+        :return: This entity with all of its components rounded upward
+        :exception TypeError: Raised when no rounding can be done
+        """
+
+        from cal.Operations import ceiling
+
+        return ceiling(self)
+
+    def __floor__(self):
+        """
+        Rounds this mathematical entity downward to the nearest integer.
+        If the given entity mathematical entity is composed of multiple
+        numbers, then each component will be rounded downward
+
+        :return: This entity with all of its components rounded downward
+        :exception TypeError: Raised when no rounding can be done
+        """
+
+        from cal.Operations import flooring
+
+        return flooring(self)
 
     def __round__(self, decimalNum=None):
         """

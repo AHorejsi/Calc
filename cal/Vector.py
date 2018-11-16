@@ -4,6 +4,10 @@ from cal.MathEntity import MathEntity
 
 
 class Vector(MathEntity):
+    """
+    Instances of this class represent n-dimensional Vectors
+    """
+
     def __init__(self, point):
         """
         Uses a list of any length that is filled with ints or floats to
