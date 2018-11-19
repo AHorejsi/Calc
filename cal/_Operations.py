@@ -432,6 +432,8 @@ def multiplication(leftOperand, rightOperand):
 
         if (typeOfRight is int) or (typeOfRight is float):
             return vectorTimesReal(leftOperand, rightOperand)
+        elif typeOfRight is Matrix:
+            return vectorTimesMatrix(leftOperand, rightOperand)
     elif typeOfLeft is Quaternion:
         # The below "if" statements indicate what types can be multiplied to Quaternions
 
@@ -448,6 +450,8 @@ def multiplication(leftOperand, rightOperand):
 
         if (typeOfRight is int) or (typeOfRight is float) or (typeOfRight is Complex) or (typeOfRight is Quaternion):
             return matrixTimesScalar(leftOperand, rightOperand)
+        elif typeOfRight is Vector:
+            return matrixTimesVector(leftOperand, rightOperand)
         elif typeOfRight is Matrix:
             return matrixTimesMatrix(leftOperand, rightOperand)
 
@@ -511,6 +515,31 @@ def vectorTimesReal(leftVector, rightReal):
     return Vector(point)
 
 
+def vectorTimesMatrix(leftVector, rightMatrix):
+    """
+    Multiplies the given Vector by the given Matrix
+
+    :param leftVector: The Vector on the left side of the operator
+    :param rightMatrix: The Matrix on the right side of the operator
+    :return: The product of the given Vector and the given Matrix
+    """
+
+    if len(leftVector) != rightMatrix.columnLength:
+        raise ArithmeticError("Dimensions of the Vector must be the same as the column length of the Matrix")
+
+    table = []
+
+    for colIndex in range(rightMatrix.columnLength):
+        value = 0.0
+
+        for rowIndex in range(rightMatrix.rowLength):
+            value += rightMatrix[rowIndex, colIndex] * leftVector[rowIndex]
+
+        table.append(value)
+
+    return Matrix(table, 1, rightMatrix.columnLength)
+
+
 def quaternionTimesReal(leftQuaternion, rightReal):
     """
     Multiplies the given Quaternion by the given real number
@@ -563,7 +592,7 @@ def quaternionTimesQuaternion(leftQuaternion, rightQuaternion):
 def matrixTimesScalar(leftMatrix, rightScalar):
     """
     Multiplies the given Matrix by the given scalar value. Scalar values
-    include int, float, complex and Quaternion
+    include int, float, Complex and Quaternion
 
     :param leftMatrix: The Matrix on the left side of the operator
     :param rightScalar: The scalar value on the right side of the operator
@@ -577,6 +606,31 @@ def matrixTimesScalar(leftMatrix, rightScalar):
         table.append(result)
 
     return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
+
+
+def matrixTimesVector(leftMatrix, rightVector):
+    """
+    Multiplies the given Matrix by the given Vector
+
+    :param leftMatrix: The Matrix on the left side of the operator
+    :param rightVector: The Vector on the right side of the operator
+    :return: The product of the given Matrix and the given Vector
+    """
+
+    if leftMatrix.rowLength != len(rightVector):
+        raise ArithmeticError("The Matrix must have the same row length as the Vector's dimensions")
+
+    table = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        value = 0.0
+
+        for colIndex in range(leftMatrix.columnLength):
+            value += leftMatrix[rowIndex, colIndex] * rightVector[colIndex]
+
+        table.append(value)
+
+    return Matrix(table, leftMatrix.rowLength, 1)
 
 
 def matrixTimesMatrix(leftMatrix, rightMatrix):
@@ -670,7 +724,7 @@ def division(leftOperand, rightOperand):
 
         if (typeOfRight is int) or (typeOfRight is float):
             return quaternionDividedByReal(leftOperand, rightOperand)
-        elif typeOfRight is complex:
+        elif typeOfRight is Complex:
             return quaternionDividedByComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
             return quaternionDividedByQuaternion(leftOperand, rightOperand)
@@ -895,7 +949,7 @@ def floorDivision(leftOperand, rightOperand):
         # The below "if" statements indicate what types can be floor divided by Complex Numbers
 
         if (typeOfRight is int) or (typeOfRight is float):
-            return complexFloorDividedReal(leftOperand, rightOperand)
+            return complexFloorDividedByReal(leftOperand, rightOperand)
         elif typeOfRight is Complex:
             return complexFloorDividedByComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
