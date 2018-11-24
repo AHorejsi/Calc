@@ -2,7 +2,7 @@ from cal.Vector import Vector
 from cal.Quaternion import Quaternion
 from cal.Matrix import Matrix
 from cal.Complex import Complex
-from math import ceil, floor
+from math import ceil, floor, sin, cos, log
 
 
 def addition(leftOperand, rightOperand):
@@ -58,7 +58,7 @@ def addition(leftOperand, rightOperand):
         if typeOfRight is Matrix:
             return matrixPlusMatrix(leftOperand, rightOperand)
 
-    raise TypeError(str(typeOfLeft) + " + " + str(typeOfRight) + " is not possible")
+    raise TypeError()
 
 
 def realPlusComplex(leftReal, rightComplex):
@@ -228,7 +228,7 @@ def subtraction(leftOperand, rightOperand):
         if typeOfRight is Matrix:
             return matrixMinusMatrix(leftOperand, rightOperand)
 
-    raise TypeError(str(typeOfLeft) + " - " + str(typeOfRight) + " is not possible")
+    raise TypeError()
 
 
 def realMinusComplex(leftReal, rightComplex):
@@ -455,7 +455,7 @@ def multiplication(leftOperand, rightOperand):
         elif typeOfRight is Matrix:
             return matrixTimesMatrix(leftOperand, rightOperand)
 
-    raise TypeError(str(typeOfLeft) + " * " + str(typeOfRight) + " is not possible")
+    raise TypeError()
 
 
 def realTimesComplex(leftReal, rightComplex):
@@ -736,7 +736,7 @@ def division(leftOperand, rightOperand):
         elif typeOfRight is Matrix:
             return matrixDividedByMatrix(leftOperand, rightOperand)
 
-    raise TypeError(str(typeOfLeft) + " / " + str(typeOfRight) + " is not possible")
+    raise TypeError()
 
 
 def realDividedByComplex(leftReal, rightComplex):
@@ -976,7 +976,7 @@ def floorDivision(leftOperand, rightOperand):
         elif typeOfRight is Matrix:
             return matrixFloorDividedByMatrix(leftOperand, rightOperand)
 
-    raise TypeError(str(typeOfLeft) + " // " + str(typeOfRight) + " is not possible")
+    raise TypeError()
 
 
 def realFloorDividedByComplex(leftReal, rightComplex):
@@ -1156,6 +1156,52 @@ def matrixFloorDividedByMatrix(leftMatrix, rightMatrix):
     return trueDivided
 
 
+def exponent(leftOperand, rightOperand):
+    typeOfLeft = type(leftOperand)
+    typeOfRight = type(rightOperand)
+
+    if (typeOfLeft is int) or (typeOfLeft is float):
+        # The below "if" statements indicate what types can be an exponent of real numbers
+
+        if (typeOfRight is int) or (typeOfRight is float):
+            return leftOperand ** rightOperand
+        elif typeOfRight is Complex:
+            return realToPowerOfComplex(leftOperand, rightOperand)
+        elif typeOfRight is Quaternion:
+            return realToPowerOfQuaternion(leftOperand, rightOperand)
+    elif typeOfLeft is Complex:
+        # The below "if" statements indicate what types can be an exponent of a complex number
+
+        if (typeOfRight is int) or (typeOfRight is float):
+            pass
+        elif typeOfRight is Complex:
+            pass
+        elif typeOfRight is Quaternion:
+            pass
+    elif typeOfLeft is Quaternion:
+        # The below "if" statements indicate what types can be an exponent of a Quaternion
+
+        if (typeOfRight is int) or (typeOfRight is float):
+            pass
+        elif typeOfRight is Complex:
+            pass
+        elif typeOfRight is Quaternion:
+            pass
+
+    raise TypeError()
+
+
+def realToPowerOfComplex(leftReal, rightComplex):
+    value1 = leftReal ** rightComplex.real
+    value2 = rightComplex.imag * log(leftReal)
+
+    return Complex(value1 * cos(value2), value1 * sin(value2))
+
+
+def realToPowerOfQuaternion(leftReal, rightQuaternion):
+
+
+
 def negation(operand):
     """
     Handles all of the negation operations performed on any
@@ -1178,7 +1224,7 @@ def negation(operand):
     elif typeOfOperand is Matrix:
         return negateMatrix(operand)
 
-    raise TypeError(str(typeOfOperand) + "s do not have a negation")
+    raise TypeError()
 
 
 def negateComplex(complex):
@@ -1431,7 +1477,7 @@ def ceiling(operand):
     elif typeOfOperand is Matrix:
         return ceilMatrix(operand)
 
-    raise TypeError(str(typeOfOperand) + "s cannot be rounded")
+    raise TypeError()
 
 
 def ceilComplex(complex):
@@ -1524,6 +1570,8 @@ def flooring(operand):
         return floorVector(operand)
     elif typeOfOperand is Matrix:
         return floorMatrix(operand)
+
+    raise TypeError()
 
 
 def floorComplex(complex):
@@ -1619,7 +1667,7 @@ def rounding(operand, decimalNum=None):
     elif typeOfOperand is Matrix:
         return roundMatrix(operand, decimalNum)
 
-    raise TypeError(str(typeOfOperand) + "s cannot be rounded")
+    raise TypeError()
 
 
 def roundComplex(cmplx, decimalNum):

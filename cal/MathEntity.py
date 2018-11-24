@@ -224,6 +224,19 @@ class MathEntity:
 
         return floorDivision(entity, self)
 
+    def __pow__(self, entity, modulo=None):
+        from cal._Operations import exponent
+
+        return exponent(self, entity)
+
+    def __ipow__(self, entity):
+        return self ** entity
+
+    def __rpow__(self, entity):
+        from cal._Operations import exponent
+
+        return exponent(entity, self)
+
     def __neg__(self):
         """
         Calculates the negation of this mathematical entity. This entity must be negatable
