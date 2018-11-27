@@ -225,14 +225,40 @@ class MathEntity:
         return floorDivision(entity, self)
 
     def __pow__(self, entity, modulo=None):
+        """
+        Calculates this value taken to the power of the given exponent
+
+        :param entity: The entity to be the exponent
+        :param modulo: Should always be None
+        :return: The result of this value raised to the given power
+        :exception TypeError: Raised when (self ** entity) is not possible
+        """
+
         from cal._Operations import exponent
 
         return exponent(self, entity)
 
     def __ipow__(self, entity):
+        """
+        Calculates this value taken to the power of the given exponent
+
+        :param entity: The entity to be the exponent
+        :param modulo: Should always be None
+        :return: The result of this value raised to the given power
+        :exception TypeError: Raised when (self ** entity) is not possible
+        """
+
         return self ** entity
 
     def __rpow__(self, entity):
+        """
+        Calculates the given value taken to the power of this value as an exponent
+
+        :param entity: The value to be the base of the exponentiation
+        :return: The result of taking the given value to the power of this value
+        :exception TypeError: Raised when (entity ** self) is not possible
+        """
+
         from cal._Operations import exponent
 
         return exponent(entity, self)
