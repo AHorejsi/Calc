@@ -2,7 +2,7 @@ from cal.Vector import Vector
 from cal.Quaternion import Quaternion
 from cal.Matrix import Matrix
 from cal.Complex import Complex
-from math import ceil, floor, sin, cos, log
+from math import ceil, floor, sin, cos, log, atan, e
 
 
 def addition(leftOperand, rightOperand):
@@ -1168,27 +1168,31 @@ def exponent(leftOperand, rightOperand):
         elif typeOfRight is Complex:
             return realToPowerOfComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
-            return realToPowerOfQuaternion(leftOperand, rightOperand)
+            return
     elif typeOfLeft is Complex:
         # The below "if" statements indicate what types can be an exponent of a complex number
 
         if (typeOfRight is int) or (typeOfRight is float):
-            pass
+            return complexToPowerOfReal(leftOperand, rightOperand)
         elif typeOfRight is Complex:
-            pass
+            return complexToPowerOfComplex(leftOperand, rightOperand)
         elif typeOfRight is Quaternion:
-            pass
+            return
     elif typeOfLeft is Quaternion:
         # The below "if" statements indicate what types can be an exponent of a Quaternion
 
         if (typeOfRight is int) or (typeOfRight is float):
-            pass
+            return
         elif typeOfRight is Complex:
-            pass
+            return
         elif typeOfRight is Quaternion:
-            pass
+            return
 
     raise TypeError()
+
+
+def _complexArgument(cmplx):
+    return atan(cmplx.imag / cmplx.real)
 
 
 def realToPowerOfComplex(leftReal, rightComplex):
@@ -1198,8 +1202,25 @@ def realToPowerOfComplex(leftReal, rightComplex):
     return Complex(value1 * cos(value2), value1 * sin(value2))
 
 
-def realToPowerOfQuaternion(leftReal, rightQuaternion):
+def complexToPowerOfReal(leftComplex, rightReal):
+    arg = _complexArgument(leftComplex)
+    value1 = ((leftComplex.real ** 2) + (leftComplex.imag ** 2)) ** (rightReal / 2)
+    value2 = value1 * cos(rightReal * arg)
+    value3 = value1 * sin(rightReal * arg)
 
+    return Complex(value2, value3)
+
+
+def complexToPowerOfComplex(leftComplex, rightComplex):
+    arg = _complexArgument(leftComplex)
+    value1 = ((leftComplex.real ** 2) + (leftComplex.imag ** 2))
+    value2 = value1 ** (rightComplex.real / 2)
+    value3 = e ** (-rightComplex.imag * arg)
+    value4 = value2 * value3
+    value5 = value4 * cos(rightComplex.real * arg + 0.5 * rightComplex.imag * log(value1))
+    value6 = value4 * sin(rightComplex.real * arg + 0.5 * rightComplex.imag * log(value1))
+
+    return Complex(value5, value6)
 
 
 def negation(operand):
@@ -1227,7 +1248,7 @@ def negation(operand):
     raise TypeError()
 
 
-def negateComplex(complex):
+def negateComplex(cmplx):
     """
     Negates the given complex number
 
@@ -1235,7 +1256,7 @@ def negateComplex(complex):
     :return: The negation of the given complex number
     """
 
-    return Complex(-complex.real, -complex.imag)
+    return Complex(-cmplx.real, -cmplx.imag)
 
 
 def negateVector(vector):
@@ -1257,7 +1278,7 @@ def negateQuaternion(quaternion):
     :return: The negation of the given Quaternion
     """
 
-    return quaternionTimesReal(quaternion, -1)
+    return Quaternion(-quaternion.real, -quaternion.imag, -quaternion.imag1, -quaternion.imag2)
 
 
 def negateMatrix(matrix):
