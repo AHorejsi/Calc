@@ -17,12 +17,34 @@ class Vector(MathEntity, Negatable):
     def __getitem__(self, index):
         return self.__point[index]
 
-    def __contains__(self, searchValue):
-        for value in self:
-            if value == searchValue:
-                return True
+    def __add__(self, mathEntity):
+        from calc._VectorMediator import _addition
 
-        return False
+        return _addition(self, mathEntity)
+
+    def __radd__(self, mathEntity):
+        return self + mathEntity
+
+    def __sub__(self, mathEntity):
+        from calc._VectorMediator import _subtraction
+
+        return _subtraction(self, mathEntity)
+
+    def __rsub__(self, mathEntity):
+        return -self + mathEntity
+
+    def __mul__(self, mathEntity):
+        from calc._VectorMediator import _multiplication
+
+        return _multiplication(self, mathEntity)
+
+    def __rmul__(self, mathEntity):
+        return self * mathEntity
+
+    def __truediv__(self, mathEntity):
+        from calc._VectorMediator import _division
+
+        return _division(self, mathEntity)
 
     def dot(self, vector):
         if not self.equalDimensions(vector):
@@ -103,6 +125,13 @@ class Vector(MathEntity, Negatable):
 
         return Vector(point)
 
+    def __contains__(self, searchValue):
+        for value in self:
+            if value == searchValue:
+                return True
+
+        return False
+
     def __iter__(self):
         return self.__point.__iter__()
 
@@ -114,6 +143,11 @@ class Vector(MathEntity, Negatable):
             hashCode += modifier * hash(value)
 
         return hashCode
+
+    def __eq__(self, mathEntity):
+        from calc._VectorMediator import _equality
+
+        return _equality(self, mathEntity)
 
     def __str__(self):
         strRep = "<"
