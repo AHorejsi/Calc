@@ -17,6 +17,42 @@ class Complex(MathEntity, Negatable, Exponentable):
     def imag0(self):
         return self.__imag0
 
+    def __add__(self, mathEntity):
+        from calc._ComplexMediator import _addition
+
+        return _addition(self, mathEntity)
+
+    def __radd__(self, real):
+        return self + real
+
+    def __sub__(self, mathEntity):
+        from calc._ComplexMediator import _subtraction
+
+        return _subtraction(self, mathEntity)
+
+    def __rsub__(self, real):
+        return Complex(real - self.real, -self.imag0)
+
+    def __mul__(self, mathEntity):
+        from calc._ComplexMediator import _multiplication
+
+        return _multiplication(self, mathEntity)
+
+    def __rmul__(self, real):
+        return self * real
+
+    def __truediv__(self, mathEntity):
+        from calc._ComplexMediator import _division
+
+        return _division(self, mathEntity)
+
+    def __rtruediv__(self, real):
+        conj = self.conjugate()
+        numerator = real * conj
+        denominator = (self * conj).real
+
+        return Complex(numerator.real / denominator, numerator.imag0 / denominator)
+
     def __abs__(self):
         return sqrt((self.real ** 2) + (self.imag0 ** 2))
 
@@ -40,6 +76,11 @@ class Complex(MathEntity, Negatable, Exponentable):
         imag0 = round(self.imag0, numDecimals)
 
         return Complex(real, imag0)
+
+    def __eq__(self, mathEntity):
+        from calc._ComplexMediator import _equality
+
+        return _equality(self, mathEntity)
 
     def __str__(self):
         strRep = Complex.__symbol(self.real, "") + \

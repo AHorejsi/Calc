@@ -1,3 +1,6 @@
+from math import floor
+
+
 class MathEntity:
     def __add__(self, mathEntity):
         raise ArithmeticError("Left addition is not possible with this type")
@@ -34,6 +37,21 @@ class MathEntity:
 
     def __rtruediv__(self, mathEntity):
         raise ArithmeticError("Right division is not possible with this type")
+
+    def __floordiv__(self, mathEntity):
+        trueDiv = self / mathEntity
+        floorDiv = floor(trueDiv)
+
+        return floorDiv
+
+    def __ifloordiv__(self, mathEntity):
+        return self // mathEntity
+
+    def __rfloordiv__(self, mathEntity):
+        trueDiv = mathEntity / self
+        floorDiv = floor(trueDiv)
+
+        return floorDiv
 
     def __eq__(self, mathEntity):
         raise NotImplementedError("This method must be implemented")
