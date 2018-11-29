@@ -57,12 +57,28 @@ class Matrix(MathEntity, Negatable):
 
         self.__table[coordinates[0] * self.columnLength + coordinates[1]] = value
 
-    def __contains__(self, searchValue):
-        for value in self:
-            if value == searchValue:
-                return True
+    def __add__(self, mathEntity):
+        from calc._MatrixMediator import _addition
 
-        return False
+        return _addition(self, mathEntity)
+
+    def __sub__(self, mathEntity):
+        from calc._MatrixMediator import _subtraction
+
+        return _subtraction(self, mathEntity)
+
+    def __mul__(self, mathEntity):
+        from calc._MatrixMediator import _multiplication
+
+        return _multiplication(self, mathEntity)
+
+    def __truediv__(self, mathEntity):
+        from calc._MatrixMediator import _division
+
+        return _division(self, mathEntity)
+
+    def __contains__(self, searchValue):
+        return searchValue in self.__table
 
     @property
     def determinant(self):
@@ -154,6 +170,11 @@ class Matrix(MathEntity, Negatable):
             hashCode += modifier * hash(value)
 
         return hashCode
+
+    def __eq__(self, mathEntity):
+        from calc._MatrixMediator import _equality
+
+        return _equality(self, mathEntity)
 
     def __str__(self):
         strRep = ""

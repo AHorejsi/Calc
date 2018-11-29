@@ -22,16 +22,10 @@ class Vector(MathEntity, Negatable):
 
         return _addition(self, mathEntity)
 
-    def __radd__(self, mathEntity):
-        return self + mathEntity
-
     def __sub__(self, mathEntity):
         from calc._VectorMediator import _subtraction
 
         return _subtraction(self, mathEntity)
-
-    def __rsub__(self, mathEntity):
-        return -self + mathEntity
 
     def __mul__(self, mathEntity):
         from calc._VectorMediator import _multiplication
@@ -126,11 +120,7 @@ class Vector(MathEntity, Negatable):
         return Vector(point)
 
     def __contains__(self, searchValue):
-        for value in self:
-            if value == searchValue:
-                return True
-
-        return False
+        return searchValue in self.__point
 
     def __iter__(self):
         return self.__point.__iter__()

@@ -75,6 +75,8 @@ def _multiplication(leftQuaternion, rightOperand):
         return _quaternionTimesComplex(leftQuaternion, rightOperand)
     elif typeOfOperand is Quaternion:
         return _quaternionTimesQuaternion(leftQuaternion, rightOperand)
+    elif typeOfOperand is Matrix:
+        return _quaternionTimesMatrix(leftQuaternion, rightOperand)
 
 
 def _quaternionTimesReal(leftQuaternion, rightReal):
@@ -100,6 +102,12 @@ def _quaternionTimesQuaternion(leftQuaternion, rightQuaternion):
                       leftQuaternion.imag1 * rightQuaternion.real - leftQuaternion.imag2 * rightQuaternion.imag,
                       leftQuaternion.real * rightQuaternion.imag2 - leftQuaternion.imag * rightQuaternion.imag1 +
                       leftQuaternion.imag1 * rightQuaternion.imag + leftQuaternion.imag2 * rightQuaternion.real)
+
+
+def _quaternionTimesMatrix(leftQuaternion, rightMatrix):
+    from calc._MatrixMediator import _matrixTimesScalar
+
+    return _matrixTimesScalar(rightMatrix, leftQuaternion)
 
 
 def _division(leftQuaternion, rightOperand):
