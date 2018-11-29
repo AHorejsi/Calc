@@ -35,6 +35,35 @@ class Quaternion(MathEntity, Negatable, Exponentable):
     def __radd__(self, real):
         return self + real
 
+    def __sub__(self, mathEntity):
+        from calc._QuaternionMediator import _subtraction
+
+        return _subtraction(self, mathEntity)
+
+    def __rsub__(self, real):
+        return Quaternion(real - self.real, -self.imag0, -self.imag1, -self.imag2)
+
+    def __mul__(self, mathEntity):
+        from calc._QuaternionMediator import _multiplication
+
+        return _multiplication(self, mathEntity)
+
+    def __rmul__(self, real):
+        return Quaternion(real - self.real, -self.imag0, -self.imag1, -self.imag2)
+
+    def __truediv__(self, mathEntity):
+        from calc._QuaternionMediator import _division
+
+        return _division(self, mathEntity)
+
+    def __rtruediv__(self, real):
+        absoluteValueOfRight = abs(self)
+
+        return Quaternion((real * self.real) / absoluteValueOfRight,
+                          (-real * self.imag0) / absoluteValueOfRight,
+                          (-real * self.imag1) / absoluteValueOfRight,
+                          (-real * self.imag2) / absoluteValueOfRight)
+
     def __abs__(self):
         return sqrt((self.real ** 2) + (self.imag0 ** 2) + (self.imag1 ** 2) + (self.imag2 ** 2))
 
@@ -72,6 +101,11 @@ class Quaternion(MathEntity, Negatable, Exponentable):
                modifier * hash(self.imag0) + \
                modifier * hash(self.imag1) + \
                modifier * hash(self.imag2)
+
+    def __eq__(self, mathEntity):
+        from calc._QuaternionMediator import _equality
+
+        return _equality(self, mathEntity)
 
     def __str__(self):
         strRep = Quaternion.__symbol(self.real, "") + \

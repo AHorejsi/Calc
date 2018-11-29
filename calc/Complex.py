@@ -77,6 +77,14 @@ class Complex(MathEntity, Negatable, Exponentable):
 
         return Complex(real, imag0)
 
+    @staticmethod
+    def fromBuiltInComplex(builtInComplex):
+        return Complex(builtInComplex.real, builtInComplex.imag)
+
+    @staticmethod
+    def toBuiltInComplex(customComplex):
+        return complex(customComplex.real, customComplex.imag0)
+
     def __eq__(self, mathEntity):
         from calc._ComplexMediator import _equality
 
