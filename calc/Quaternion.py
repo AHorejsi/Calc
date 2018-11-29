@@ -27,6 +27,14 @@ class Quaternion(MathEntity, Negatable, Exponentable):
     def imag2(self):
         return self.__imag2
 
+    def __add__(self, mathEntity):
+        from calc._QuaternionMediator import _addition
+
+        return _addition(self, mathEntity)
+
+    def __radd__(self, real):
+        return self + real
+
     def __abs__(self):
         return sqrt((self.real ** 2) + (self.imag0 ** 2) + (self.imag1 ** 2) + (self.imag2 ** 2))
 
