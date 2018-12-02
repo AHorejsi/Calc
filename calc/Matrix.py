@@ -5,8 +5,8 @@ from math import floor, ceil
 
 
 class Matrix(MathEntity, Negatable):
-    def __init__(self, table, rowLength=None, columnLength=None):
-        if (rowLength is None) and (columnLength is None):
+    def __init__(self, table, rowLength=-1, columnLength=-1):
+        if (rowLength == -1) and (columnLength == -1):
             self.__table = []
             self.__rowLength = len(table)
 
@@ -21,6 +21,9 @@ class Matrix(MathEntity, Negatable):
             self.__table = table
             self.__rowLength = rowLength
             self.__columnLength = columnLength
+
+    def __len__(self):
+        return self.rowLength + self.columnLength
 
     @property
     def rowLength(self):

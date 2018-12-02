@@ -1,6 +1,7 @@
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Matrix import Matrix
+from math import sin, cos, atan, log, e
 
 
 def _addition(leftComplex, rightOperand):
@@ -151,3 +152,39 @@ def _complexEqualsQuaternion(leftComplex, rightQuaternion):
            leftComplex.imag0 == rightQuaternion.imag0 and \
            rightQuaternion.imag1 == 0 and \
            rightQuaternion.imag2 == 0
+
+
+def _exponent(leftComplex, rightOperand):
+    typeOfOperand = type(rightOperand)
+
+    if (typeOfOperand is int) or (typeOfOperand is float):
+        return _complexToPowerOfReal(leftComplex, rightOperand)
+    elif typeOfOperand is Complex:
+        return _complexToPowerOfComplex(leftComplex, rightOperand)
+    elif typeOfOperand is Quaternion:
+        pass
+
+
+def _complexArgument(complex):
+    return atan(complex.imag0 / complex.real)
+
+
+def _complexToPowerOfReal(leftComplex, rightReal):
+    arg = _complexArgument(leftComplex)
+    value1 = ((leftComplex.real ** 2) + (leftComplex.imag0 ** 2)) ** (rightReal / 2)
+    value2 = cos(rightReal * arg)
+    value3 = sin(rightReal * arg)
+
+    return Complex(value1 * value2, value1 * value3)
+
+
+def _complexToPowerOfComplex(leftComplex, rightComplex):
+    arg = _complexArgument(leftComplex)
+    value1 = ((leftComplex.real ** 2) + (leftComplex.imag0 ** 2))
+    value2 = value1 ** (rightComplex.real / 2)
+    value3 = e ** (-rightComplex.imag0 * arg)
+    value4 = value2 * value3
+    value5 = cos(rightComplex.real * arg + 0.5 * rightComplex.imag0 * log(value1))
+    value6 = sin(rightComplex.real * arg + 0.5 * rightComplex.imag0 * log(value1))
+
+    return Complex(value4 * value5, value4 * value6)

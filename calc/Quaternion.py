@@ -94,6 +94,9 @@ class Quaternion(MathEntity, Negatable, Exponentable):
 
         return Quaternion(real, imag0, imag1, imag2)
 
+    def __iter__(self):
+        return [self.real, self.imag0, self.imag1, self.imag2].__iter__()
+
     def __hash__(self):
         modifier = 31
 

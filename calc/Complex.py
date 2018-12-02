@@ -1,7 +1,7 @@
 from calc.MathEntity import MathEntity
 from calc.Negatable import Negatable
 from calc.Exponentable import Exponentable
-from math import sqrt, floor, ceil
+from math import sqrt, floor, ceil, sin, cos, log
 
 
 class Complex(MathEntity, Negatable, Exponentable):
@@ -53,6 +53,18 @@ class Complex(MathEntity, Negatable, Exponentable):
 
         return Complex(numerator.real / denominator, numerator.imag0 / denominator)
 
+    def __pow__(self, mathEntity, modulo=None):
+        from calc._ComplexMediator import _exponent
+
+        return _exponent(self, mathEntity)
+
+    def __rpow__(self, real):
+        value1 = (real ** 2) ** (self.real / 2)
+        value2 = cos(log(real))
+        value3 = sin(log(real))
+
+        return Complex(value1 * value2, value1 * value3)
+
     def __abs__(self):
         return sqrt((self.real ** 2) + (self.imag0 ** 2))
 
@@ -84,6 +96,18 @@ class Complex(MathEntity, Negatable, Exponentable):
     @staticmethod
     def toBuiltInComplex(customComplex):
         return complex(customComplex.real, customComplex.imag0)
+
+    def __iter__(self):
+        return [self.real, self.imag0].__iter__()
+
+    def __hash__(self):
+        modifier = 31
+        hashCode = 0
+
+        hashCode += modifier * hash(self.real)
+        hashCode += modifier * hash(self.imag0)
+
+        return hashCode
 
     def __eq__(self, mathEntity):
         from calc._ComplexMediator import _equality
