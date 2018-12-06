@@ -1,11 +1,10 @@
 from calc.MathEntity import MathEntity
 from calc.Negatable import Negatable
-from calc.Exponentable import Exponentable
 from calc.Vector import Vector
 from math import sqrt, floor, ceil
 
 
-class Quaternion(MathEntity, Negatable, Exponentable):
+class Quaternion(MathEntity, Negatable):
     def __init__(self, real, imag0, imag1, imag2):
         self.__real = real
         self.__imag0 = imag0
@@ -68,19 +67,12 @@ class Quaternion(MathEntity, Negatable, Exponentable):
     def __abs__(self):
         return sqrt((self.real ** 2) + (self.imag0 ** 2) + (self.imag1 ** 2) + (self.imag2 ** 2))
 
-    def __pow__(self, mathEntity, modulo=None):
-        from calc._QuaternionMediator import _exponent
-
-        return _exponent(self, mathEntity)
-
     def conjugate(self):
         return Quaternion(self.real, -self.imag0, -self.imag1, -self.imag2)
 
-    def scalarAndVectorParts(self):
-        real = self.real
-        vector = Vector([self.imag0, self.imag1, self.imag2])
-
-        return (real, vector)
+    @property
+    def vectorPart(self):
+        return Vector([self.imag0, self.imag1, self.imag2])
 
     def __floor__(self):
         real = floor(self.real)
@@ -143,6 +135,3 @@ class Quaternion(MathEntity, Negatable, Exponentable):
             return "-" + str(abs(value)) + axis
         else:
             return "+" + str(value) + axis
-
-    def __repr__(self):
-        return str(self)

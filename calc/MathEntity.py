@@ -58,3 +58,6 @@ class MathEntity:
 
     def __ne__(self, mathEntity):
         return not (self == mathEntity)
+
+    def __repr__(self):
+        return str(self)

@@ -183,25 +183,3 @@ def _quaternionEqualsQuaternion(leftQuaternion, rightQuaternion):
            leftQuaternion.imag0 == rightQuaternion.imag0 and \
            leftQuaternion.imag1 == rightQuaternion.imag1 and \
            leftQuaternion.imag2 == rightQuaternion.imag2
-
-
-def _exponent(leftQuaternion, rightOperand):
-    typeOfOperand = type(rightOperand)
-
-    if (typeOfOperand is int) or (typeOfOperand is float):
-        return _quaternionToPowerOfReal(leftQuaternion, rightOperand)
-    elif typeOfOperand is Complex:
-        pass
-    elif typeOfOperand is Quaternion:
-        pass
-
-
-def _quaternionToPowerOfReal(leftQuaternion, rightReal):
-    vectorPart = leftQuaternion.scalarAndVectorParts()[1]
-    unitVector = vectorPart.normalize()
-    angle = acos(leftQuaternion.real / abs(leftQuaternion))
-    value1 = abs(leftQuaternion) ** rightReal
-    value2 = cos(rightReal * angle)
-    value3 = unitVector * sin(rightReal * angle)
-
-    return Quaternion(value1 * value2, value1 * value3[0], value1 * value3[1], value1 * value3[2])

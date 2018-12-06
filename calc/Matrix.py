@@ -188,6 +188,3 @@ class Matrix(MathEntity, Negatable):
             index += self.columnLength
 
         return strRep
-
-    def __repr__(self):
-        return str(self)

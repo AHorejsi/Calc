@@ -133,6 +133,3 @@ class Complex(MathEntity, Negatable, Exponentable):
             return "-" + str(abs(value)) + axis
         else:
             return "+" + str(value) + axis
-
-    def __repr__(self):
-        return str(self)

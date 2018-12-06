@@ -161,8 +161,6 @@ def _exponent(leftComplex, rightOperand):
         return _complexToPowerOfReal(leftComplex, rightOperand)
     elif typeOfOperand is Complex:
         return _complexToPowerOfComplex(leftComplex, rightOperand)
-    elif typeOfOperand is Quaternion:
-        pass
 
 
 def _complexArgument(complex):
