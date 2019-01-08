@@ -1,6 +1,5 @@
 from calc.MathEntity import MathEntity
 from calc.Negatable import Negatable
-from calc.Vector import Vector
 from math import sqrt, floor, ceil
 
 
@@ -70,9 +69,8 @@ class Quaternion(MathEntity, Negatable):
     def conjugate(self):
         return Quaternion(self.real, -self.imag0, -self.imag1, -self.imag2)
 
-    @property
-    def vectorPart(self):
-        return Vector([self.imag0, self.imag1, self.imag2])
+    def normalize(self):
+        return self / abs(self)
 
     def __floor__(self):
         real = floor(self.real)
@@ -99,7 +97,7 @@ class Quaternion(MathEntity, Negatable):
         return Quaternion(real, imag0, imag1, imag2)
 
     def __iter__(self):
-        return [self.real, self.imag0, self.imag1, self.imag2].__iter__()
+        return iter([self.real, self.imag0, self.imag1, self.imag2])
 
     def __hash__(self):
         modifier = 31

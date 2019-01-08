@@ -1,7 +1,6 @@
-from calc.Complex import Complex
+z
 from calc.Quaternion import Quaternion
 from calc.Matrix import Matrix
-from math import sin, cos, acos
 
 
 def _addition(leftQuaternion, rightOperand):
@@ -23,9 +22,9 @@ def _quaternionPlusReal(leftQuaternion, rightReal):
 
 
 def _quaternionPlusComplex(leftQuaternion, rightComplex):
-    from calc._ComplexMediator import _complexPlusComplex
+    from calc._ComplexMediator import _complexPlusQuaternion
 
-    return _complexPlusComplex(rightComplex, leftQuaternion)
+    return _complexPlusQuaternion(rightComplex, leftQuaternion)
 
 
 def _quaternionPlusQuaternion(leftQuaternion, rightQuaternion):

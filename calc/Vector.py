@@ -123,7 +123,7 @@ class Vector(MathEntity, Negatable):
         return searchValue in self.__point
 
     def __iter__(self):
-        return self.__point.__iter__()
+        return iter(self.__point)
 
     def __hash__(self):
         hashCode = 0

@@ -105,10 +105,16 @@ def _division(leftMatrix, rightOperand):
 
     if (typeOfOperand is int) or (typeOfOperand is float) or (typeOfOperand is Complex) or (typeOfOperand is Quaternion):
         return _matrixDividedByScalar(leftMatrix, rightOperand)
+    elif typeOfOperand is Matrix:
+        return _matrixDividedByMatrix(leftMatrix, rightOperand)
 
 
 def _matrixDividedByScalar(leftMatrix, rightScalar):
     return _matrixTimesScalar(leftMatrix, 1 / rightScalar)
+
+
+def _matrixDividedByMatrix(leftMatrix, rightMatrix):
+    return leftMatrix * rightMatrix.inverse()
 
 
 def _equality(leftMatrix, rightOperand):

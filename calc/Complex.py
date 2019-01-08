@@ -98,7 +98,7 @@ class Complex(MathEntity, Negatable, Exponentable):
         return complex(customComplex.real, customComplex.imag0)
 
     def __iter__(self):
-        return [self.real, self.imag0].__iter__()
+        return iter([self.real, self.imag0])
 
     def __hash__(self):
         modifier = 31
@@ -115,8 +115,7 @@ class Complex(MathEntity, Negatable, Exponentable):
         return _equality(self, mathEntity)
 
     def __str__(self):
-        strRep = Complex.__symbol(self.real, "") + \
-                 Complex.__symbol(self.imag0, "i")
+        strRep = Complex.__symbol(self.real, "") + Complex.__symbol(self.imag0, "i")
 
         if strRep.startswith("+"):
             return strRep[1:]

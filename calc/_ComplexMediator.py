@@ -74,8 +74,8 @@ def _complexTimesReal(leftComplex, rightReal):
 
 
 def _complexTimesComplex(leftComplex, rightComplex):
-    return Complex(leftComplex.real * rightComplex.real - leftComplex.imag * rightComplex.imag,
-                   leftComplex.real * rightComplex.imag + leftComplex.imag * rightComplex.real)
+    return Complex(leftComplex.real * rightComplex.real - leftComplex.imag0 * rightComplex.imag0,
+                   leftComplex.real * rightComplex.imag0 + leftComplex.imag0 * rightComplex.real)
 
 
 def _complexTimesQuaternion(leftComplex, rightQuaternion):

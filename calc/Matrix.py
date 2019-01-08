@@ -163,7 +163,7 @@ class Matrix(MathEntity, Negatable):
         return Matrix(table, self.rowLength, self.columnLength)
 
     def __iter__(self):
-        return self.__table.__iter__()
+        return iter(self.__table)
 
     def __hash__(self):
         hashCode = 0
@@ -184,7 +184,7 @@ class Matrix(MathEntity, Negatable):
         index = 0
 
         while index < len(self.__table):
-            strRep += str(self.__table[index: index + self.columnLength]) + "\n"
+            strRep += str(self.__table[index : index + self.columnLength]) + "\n"
             index += self.columnLength
 
         return strRep

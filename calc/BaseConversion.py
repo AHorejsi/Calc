@@ -1,9 +1,9 @@
-baseOfBinary = 2
-baseOfHexadecimal = 16
-baseOfOctal = 8
-intToStrDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
-strToIntDigits = {"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9,
-                  "A": 10, "B": 11, "C": 12, "D": 13, "E": 14, "F": 15}
+BASE_OF_BINARY = 2
+BASE_OF_HEXADECIMAL = 16
+BASE_OF_OCTAL = 8
+INT_TO_STR_DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
+STR_TO_INT_DIGITS = {"0" : 0, "1" : 1, "2" : 2, "3" : 3, "4" : 4, "5" : 5, "6" : 6, "7" : 7, "8" : 8, "9" : 9,
+                     "A" : 10, "B" : 11, "C" : 12, "D" : 13, "E" : 14, "F" : 15}
 
 
 def intToBinary(intValue):
@@ -16,7 +16,7 @@ def intToBinary(intValue):
         of the given int value
     """
 
-    return _convertIntDecimal(intValue, baseOfBinary)
+    return _convertIntDecimal(intValue, BASE_OF_BINARY)
 
 
 def intToHexadecimal(intValue):
@@ -29,7 +29,7 @@ def intToHexadecimal(intValue):
         of the given int value
     """
 
-    return _convertIntDecimal(intValue, baseOfHexadecimal)
+    return _convertIntDecimal(intValue, BASE_OF_HEXADECIMAL)
 
 
 def intToOctal(intValue):
@@ -42,13 +42,13 @@ def intToOctal(intValue):
         of the given int value
     """
 
-    return _convertIntDecimal(intValue, baseOfOctal)
+    return _convertIntDecimal(intValue, BASE_OF_OCTAL)
 
 
 def _convertIntDecimal(intValue, base):
     """
     Computes the given int value to its representation of its
-    with the given base
+    value with the given base
 
     :param intValue: The int value whose representation in another
         base system is to be computed
@@ -70,7 +70,7 @@ def _convertIntDecimal(intValue, base):
 
     while intValue > 1:
         index = intValue % base
-        strRep += intToStrDigits[index]
+        strRep += INT_TO_STR_DIGITS[index]
         intValue /= base
 
     strRep = strRep[::-1]  # This code reverses the string
@@ -89,7 +89,7 @@ def binaryToInt(binStr):
     :return: An int value equal to the given binary number
     """
 
-    return _convertStr(binStr, baseOfBinary)
+    return _convertStr(binStr, BASE_OF_BINARY)
 
 
 def hexadecimalToInt(hexStr):
@@ -101,7 +101,7 @@ def hexadecimalToInt(hexStr):
     :return: An int value equal to the given hexadecimal number
     """
 
-    return _convertStr(hexStr, baseOfHexadecimal)
+    return _convertStr(hexStr, BASE_OF_HEXADECIMAL)
 
 
 def octalToInt(octStr):
@@ -112,7 +112,7 @@ def octalToInt(octStr):
     :return: An int value equal to the given octal number
     """
 
-    return _convertStr(octStr, baseOfOctal)
+    return _convertStr(octStr, BASE_OF_OCTAL)
 
 
 def _convertStr(strRep, base):
@@ -134,7 +134,7 @@ def _convertStr(strRep, base):
     exponent = len(strRep) - 1
 
     for digit in strRep:
-        intValue += int(strToIntDigits[digit]) * (base ** exponent)
+        intValue += int(STR_TO_INT_DIGITS[digit]) * (base ** exponent)
         exponent -= 1
 
     if isNegative:
