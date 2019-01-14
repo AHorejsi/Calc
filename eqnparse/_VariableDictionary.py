@@ -3,6 +3,7 @@ from calc.MathFunction import PI, E
 from itertools import chain
 from re import fullmatch, split
 from calc import Complex, Quaternion, Vector, Matrix
+from eqnparse.SingletonException import SingletonException
 
 
 class _VariableDictionary:
@@ -18,7 +19,7 @@ class _VariableDictionary:
             self._permVars = {}
             self.__readPermVars()
         else:
-            raise Exception("This is a singleton class")
+            raise SingletonException("This is a singleton class")
 
     @staticmethod
     def instance():
@@ -53,8 +54,8 @@ class _VariableDictionary:
             # Type is Quaternion
             nums = split("[+|-]", strValue)
 
-            return Quaternion(float(nums[0]), float(nums[1][0: len(nums[1]) - 1]),
-                              float(nums[2][0: len(nums[2]) - 1]), float(nums[3][0: len(nums[3]) - 1]))
+            return Quaternion(float(nums[0]), float(nums[1][0 : len(nums[1]) - 1]),
+                              float(nums[2][0 : len(nums[2]) - 1]), float(nums[3][0 : len(nums[3]) - 1]))
         elif fullmatch("<((-?\d+.?\d+)(e\d+)?,)*((-?\d+.?\d+)(e\d+)?)?>", strValue) is not None:
             # Type is Vector
             nums = split(",", strValue[1 : len(strValue) - 1])
@@ -133,7 +134,7 @@ class _VariableDictionary:
         if varName in self._permVars:
             raise KeyError("Variable named \"" + varName + "\" already exists in permanent variables")
         if varName in self.__universalVars:
-            raise Exception("Invalid variable name \"" + varName + "\"")
+            raise KeyError("Invalid variable name \"" + varName + "\"")
 
         self._vars[varName] = varValue
 
@@ -141,7 +142,7 @@ class _VariableDictionary:
         if varName in self._vars:
             raise KeyError("Variable names \"" + varName + "\" already exists in temporary variables")
         if varName in self.__universalVars:
-            raise Exception("Invalid variable name \"" + varName + "\"")
+            raise KeyError("Invalid variable name \"" + varName + "\"")
 
         self._permVars[varName] = varValue
 
