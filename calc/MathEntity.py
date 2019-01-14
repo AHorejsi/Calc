@@ -3,7 +3,7 @@ from math import floor
 
 class MathEntity:
     """
-    Superclass for all mathematical entities that represent some kind of mathematical
+    Superclass for all mathematical entities that represent some type of mathematical
     value. Contains the operations of addition, subtraction, multiplication, division
     and floor division. Any implementing subclass does not need to implement all of
     these operations
