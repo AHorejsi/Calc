@@ -43,20 +43,19 @@ class _VariableDictionary:
 
     @staticmethod
     def __parseValue(strValue):
-        if fullmatch("(-?\d+.?\d+)(e\d+)?[+|-](\d+.?\d+)(e\d+)?i", strValue) is not None:
+        if fullmatch("(-?\d*.?\d+)(e\d+)?[+|-](\d*.?\d+)(e\d+)?i", strValue) is not None:
             # Type is Complex
-            nums = split("[+|-]", strValue[0 : len(strValue) - 1])
+            nums = split("[+|-]|i", strValue)
 
             return Complex(float(nums[0]), float(nums[1]))
 
-        elif fullmatch("(-?\d+.?\d+)(e\d+)?[+|-](\d+.?\d+)(e\d+)?i[+|-](\d+.?\d+)(e\d+)?j[+|-](\d+.?\d+)(e\d+)?k",
+        elif fullmatch("(-?\d*.?\d+)(e\d+)?[+|-](\d*.?\d+)(e\d+)?i[+|-](\d*.?\d+)(e\d+)?j[+|-](\d*.?\d+)(e\d+)?k",
                        strValue) is not None:
             # Type is Quaternion
-            nums = split("[+|-]", strValue)
+            nums = list(filter(lambda string: string != "", split("[+|-]|i|j|k", strValue)))
 
-            return Quaternion(float(nums[0]), float(nums[1][0 : len(nums[1]) - 1]),
-                              float(nums[2][0 : len(nums[2]) - 1]), float(nums[3][0 : len(nums[3]) - 1]))
-        elif fullmatch("<((-?\d+.?\d+)(e\d+)?,)*((-?\d+.?\d+)(e\d+)?)?>", strValue) is not None:
+            return Quaternion(float(nums[0]), float(nums[1]), float(nums[2]), float(nums[3]))
+        elif fullmatch("<((-?\d*.?\d+)(e\d+)?,)*((-?\d*.?\d+)(e\d+)?)?>", strValue) is not None:
             # Type is Vector
             nums = split(",", strValue[1 : len(strValue) - 1])
             listOfNums = []
