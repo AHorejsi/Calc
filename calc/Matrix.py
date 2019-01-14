@@ -5,8 +5,8 @@ from math import floor, ceil
 
 
 class Matrix(MathEntity, Negatable):
-    def __init__(self, table, rowLength=-1, columnLength=-1):
-        if (rowLength == -1) and (columnLength == -1):
+    def __init__(self, table, rowLength=None, columnLength=None):
+        if (rowLength is None) and (columnLength is None):
             self.__table = []
             self.__rowLength = len(table)
 
@@ -23,7 +23,7 @@ class Matrix(MathEntity, Negatable):
             self.__columnLength = columnLength
 
     def __len__(self):
-        return self.rowLength + self.columnLength
+        return self.rowLength * self.columnLength
 
     @property
     def rowLength(self):
@@ -81,7 +81,11 @@ class Matrix(MathEntity, Negatable):
         return _division(self, mathEntity)
 
     def __contains__(self, searchValue):
-        return searchValue in self.__table
+        for value in self:
+            if value == searchValue:
+                return True
+
+        return False
 
     @property
     def determinant(self):
