@@ -1,4 +1,4 @@
-import os
+from os import mkdir, chdir, getcwd, path
 from calc.MathFunction import PI, E
 from itertools import chain
 from re import fullmatch, split
@@ -29,7 +29,7 @@ class _VariableDictionary:
 
     def __readPermVars(self):
         file = _VariableDictionary.__findFile("r")
-        lines = file.readlines(os.path.getsize(_VariableDictionary.__filePath + "Calc/CalcVars.txt"))
+        lines = file.readlines(path.getsize(_VariableDictionary.__filePath + "Calc/CalcVars.txt"))
 
         for line in lines:
             parts = line.split(",")
@@ -81,7 +81,6 @@ class _VariableDictionary:
 
             return Matrix(table)
 
-
     def savePermVars(self):
         file = _VariableDictionary.__findFile("w")
         file.truncate(0)
@@ -95,11 +94,11 @@ class _VariableDictionary:
     @staticmethod
     def __findFile(modeInput):
         path = _VariableDictionary.__filePath + "Calc"
-        os.chdir(path)
+        chdir(path)
 
-        if os.getcwd() != path:
-            os.mkdir(path)
-            os.chdir(path)
+        if getcwd() != path:
+            mkdir(path)
+            chdir(path)
 
         return open("CalcVars.txt", mode=modeInput)
 
