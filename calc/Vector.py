@@ -17,6 +17,9 @@ class Vector(MathEntity, Negatable):
     def __getitem__(self, index):
         return self.__point[index]
 
+    def __setitem__(self, index, value):
+        self.__point[index] = value
+
     def __add__(self, mathEntity):
         from calc._VectorMediator import _addition
 
@@ -58,12 +61,6 @@ class Vector(MathEntity, Negatable):
                            self[0] * vector[1] - self[1] * vector[0]])
 
         raise ArithmeticError("Vectors must be of 3 dimensions to have a cross product")
-
-    def scalarTripleProduct(self, vector1, vector2):
-        return self.dot(vector1.cross(vector2))
-
-    def vectorTripleProduct(self, vector1, vector2):
-        return self.cross(vector1.cross(vector2))
 
     @property
     def magnitude(self):

@@ -49,14 +49,14 @@ class Matrix(MathEntity, Negatable):
     def __getitem__(self, coordinates):
         if coordinates[0] < 0 or coordinates[0] >= self.rowLength or \
            coordinates[1] < 0 or coordinates[1] >= self.columnLength:
-            raise Exception("Invalid indices")
+            raise IndexError("Invalid indices")
 
         return self.__table[coordinates[0] * self.columnLength + coordinates[1]]
 
     def __setitem__(self, coordinates, value):
         if coordinates[0] < 0 or coordinates[0] >= self.rowLength or \
            coordinates[1] < 0 or coordinates[1] >= self.columnLength:
-            raise Exception("Invalid indices")
+            raise IndexError("Invalid indices")
 
         self.__table[coordinates[0] * self.columnLength + coordinates[1]] = value
 

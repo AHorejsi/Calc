@@ -128,7 +128,7 @@ class Quaternion(MathEntity, Negatable):
     @staticmethod
     def __symbol(value, axis):
         if value == 0:
-            return ""
+            return "0"
         elif value < 0:
             return "-" + str(abs(value)) + axis
         else:

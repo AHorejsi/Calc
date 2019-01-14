@@ -1,7 +1,7 @@
 class Negatable:
     """
     This class should be extended by classes that extend the MathEntity
-    class. Instances of this class overload the negation operator.
+    class. Instances of this class overload the negation operator
     """
 
     def __neg__(self):
