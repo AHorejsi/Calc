@@ -55,7 +55,7 @@ class _VariableDictionary:
             nums = list(filter(lambda string: string != "", split("[+|-]|i|j|k", strValue)))
 
             return Quaternion(float(nums[0]), float(nums[1]), float(nums[2]), float(nums[3]))
-        elif fullmatch("<((-?\d*.?\d+)(e\d+)?,)*((-?\d*.?\d+)(e\d+)?)?>", strValue) is not None:
+        elif fullmatch("<((-?\d*.?\d+)(e\d+)?\s*,\s*)*((-?\d*.?\d+)(e\d+)?)?>", strValue) is not None:
             # Type is Vector
             nums = split(",", strValue[1 : len(strValue) - 1])
             listOfNums = []
