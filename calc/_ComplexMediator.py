@@ -138,6 +138,8 @@ def _equality(leftComplex, rightOperand):
     elif typeOfOperand is Quaternion:
         return _complexEqualsQuaternion(leftComplex, rightOperand)
 
+    return False
+
 
 def _complexEqualsReal(leftComplex, rightReal):
     return leftComplex.real == rightReal and leftComplex.imag0 == 0

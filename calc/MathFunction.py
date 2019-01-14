@@ -1,7 +1,6 @@
 import math
 import cmath
 from calc.Complex import Complex
-from calc.Quaternion import Quaternion
 
 
 E = math.e
@@ -23,8 +22,6 @@ def sqrt(operand):
         return math.sqrt(operand)
     elif typeOfOperand is Complex:
         return _sqrtComplex(operand)
-    elif typeOfOperand is Quaternion:
-        return _sqrtQuaternion(operand)
 
 
 def _sqrtComplex(complex):
@@ -39,10 +36,6 @@ def _sqrtComplex(complex):
                                         sign * math.sqrt(abs(complex) - complex.real))
 
 
-def _sqrtQuaternion(quaternion):
-
-
-
 def log(operand, base=E):
     typeOfOperand = type(operand)
 
@@ -50,14 +43,6 @@ def log(operand, base=E):
         return math.log(operand, base)
     elif typeOfOperand is Complex:
         return _logComplex(operand, base)
-    elif typeOfOperand is Quaternion:
-        return _logQuaternion(operand, base)
-
-
-def _logQuaternion(quaternion, base):
-    vectorPart = Quaternion(0, quaternion.imag0, quaternion.imag1, quaternion.imag2)
-
-    return math.log(abs(quaternion), base) * vectorPart.normalize() * acos(quaternion.real / abs(quaternion))
 
 
 def log10(operand):

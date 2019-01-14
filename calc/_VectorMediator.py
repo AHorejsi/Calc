@@ -92,6 +92,8 @@ def _equality(leftVector, rightOperand):
     if typeOfOperand is Vector:
         return _vectorEqualsVector(leftVector, rightOperand)
 
+    return False
+
 
 def _vectorEqualsVector(leftVector, rightVector):
     if not leftVector.equalDimensions(rightVector):

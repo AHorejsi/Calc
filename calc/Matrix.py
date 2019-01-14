@@ -180,11 +180,4 @@ class Matrix(MathEntity, Negatable):
         return _equality(self, mathEntity)
 
     def __str__(self):
-        strRep = ""
-        index = 0
-
-        while index < len(self.__table):
-            strRep += str(self.__table[index : index + self.columnLength]) + "\n"
-            index += self.columnLength
-
-        return strRep
+        return str(self.__table)

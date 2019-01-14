@@ -5,25 +5,72 @@ from math import sqrt, floor, ceil, sin, cos, log
 
 
 class Complex(MathEntity, Negatable, Exponentable):
+    """
+    Instances of this class represent complex numbers
+    """
+
     def __init__(self, real, imag0):
+        """
+        Constructs a complex number with the given real
+        and imaginary components
+
+        :param real: The real component of this complex number
+        :param imag0: The imaginary component of this complex number
+        """
         self.__real = real
         self.__imag0 = imag0
 
     @property
     def real(self):
+        """
+        Returns the real component of this complex number
+
+        :return: The real component of this complex number
+        """
+
         return self.__real
 
     @property
     def imag0(self):
+        """
+        Returns the imaginary component of this complex number
+
+        :return: The imaginary component of this complex number
+        """
+
         return self.__imag0
 
     def __add__(self, mathEntity):
+        """
+        Adds this complex number to another mathematical entity with
+        this complex number on the left side of the operator. Complex
+        numbers can be added to real numbers, complex numbers and
+        quaternions
+
+        :param mathEntity: The mathematical entity on the right side
+            of the operator
+        :return: The sum of this complex number and the given mathematical
+            entity
+        """
+
         from calc._ComplexMediator import _addition
 
         return _addition(self, mathEntity)
 
-    def __radd__(self, real):
-        return self + real
+    def __radd__(self, mathEntity):
+        """
+        Adds the complex number to another mathematical entity with
+        the complex number on the right side of the operator. Complex
+        numbers can be added to real numbers, complex numbers and
+        quaternions
+
+        :param mathEntity: The mathematical entity on the left side
+            of the operator
+        :return: The sum of the given mathematical entity and this
+            complex number
+        """
+
+        return self + mathEntity
 
     def __sub__(self, mathEntity):
         from calc._ComplexMediator import _subtraction
@@ -38,8 +85,8 @@ class Complex(MathEntity, Negatable, Exponentable):
 
         return _multiplication(self, mathEntity)
 
-    def __rmul__(self, real):
-        return self * real
+    def __rmul__(self, mathEntity):
+        return self * mathEntity
 
     def __truediv__(self, mathEntity):
         from calc._ComplexMediator import _division

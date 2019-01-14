@@ -1,4 +1,4 @@
-z
+from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Matrix import Matrix
 
@@ -161,6 +161,8 @@ def _equality(leftQuaternion, rightOperand):
         return _quaternionEqualsComplex(leftQuaternion, rightOperand)
     elif typeOfOperand is Quaternion:
         return _quaternionEqualsQuaternion(leftQuaternion, rightOperand)
+
+    return False
 
 
 def _quaternionEqualsReal(leftQuaternion, rightReal):

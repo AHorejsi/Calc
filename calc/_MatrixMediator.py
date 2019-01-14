@@ -123,6 +123,8 @@ def _equality(leftMatrix, rightOperand):
     if typeOfOperand is Matrix:
         return _matrixEqualsMatrix(leftMatrix, rightOperand)
 
+    return False
+
 
 def _matrixEqualsMatrix(leftMatrix, rightMatrix):
     if not leftMatrix.equalDimensions(rightMatrix):
