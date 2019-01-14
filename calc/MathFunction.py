@@ -16,24 +16,7 @@ def exp(operand):
 
 
 def sqrt(operand):
-    typeOfOperand = type(operand)
-
-    if (typeOfOperand is int) or (typeOfOperand is float):
-        return math.sqrt(operand)
-    elif typeOfOperand is Complex:
-        return _sqrtComplex(operand)
-
-
-def _sqrtComplex(complex):
-    if complex.imag0 < 0:
-        sign = -1
-    elif complex.imag0 > 0:
-        sign = 1
-    else:
-        sign = 0
-
-    return 0.5 * math.sqrt(2) * Complex(math.sqrt(abs(complex) + complex.real),
-                                        sign * math.sqrt(abs(complex) - complex.real))
+    return operand ** 0.5
 
 
 def log(operand, base=E):

@@ -1,2 +1,1 @@
 from eqnparse.EquationParsing import parseMath, parseBoolean
-from eqnparse.SingletonException import SingletonException
