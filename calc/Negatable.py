@@ -4,6 +4,15 @@ class Negatable:
     class. Instances of this class overload the negation operator
     """
 
+    def __pos__(self):
+        """
+        Returns a reference to this mathematical entity
+
+        :return: This mathematical entity
+        """
+
+        return self
+
     def __neg__(self):
         """
         Multiplies the given mathematical entity by -1 by default.
