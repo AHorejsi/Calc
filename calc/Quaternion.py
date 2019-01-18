@@ -215,6 +215,19 @@ class Quaternion(MathEntity, Negatable, Exponentable):
                           (-real * self.imag2) / absoluteValueOfRight)
 
     def __pow__(self, mathEntity, modulo=None):
+        """
+        Takes this quaternion to the power of the given mathematical
+        entity with this quaternion on the left side of the operator.
+        Quaternions can be taken to the power of real numbers
+
+        :param mathEntity: The mathematical entity on the left side
+            of the operator
+        :param modulo: The value that this quaternion will be modded
+                by after the exponent is applied
+        :return: The result of taking this quaternion to the power
+            of the given mathematical entity
+        """
+
         from calc._QuaternionMediator import _exponent
 
         return _exponent(self, mathEntity)

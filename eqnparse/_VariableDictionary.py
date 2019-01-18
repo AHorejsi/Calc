@@ -47,7 +47,7 @@ class _VariableDictionary:
         if fullmatch("(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i", strValue) is not None:
             # Type is Complex
 
-            nums = split("[+|-]|i", strValue)
+            nums = split("[\+\-i]", strValue)
 
             return Complex(float(nums[0]), float(nums[1]))
 
