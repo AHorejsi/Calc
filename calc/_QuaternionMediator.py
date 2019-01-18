@@ -1,6 +1,7 @@
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Matrix import Matrix
+from math import sin, cos, acos
 
 
 def _addition(leftQuaternion, rightOperand):
@@ -94,14 +95,14 @@ def _quaternionTimesComplex(leftQuaternion, rightComplex):
 
 
 def _quaternionTimesQuaternion(leftQuaternion, rightQuaternion):
-    return Quaternion(leftQuaternion.real * rightQuaternion.real - leftQuaternion.imag * rightQuaternion.imag -
+    return Quaternion(leftQuaternion.real * rightQuaternion.real - leftQuaternion.imag0 * rightQuaternion.imag0 -
                       leftQuaternion.imag1 * rightQuaternion.imag1 - leftQuaternion.imag2 * rightQuaternion.imag2,
-                      leftQuaternion.real * rightQuaternion.imag + leftQuaternion.imag * rightQuaternion.real -
+                      leftQuaternion.real * rightQuaternion.imag0 + leftQuaternion.imag0 * rightQuaternion.real -
                       leftQuaternion.imag1 * rightQuaternion.imag2 + leftQuaternion.imag2 * rightQuaternion.imag1,
-                      leftQuaternion.real * rightQuaternion.imag1 + leftQuaternion.imag * rightQuaternion.imag2 +
-                      leftQuaternion.imag1 * rightQuaternion.real - leftQuaternion.imag2 * rightQuaternion.imag,
-                      leftQuaternion.real * rightQuaternion.imag2 - leftQuaternion.imag * rightQuaternion.imag1 +
-                      leftQuaternion.imag1 * rightQuaternion.imag + leftQuaternion.imag2 * rightQuaternion.real)
+                      leftQuaternion.real * rightQuaternion.imag1 + leftQuaternion.imag0 * rightQuaternion.imag2 +
+                      leftQuaternion.imag1 * rightQuaternion.real - leftQuaternion.imag2 * rightQuaternion.imag0,
+                      leftQuaternion.real * rightQuaternion.imag2 - leftQuaternion.imag0 * rightQuaternion.imag1 +
+                      leftQuaternion.imag1 * rightQuaternion.imag0 + leftQuaternion.imag2 * rightQuaternion.real)
 
 
 def _quaternionTimesMatrix(leftQuaternion, rightMatrix):
@@ -150,6 +151,21 @@ def _quaternionDividedByQuaternion(leftQuaternion, rightQuaternion):
                       imagOfResult / absoluteValueOfLeft,
                       imag1OfResult / absoluteValueOfLeft,
                       imag2OfResult / absoluteValueOfLeft)
+
+
+def _exponent(leftQuaternion, rightOperand):
+    typeOfOperand = type(rightOperand)
+
+    if (typeOfOperand is int) or (typeOfOperand is float):
+        return _quaternionToPowerOfReal(leftQuaternion, rightOperand)
+
+
+def _quaternionToPowerOfReal(leftQuaternion, rightReal):
+    vectorPart = Quaternion(0, leftQuaternion.imag0, leftQuaternion.imag1, leftQuaternion.imag2)
+    unitVector = vectorPart / abs(vectorPart)
+    angle = acos(leftQuaternion.real / abs(leftQuaternion))
+
+    return (abs(leftQuaternion) ** rightReal) * (cos(rightReal * angle) + unitVector * sin(rightReal * angle))
 
 
 def _equality(leftQuaternion, rightOperand):

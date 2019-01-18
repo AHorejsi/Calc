@@ -395,7 +395,7 @@ class Complex(MathEntity, Negatable, Exponentable):
         """
 
         if value == 0:
-            return "0" + axis
+            return "+0" + axis
         elif value < 0:
             return "-" + str(abs(value)) + axis
         else:

@@ -100,7 +100,7 @@ def asin(operand):
 def _asinComplex(complex):
     imag = Complex(0, 1)
 
-    return -imag * _logComplex(imag * complex + _sqrtComplex(1 - (complex ** 2)), E)
+    return -imag * _logComplex(imag * complex + sqrt(1 - (complex ** 2)), E)
 
 
 def acos(operand):
@@ -115,7 +115,7 @@ def acos(operand):
 def _acosComplex(complex):
     imag = Complex(0, 1)
 
-    return -imag * _logComplex(complex + _sqrtComplex((complex ** 2) - 1), E)
+    return -imag * _logComplex(complex + sqrt((complex ** 2) - 1), E)
 
 
 def atan(operand):

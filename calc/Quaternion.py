@@ -1,9 +1,10 @@
 from calc.MathEntity import MathEntity
 from calc.Negatable import Negatable
+from calc.Exponentable import Exponentable
 from math import sqrt, floor, ceil
 
 
-class Quaternion(MathEntity, Negatable):
+class Quaternion(MathEntity, Negatable, Exponentable):
     """
     Instances of this class represent quaternions
     """
@@ -213,6 +214,11 @@ class Quaternion(MathEntity, Negatable):
                           (-real * self.imag1) / absoluteValueOfRight,
                           (-real * self.imag2) / absoluteValueOfRight)
 
+    def __pow__(self, mathEntity, modulo=None):
+        from calc._QuaternionMediator import _exponent
+
+        return _exponent(self, mathEntity)
+
     def __abs__(self):
         """
         Returns the absolute value of this quaternion
@@ -361,7 +367,7 @@ class Quaternion(MathEntity, Negatable):
         """
 
         if value == 0:
-            return "0" + axis
+            return "+0" + axis
         elif value < 0:
             return "-" + str(abs(value)) + axis
         else:

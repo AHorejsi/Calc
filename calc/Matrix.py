@@ -410,4 +410,22 @@ class Matrix(MathEntity, Negatable):
         :return: A string representation of this matrix
         """
 
-        return str(self.__table)
+        strRep = "["
+
+        for rowIndex in range(self.rowLength):
+            strRep += "["
+
+            for colIndex in range(self.columnLength):
+                strRep += str(self[rowIndex, colIndex])
+
+                if colIndex == self.columnLength - 1:
+                    strRep += "]"
+                else:
+                    strRep += ", "
+
+            if rowIndex == self.rowLength - 1:
+                strRep += "]"
+            else:
+                strRep += ", "
+
+        return strRep

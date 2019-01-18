@@ -37,26 +37,30 @@ class _VariableDictionary:
             name = parts[0]
             value = _VariableDictionary.__parseValue(parts[1])
 
-            self._permVars[name] = value
+            if value is not None:
+                self._permVars[name] = value
 
         file.close()
 
     @staticmethod
     def __parseValue(strValue):
-        if fullmatch("(-?\d*.?\d+)(e\d+)?[+|-](\d*.?\d+)(e\d+)?i", strValue) is not None:
+        if fullmatch("(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i", strValue) is not None:
             # Type is Complex
+
             nums = split("[+|-]|i", strValue)
 
             return Complex(float(nums[0]), float(nums[1]))
 
-        elif fullmatch("(-?\d*.?\d+)(e\d+)?[+|-](\d*.?\d+)(e\d+)?i[+|-](\d*.?\d+)(e\d+)?j[+|-](\d*.?\d+)(e\d+)?k",
+        elif fullmatch("(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i[+|-](\d+.?\d+)(e[-]?\d+)?j[+|-](\d+.?\d+)(e[-]?\d+)?k",
                        strValue) is not None:
             # Type is Quaternion
-            nums = list(filter(lambda string: string != "", split("[+|-]|i|j|k", strValue)))
+
+            nums = list(filter(lambda string: string != "", split("[\+\-ijk]", strValue)))
 
             return Quaternion(float(nums[0]), float(nums[1]), float(nums[2]), float(nums[3]))
-        elif fullmatch("<((-?\d*.?\d+)(e\d+)?\s*,\s*)*((-?\d*.?\d+)(e\d+)?)?>", strValue) is not None:
+        elif fullmatch("<((-?\d+.?\d+)(e[-]?\d+)?\s*,\s*)*((-?\d+.?\d+)(e[-]?\d+)?)?>", strValue) is not None:
             # Type is Vector
+
             nums = split(",", strValue[1 : len(strValue) - 1])
             listOfNums = []
 
@@ -65,8 +69,9 @@ class _VariableDictionary:
 
             return Vector(listOfNums)
 
-        else:
+        elif fullmatch("", strValue) is not None:
             # Type is Matrix
+
             rows = list(filter(lambda string: string != "", split("\[\[|\]\]|\],\[", strValue)))
             table = []
 
@@ -80,6 +85,8 @@ class _VariableDictionary:
                 table.append(newRow)
 
             return Matrix(table)
+
+        return None
 
     def savePermVars(self):
         file = _VariableDictionary.__findFile("w")
@@ -122,7 +129,7 @@ class _VariableDictionary:
         if permVar is not None:
             return permVar
 
-        # Search "Universal Var" dictionary
+        # Search "UniversalVar" dictionary
         universalVar = self.getUniversalVar(varName)
         if universalVar is not None:
             return universalVar
