@@ -234,6 +234,15 @@ class Complex(MathEntity, Negatable, Exponentable):
 
         return Complex(self.real, -self.imag0)
 
+    def normalize(self):
+        """
+        Returns the normalized value of this complex number
+
+        :return: The normalized value of this complex number
+        """
+
+        return self / abs(self)
+
     def __floor__(self):
         """
         Returns the result of rounding the real and

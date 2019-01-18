@@ -187,8 +187,8 @@ class Matrix(MathEntity, Negatable):
         """
         Multiplies this matrix by another mathematical entity with
         this matrix on the left side of the operator. Matrices can
-        be multiplied by real numbers, complex numbers, quaternions
-        and matrices
+        be multiplied by real numbers, complex numbers, quaternions,
+        vectors and matrices
 
         :param mathEntity: The mathematical entity on the right side
             of the operator
