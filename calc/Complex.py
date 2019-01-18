@@ -59,10 +59,11 @@ class Complex(MathEntity, Negatable, Exponentable):
 
     def __radd__(self, mathEntity):
         """
-        Adds the complex number to another mathematical entity with
+        Adds this complex number to another mathematical entity with
         the complex number on the right side of the operator. Complex
         numbers can be added to real numbers, complex numbers and
-        quaternions
+        quaternions. This method will only be called when the number on the
+        left side of the operator is an int or a float
 
         :param mathEntity: The mathematical entity on the left side
             of the operator
