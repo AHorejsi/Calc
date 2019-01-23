@@ -7,9 +7,6 @@ def parseMath(equation):
     pass
 
 
-def parseBoolean(equation):
-    pass
-
 def parseVariableValue(strValue):
     if fullmatch("(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i", strValue) is not None:
         # Type is Complex
@@ -35,7 +32,6 @@ def parseVariableValue(strValue):
             listOfNums.append(float(numStr))
 
         return Vector(listOfNums)
-
     elif fullmatch("", strValue) is not None:
         # Type is Matrix
 
@@ -52,5 +48,12 @@ def parseVariableValue(strValue):
             table.append(newRow)
 
         return Matrix(table)
+    elif fullmatch("([t|T][r|R][u|U][e|E])|([f|F][a|A][l|L][s|S][e|E])", strValue) is not None:
+        # Type is Bool
+
+        if fullmatch("[t|T][r|R][u|U][e|E]", strValue) is not None:
+            return True
+        else:
+            return False
 
     return None

@@ -1,1 +1,1 @@
-from eqnparse.EquationParsing import parseMath, parseBoolean
+from eqnparse.EquationParsing import parseMath
