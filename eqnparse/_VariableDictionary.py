@@ -1,9 +1,8 @@
 from os import mkdir, chdir, getcwd, path
 from calc.MathFunction import PI, E
 from itertools import chain
-from re import fullmatch, split
-from calc import Complex, Quaternion, Vector, Matrix
 from eqnparse.SingletonException import SingletonException
+from eqnparse.EquationParsing import parseVariableValue
 
 
 class _VariableDictionary:
@@ -35,58 +34,12 @@ class _VariableDictionary:
         for line in lines:
             parts = line.split(",")
             name = parts[0]
-            value = _VariableDictionary.__parseValue(parts[1])
+            value = parseVariableValue(parts[1])
 
             if value is not None:
                 self._permVars[name] = value
 
         file.close()
-
-    @staticmethod
-    def __parseValue(strValue):
-        if fullmatch("(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i", strValue) is not None:
-            # Type is Complex
-
-            nums = split("[\+\-i]", strValue)
-
-            return Complex(float(nums[0]), float(nums[1]))
-
-        elif fullmatch("(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i[+|-](\d+.?\d+)(e[-]?\d+)?j[+|-](\d+.?\d+)(e[-]?\d+)?k",
-                       strValue) is not None:
-            # Type is Quaternion
-
-            nums = list(filter(lambda string: string != "", split("[\+\-ijk]", strValue)))
-
-            return Quaternion(float(nums[0]), float(nums[1]), float(nums[2]), float(nums[3]))
-        elif fullmatch("<((-?\d+.?\d+)(e[-]?\d+)?\s*,\s*)*((-?\d+.?\d+)(e[-]?\d+)?)?>", strValue) is not None:
-            # Type is Vector
-
-            nums = split(",", strValue[1 : len(strValue) - 1])
-            listOfNums = []
-
-            for numStr in nums:
-                listOfNums.append(float(numStr))
-
-            return Vector(listOfNums)
-
-        elif fullmatch("", strValue) is not None:
-            # Type is Matrix
-
-            rows = list(filter(lambda string: string != "", split("\[\[|\]\]|\],\[", strValue)))
-            table = []
-
-            for row in rows:
-                newRow = []
-                listOfNums = split(",", row)
-
-                for numStr in listOfNums:
-                    newRow.append(float(numStr))
-
-                table.append(newRow)
-
-            return Matrix(table)
-
-        return None
 
     def savePermVars(self):
         file = _VariableDictionary.__findFile("w")
