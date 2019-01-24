@@ -2,7 +2,7 @@ from os import mkdir, chdir, getcwd, path
 from calc.MathFunction import PI, E
 from itertools import chain
 from eqnparse.SingletonException import SingletonException
-from eqnparse.EquationParsing import parseVariableValue
+from eqnparse.EquationParsing import _parseVariableValue
 
 
 class _VariableDictionary:
@@ -14,8 +14,8 @@ class _VariableDictionary:
             _VariableDictionary.__instance = self
 
             self.__universalVars = {"pi" : PI, "e" : E}
-            self._vars = {}
-            self._permVars = {}
+            self.__tempVars = {}
+            self.__permVars = {}
             self.__readPermVars()
         else:
             raise SingletonException("This is a singleton class")
@@ -34,10 +34,10 @@ class _VariableDictionary:
         for line in lines:
             parts = line.split(",")
             name = parts[0]
-            value = parseVariableValue(parts[1])
+            value = _parseVariableValue(parts[1])
 
             if value is not None:
-                self._permVars[name] = value
+                self.__permVars[name] = value
 
         file.close()
 
@@ -45,7 +45,7 @@ class _VariableDictionary:
         file = _VariableDictionary.__findFile("w")
         file.truncate(0)
 
-        for varName, varValue in self._permVars.items():
+        for varName, varValue in self.__permVars.items():
             varData = str(varName) + "," + str(varValue) + "\n"
             file.write(varData)
 
@@ -60,20 +60,20 @@ class _VariableDictionary:
             mkdir(path)
             chdir(path)
 
-        return open("CalcVars.txt", mode=modeInput)
+        return open(path + "CalcVars.txt", mode=modeInput)
 
-    def getVar(self, varName):
-        return self._vars.get(varName)
+    def getTempVar(self, varName):
+        return self.__tempVars.get(varName)
 
     def getPermVar(self, varName):
-        return self._permVars.get(varName)
+        return self.__permVars.get(varName)
 
     def getUniversalVar(self, varName):
         return self.__universalVars.get(varName)
 
     def __getitem__(self, varName):
         # Search "Var" dictionary
-        var = self.getVar(varName)
+        var = self.getTempVar(varName)
         if var is not None:
             return var
 
@@ -89,65 +89,65 @@ class _VariableDictionary:
 
         return None
 
-    def setVar(self, varName, varValue):
-        if varName in self._permVars:
+    def setTempVar(self, varName, varValue):
+        if varName in self.__permVars:
             raise KeyError("Variable named \"" + varName + "\" already exists in permanent variables")
         if varName in self.__universalVars:
             raise KeyError("Invalid variable name \"" + varName + "\"")
 
-        self._vars[varName] = varValue
+        self.__tempVars[varName] = varValue
 
     def setPermVar(self, varName, varValue):
-        if varName in self._vars:
+        if varName in self.__tempVars:
             raise KeyError("Variable names \"" + varName + "\" already exists in temporary variables")
         if varName in self.__universalVars:
             raise KeyError("Invalid variable name \"" + varName + "\"")
 
-        self._permVars[varName] = varValue
+        self.__permVars[varName] = varValue
 
-    def hasVar(self, varName):
-        return varName in self._vars
+    def hasTempVar(self, varName):
+        return varName in self.__tempVars
 
     def hasPermVar(self, varName):
-        return varName in self._permVars
+        return varName in self.__permVars
 
     def hasUniversalVar(self, varName):
         return varName in self.__universalVars
 
     def __contains__(self, varName):
-        return self.hasVar(varName) or self.hasPermVar(varName) or self.hasUniversalVar(varName)
+        return self.hasTempVar(varName) or self.hasPermVar(varName) or self.hasUniversalVar(varName)
 
     def removeVar(self, varName):
         try:
-            del self._vars[varName]
+            del self.__tempVars[varName]
         except KeyError:
             # Do nothing
             pass
 
     def removePermVar(self, varName):
         try:
-            del self._permVars[varName]
+            del self.__permVars[varName]
         except KeyError:
             # Do nothing
             pass
 
-    def iterVars(self):
-        return iter(self._vars)
+    def iterTempVars(self):
+        return iter(self.__tempVars)
 
     def iterPermVars(self):
-        return iter(self._permVars)
+        return iter(self.__permVars)
 
     def iterUniversalVars(self):
         return iter(self.__universalVars)
 
     def __iter__(self):
-        return chain(self.iterUniversalVars(), self.iterPermVars(), self.iterVars())
+        return chain(self.iterUniversalVars(), self.iterPermVars(), self.iterTempVars())
 
-    def clearVars(self):
-        self._vars.clear()
+    def clearTempVars(self):
+        self.__tempVars.clear()
 
     def clearPermVars(self):
-        self._permVars.clear()
+        self.__permVars.clear()
 
     def __eq__(self, other):
         return self is other

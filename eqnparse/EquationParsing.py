@@ -3,18 +3,19 @@ from re import fullmatch, split
 from calc import Complex, Quaternion, Vector, Matrix
 
 
-def parseMath(equation):
-    pass
+def parseMathEquation(equationString):
+    varDict = _VariableDictionary.instance()
 
 
-def parseVariableValue(strValue):
+def _parseVariableValue(strValue):
     if fullmatch("(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i", strValue) is not None:
         # Type is Complex
         strValue = strValue.replace("i", "j")
         builtInComplex = complex(strValue)
 
         return Complex.fromBuiltInComplex(builtInComplex)
-    elif fullmatch("(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i[+|-](\d+.?\d+)(e[-]?\d+)?j[+|-](\d+.?\d+)(e[-]?\d+)?k",
+    elif fullmatch(
+            "(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i[+|-](\d+.?\d+)(e[-]?\d+)?j[+|-](\d+.?\d+)(e[-]?\d+)?k",
             strValue) is not None:
         # Type is Quaternion
 
