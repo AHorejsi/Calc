@@ -10,6 +10,6 @@ from calc.MathFunction import pow, exp, sqrt, cbrt, log, log10, sin, cos, tan, a
                               asinh, acosh, atanh, sec, csc, cot, asec, acsc, acot, sech, csch, coth, asech, acsch, \
                               acoth, ceil, floor, PI, E
 
-x = Quaternion(9, 5, -2, 4)
+x = Complex(9, 5)
 y = Quaternion(7, 4.2, -8.636, 100)
 print(x ** y)

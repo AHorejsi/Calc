@@ -1,7 +1,8 @@
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Matrix import Matrix
-from math import sin, cos, atan, log, e
+from math import sin, cos, atan, e
+from calc.MathFunction import log, exp
 
 
 def _addition(leftComplex, rightOperand):
@@ -79,10 +80,10 @@ def _complexTimesComplex(leftComplex, rightComplex):
 
 
 def _complexTimesQuaternion(leftComplex, rightQuaternion):
-    return Quaternion(leftComplex.real * rightQuaternion.real - leftComplex.imag * rightQuaternion.imag,
-                      leftComplex.real * rightQuaternion.imag + rightQuaternion.real * leftComplex.imag,
-                      leftComplex.real * rightQuaternion.imag1 - leftComplex.imag * rightQuaternion.imag2,
-                      leftComplex.real * rightQuaternion.imag2 + leftComplex.imag * rightQuaternion.imag1)
+    return Quaternion(leftComplex.real * rightQuaternion.real - leftComplex.imag0 * rightQuaternion.imag0,
+                      leftComplex.real * rightQuaternion.imag0 + rightQuaternion.real * leftComplex.imag0,
+                      leftComplex.real * rightQuaternion.imag1 - leftComplex.imag0 * rightQuaternion.imag2,
+                      leftComplex.real * rightQuaternion.imag2 + leftComplex.imag0 * rightQuaternion.imag1)
 
 
 def _complexTimesMatrix(leftComplex, rightMatrix):
@@ -117,10 +118,10 @@ def _complexDividedByComplex(leftComplex, rightComplex):
 def _complexDividedByQuaternion(leftComplex, rightQuaternion):
     absoluteValueOfRight = abs(rightQuaternion)
 
-    realOfResult = leftComplex.real * rightQuaternion.real + leftComplex.imag * rightQuaternion.imag
-    imagOfResult = leftComplex.imag * rightQuaternion.real - leftComplex.real * rightQuaternion.imag
-    imag1OfResult = -leftComplex.real * rightQuaternion.imag1 - leftComplex.imag * rightQuaternion.imag2
-    imag2OfResult = leftComplex.imag * rightQuaternion.imag1 - leftComplex.real * rightQuaternion.imag2
+    realOfResult = leftComplex.real * rightQuaternion.real + leftComplex.imag0 * rightQuaternion.imag0
+    imagOfResult = leftComplex.imag0 * rightQuaternion.real - leftComplex.real * rightQuaternion.imag0
+    imag1OfResult = -leftComplex.real * rightQuaternion.imag1 - leftComplex.imag0 * rightQuaternion.imag2
+    imag2OfResult = leftComplex.imag0 * rightQuaternion.imag1 - leftComplex.real * rightQuaternion.imag2
 
     return Quaternion(realOfResult / absoluteValueOfRight,
                       imagOfResult / absoluteValueOfRight,
@@ -163,6 +164,8 @@ def _exponent(leftComplex, rightOperand):
         return _complexToPowerOfReal(leftComplex, rightOperand)
     elif typeOfOperand is Complex:
         return _complexToPowerOfComplex(leftComplex, rightOperand)
+    elif typeOfOperand is Quaternion:
+        return _complexToPowerOfQuaternion(leftComplex, rightOperand)
 
 
 def _complexArgument(complex):
@@ -188,3 +191,7 @@ def _complexToPowerOfComplex(leftComplex, rightComplex):
     value6 = sin(rightComplex.real * arg + 0.5 * rightComplex.imag0 * log(value1))
 
     return Complex(value4 * value5, value4 * value6)
+
+
+def _complexToPowerOfQuaternion(leftComplex, rightQuaternion):
+    return exp(log(leftComplex) * rightQuaternion)
