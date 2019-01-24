@@ -1,3 +1,6 @@
+from calc.MathFunction import exp, log
+
+
 class Exponentable:
     """
     Instances of this class are instances of MathEntity
@@ -21,7 +24,7 @@ class Exponentable:
             entity
         """
 
-        raise NotImplementedError("This method must be implemented")
+        return exp(log(self) * mathEntity)
 
     def __ipow__(self, mathEntity):
         """
@@ -56,4 +59,4 @@ class Exponentable:
             entity
         """
 
-        raise NotImplementedError("This method must be implemented")
+        return exp(log(mathEntity) * self)

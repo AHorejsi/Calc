@@ -1,7 +1,7 @@
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Matrix import Matrix
-from math import sin, cos, acos
+from calc.MathFunction import exp, log
 
 
 def _addition(leftQuaternion, rightOperand):
@@ -154,18 +154,7 @@ def _quaternionDividedByQuaternion(leftQuaternion, rightQuaternion):
 
 
 def _exponent(leftQuaternion, rightOperand):
-    typeOfOperand = type(rightOperand)
-
-    if (typeOfOperand is int) or (typeOfOperand is float):
-        return _quaternionToPowerOfReal(leftQuaternion, rightOperand)
-
-
-def _quaternionToPowerOfReal(leftQuaternion, rightReal):
-    vectorPart = Quaternion(0, leftQuaternion.imag0, leftQuaternion.imag1, leftQuaternion.imag2)
-    unitVector = vectorPart / abs(vectorPart)
-    angle = acos(leftQuaternion.real / abs(leftQuaternion))
-
-    return (abs(leftQuaternion) ** rightReal) * (cos(rightReal * angle) + unitVector * sin(rightReal * angle))
+    return exp(log(leftQuaternion) * rightOperand)
 
 
 def _equality(leftQuaternion, rightOperand):

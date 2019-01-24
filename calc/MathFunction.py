@@ -1,5 +1,5 @@
 import math
-import cmath
+from cmath import log as logOfComplex
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 
@@ -9,18 +9,89 @@ PI = math.pi
 
 
 def pow(leftOperand, rightOperand):
+    """
+    Computes the result of taking the left
+    parameter to the power of the right parameter
+
+    :param leftOperand: The operand that is the
+        base of this operation
+    :param rightOperand: The operand that is the
+        exponent of this operation
+    :return: The result of taking the left parameter
+        to the power of the right parameter
+    """
+
     return leftOperand ** rightOperand
 
 
 def exp(operand):
-    return E ** operand
+    """
+    Computes the value of (e ** operand)
+
+    :param operand: The value that e will be
+        taken to the power of
+    :return: The result of taking e to the power
+        of the given operand
+    """
+
+    typeOfOperand = type(operand)
+
+    if (typeOfOperand is int) or (typeOfOperand is float):
+        return E ** operand
+    elif typeOfOperand is Complex:
+        return _expComplex(operand)
+    elif typeOfOperand is Quaternion:
+        return _expQuaternion(operand)
+
+
+def _expComplex(complex):
+    return (E ** complex.real) * (math.cos(complex.imag0) + Complex(0, 1) * math.cos(complex.imag0))
+
+
+def _expQuaternion(quaternion):
+    vectorPart = Quaternion(0, quaternion.imag0, quaternion.imag1, quaternion.imag2)
+    magnitudeOfVectorPart = abs(vectorPart)
+
+    return (E ** quaternion.real) * (math.cos(magnitudeOfVectorPart) + vectorPart.normalize() * math.sin(magnitudeOfVectorPart))
 
 
 def sqrt(operand):
+    """
+    Computes the square root of the given operand
+
+    :param operand: The value whose square root
+        will be calculated
+    :return: The square root of the operand
+    """
+
     return operand ** 0.5
 
 
+def cbrt(operand):
+    """
+    Computes the cube root of the given operand
+
+    :param operand: The value whose cube root
+        will be calculated
+    :return: The cube root of the operand
+    """
+
+    return operand ** 0.3333333333333333
+
+
 def log(operand, base=E):
+    """
+    Computes the logarithm of the given operand
+    to the given base
+
+    :param operand: The operand that the log function
+        is being applied to
+    :param base: The base of the log function. By default,
+        this value is e
+    :return: The result of applying the log function with
+        the given base to the given operand
+    """
+
     typeOfOperand = type(operand)
 
     if (typeOfOperand is int) or (typeOfOperand is float):
@@ -32,19 +103,52 @@ def log(operand, base=E):
 
 
 def _logComplex(complex, base):
+    """
+    Computes the logarithm of a complex number
+    with the given base
+
+    :param complex: The complex number that the
+        log function will be applied to
+    :param base: The base of the log function
+    :return: The result of applying the log function
+        with the given base to the given complex
+        number
+    """
+
     com = Complex.toBuiltInComplex(complex)
-    result = cmath.log(com, base)
+    result = logOfComplex(com, base)
 
     return Complex.fromBuiltInComplex(result)
 
 
 def _logQuaternion(quaternion, base):
+    """
+    Computes the logarithm of the given quaternion
+    with the given base
+
+    :param quaternion: The quaternion that the log
+        function will be applied to
+    :param base: The base of the log function
+    :return: The result of applying the log function
+        with the given base to the given quaternion
+    """
+
     vectorPart = Quaternion(0, quaternion.imag0, quaternion.imag1, quaternion.imag2)
 
     return log(abs(quaternion), base) * (vectorPart / abs(vectorPart)) * acos(quaternion.real / abs(quaternion))
 
 
 def log10(operand):
+    """
+    Computes the logarithm of the given value
+    with a base of ten
+
+    :param operand: The value that the log
+        function will be applied to
+    :return: The result of applying the log function
+        with a base of ten to the given operand
+    """
+
     return log(operand, 10)
 
 

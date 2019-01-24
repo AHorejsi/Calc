@@ -1,7 +1,7 @@
 from calc.MathEntity import MathEntity
 from calc.Negatable import Negatable
 from calc.Exponentable import Exponentable
-from math import sqrt, floor, ceil
+from math import sqrt, log, floor, ceil
 
 
 class Quaternion(MathEntity, Negatable, Exponentable):
@@ -231,6 +231,25 @@ class Quaternion(MathEntity, Negatable, Exponentable):
         from calc._QuaternionMediator import _exponent
 
         return _exponent(self, mathEntity)
+
+    def __rpow__(self, real):
+        """
+        Takes the given mathematical entity to the power of this
+        quaternion with this quaternion on the right side of the
+        operator. Quaternions can be exponents of real numbers,
+        complex numbers and quaternions. This method
+        will only be called when the number on the left side of
+        the operator is an int or a float
+
+        :param real: The real number on the left side of the
+            operator
+        :return: The result of taking the given real number to
+            the power of this quaternion
+        """
+
+        from calc.MathFunction import exp
+
+        return exp(log(real) * self)
 
     def __abs__(self):
         """
