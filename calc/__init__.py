@@ -11,5 +11,5 @@ from calc.MathFunction import pow, exp, sqrt, cbrt, log, log10, sin, cos, tan, a
                               acoth, ceil, floor, PI, E
 
 x = Quaternion(9, 5, -2, 4)
-y = Complex(7, 4.2)
+y = Quaternion(7, 4.2, -8.636, 100)
 print(x ** y)

@@ -1,6 +1,3 @@
-from calc.MathFunction import exp, log
-
-
 class Exponentable:
     """
     Instances of this class are instances of MathEntity
@@ -23,6 +20,8 @@ class Exponentable:
             entity to the power of this another mathematical
             entity
         """
+
+        from calc.MathFunction import exp, log
 
         return exp(log(self) * mathEntity)
 
@@ -58,5 +57,7 @@ class Exponentable:
             entity to the power of this this mathematical
             entity
         """
+
+        from calc.MathFunction import exp, log
 
         return exp(log(mathEntity) * self)
