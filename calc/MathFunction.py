@@ -6,6 +6,9 @@ from calc.Quaternion import Quaternion
 
 E = math.e
 PI = math.pi
+POSITIVE_INFINITY = math.inf
+NEGATIVE_INFINITY = -math.inf
+NOT_A_NUMBER = math.nan
 
 
 def pow(leftOperand, rightOperand):
@@ -45,10 +48,32 @@ def exp(operand):
 
 
 def _expComplex(complex):
+    """
+    Computes the exponential function of the
+    given complex number
+
+    :param complex: The complex number which
+        will have the exponential function
+        applied to it
+    :return: The result of applying the exponential
+        function to the given complex number
+    """
+
     return (E ** complex.real) * (math.cos(complex.imag0) + Complex(0, 1) * math.cos(complex.imag0))
 
 
 def _expQuaternion(quaternion):
+    """
+    Computes the exponential function of the
+    given quaternion
+
+    :param quaternion: The quaternion which
+        will have the exponential function
+        applied to it
+    :return: The result of applying the exponential
+        function to the given quaternion
+    """
+
     vectorPart = Quaternion(0, quaternion.imag0, quaternion.imag1, quaternion.imag2)
     magnitudeOfVectorPart = abs(vectorPart)
 
@@ -153,6 +178,16 @@ def log10(operand):
 
 
 def sin(operand):
+    """
+    Computes the result of applying the sine
+    function to the given operand
+
+    :param operand: The value that will have
+        the sine function applied to it
+    :return: The result of applying the sine
+        function to the given operand
+    """
+
     typeOfOperand = type(operand)
 
     if (typeOfOperand is int) or (typeOfOperand is float):
@@ -162,6 +197,16 @@ def sin(operand):
 
 
 def _sinComplex(complex):
+    """
+    Computes the result of applying the sine
+    function to a complex number
+
+    :param complex: The complex number to have
+        the sine function to it
+    :return: The result of applying the sine
+        function to the given complex number
+    """
+
     return Complex(math.sin(complex.real) * math.cosh(complex.imag0), math.cos(complex.real) * math.sinh(complex.imag0))
 
 

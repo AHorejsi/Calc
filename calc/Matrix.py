@@ -1,6 +1,6 @@
 from calc.MathEntity import MathEntity
 from calc.Negatable import Negatable
-from scipy.linalg import inv, det
+from scipy.linalg import inv
 from math import floor, ceil
 
 
@@ -13,6 +13,18 @@ class Matrix(MathEntity, Negatable):
     """
 
     def __init__(self, table, rowLength=None, columnLength=None):
+        """
+        Constructs a matrix based on the 2D list of real numbers,
+        complex numbers and quaternions
+
+        :param table: The table of values to be represented as a
+            mathematical matrix
+        :param rowLength: The number of rows for this matrix. Should
+            only be filled if the table that was input is 1D
+        :param columnLength: The number of columns for this matrix. Should
+            only be filled if the table that was input is 1D
+        """
+
         if (rowLength is None) and (columnLength is None):
             self.__table = []
             self.__rowLength = len(table)
@@ -237,19 +249,33 @@ class Matrix(MathEntity, Negatable):
         """
 
         if not self.isSquare:
-            raise ArithmeticError("Only square Matrices have determinants")
+            raise ArithmeticError("Only square matrices have determinants")
 
-        table = []
+        return Matrix.__determinant(self.__table, self.rowLength)
 
-        for rowIndex in range(self.rowLength):
-            newRow = []
+    @staticmethod
+    def __determinant(table, size):
+        if size == 1:
+            return table[0]
+        elif size == 2:
+            return table[0] * table[3] - table[2] * table[1]
+        else:
+            det = 0.0
 
-            for colIndex in range(self.columnLength):
-                newRow.append(self[rowIndex, colIndex])
+            for column in range(size):
+                subtable = []
+                rowIndex = 1
 
-            table.append(newRow)
+                while rowIndex < size:
+                    for columnIndex in range(size):
+                        if columnIndex != column:
+                            subtable.append(table[rowIndex * size + columnIndex])
 
-        return det(table, check_finite=False)
+                    rowIndex += 1
+
+                det += ((-1) ** column) * table[column] * Matrix.__determinant(subtable, size - 1)
+
+            return det
 
     def inverse(self):
         """
