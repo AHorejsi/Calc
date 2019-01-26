@@ -238,6 +238,19 @@ class Matrix(MathEntity, Negatable):
     def __contains__(self, searchValue):
         return searchValue in self.__table
 
+    @staticmethod
+    def identity(size):
+        table = []
+
+        for rowIndex in range(size):
+            for columnIndex in range(size):
+                if rowIndex == columnIndex:
+                    table.append(1)
+                else:
+                    table.append(0)
+
+        return Matrix(table, size, size)
+
     @property
     def determinant(self):
         """
@@ -255,6 +268,17 @@ class Matrix(MathEntity, Negatable):
 
     @staticmethod
     def __determinant(table, size):
+        """
+        Computes the determinant of the matrix represented
+        by the given table
+
+        :param table: The matrix whose determinant is to be
+            computed
+        :param size: The number of rows in the table
+        :return: The determinant of the matrix represented
+            by the table
+        """
+
         if size == 1:
             return table[0]
         elif size == 2:
@@ -262,16 +286,17 @@ class Matrix(MathEntity, Negatable):
         else:
             det = 0.0
 
+            # Move through the first row of this matrix
+            # Ignore values in the current column
             for column in range(size):
                 subtable = []
-                rowIndex = 1
 
-                while rowIndex < size:
+                for rowIndex in range(1, size):  # Start with 1 to ignore first row
                     for columnIndex in range(size):
+
+                        # Ignore the value that is in the column being ignore
                         if columnIndex != column:
                             subtable.append(table[rowIndex * size + columnIndex])
-
-                    rowIndex += 1
 
                 det += ((-1) ** column) * table[column] * Matrix.__determinant(subtable, size - 1)
 
@@ -407,10 +432,10 @@ class Matrix(MathEntity, Negatable):
         """
 
         hashCode = 0
-        modifier = 31
+        MODIFIER = 31
 
         for value in self:
-            hashCode += modifier * hash(value)
+            hashCode += MODIFIER * hash(value)
 
         return hashCode
 

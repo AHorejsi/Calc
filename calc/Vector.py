@@ -345,10 +345,10 @@ class Vector(MathEntity, Negatable):
         """
 
         hashCode = 0
-        modifier = 31
+        MODIFIER = 31
 
         for value in self:
-            hashCode += modifier * hash(value)
+            hashCode += MODIFIER * hash(value)
 
         return hashCode
 

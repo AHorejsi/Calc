@@ -323,6 +323,17 @@ class Complex(MathEntity, Negatable, Exponentable):
 
         return complex(customComplex.real, customComplex.imag0)
 
+    def __complex__(self):
+        """
+        Converts a variable of type Complex to a variable
+        of type complex
+
+        :return: A variable of type complex that is mathematically
+            equal to the input
+        """
+
+        return Complex.toBuiltInComplex(self)
+
     def __iter__(self):
         """
         Returns an iterator over the real and imaginary components
@@ -341,13 +352,9 @@ class Complex(MathEntity, Negatable, Exponentable):
         :return: A hash code for this complex number
         """
 
-        modifier = 31
-        hashCode = 0
+        MODIFIER = 31
 
-        hashCode += modifier * hash(self.real)
-        hashCode += modifier * hash(self.imag0)
-
-        return hashCode
+        return MODIFIER * hash(self.real) + MODIFIER * hash(self.imag0)
 
     def __eq__(self, mathEntity):
         """

@@ -344,12 +344,12 @@ class Quaternion(MathEntity, Negatable, Exponentable):
         :return: A hash code for this quaternion
         """
 
-        modifier = 31
+        MODIFIER = 31
 
-        return modifier * hash(self.real) + \
-               modifier * hash(self.imag0) + \
-               modifier * hash(self.imag1) + \
-               modifier * hash(self.imag2)
+        return MODIFIER * hash(self.real) + \
+               MODIFIER * hash(self.imag0) + \
+               MODIFIER * hash(self.imag1) + \
+               MODIFIER * hash(self.imag2)
 
     def __eq__(self, mathEntity):
         """
