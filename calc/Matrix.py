@@ -1,7 +1,7 @@
 from calc.MathEntity import MathEntity
 from calc.Negatable import Negatable
-from scipy.linalg import inv
 from math import floor, ceil
+from copy import copy, deepcopy
 
 
 class Matrix(MathEntity, Negatable):
@@ -236,10 +236,28 @@ class Matrix(MathEntity, Negatable):
         return _division(self, mathEntity)
 
     def __contains__(self, searchValue):
+        """
+        Checks if this matrix contains a certain value
+
+        :param searchValue: The value to be searched
+            for
+        :return: True if this matrix contains the
+            given value, False otherwise
+        """
+
         return searchValue in self.__table
 
     @staticmethod
     def identity(size):
+        """
+        Returns aa square identity matrix of the
+        given size
+
+        :param size: The number of rows and columns
+            that the generated matrix will have
+        :return: A square identity matrix
+        """
+
         table = []
 
         for rowIndex in range(size):
@@ -252,6 +270,15 @@ class Matrix(MathEntity, Negatable):
         return Matrix(table, size, size)
 
     def conjugate(self):
+        """
+        Returns a matrix with all of the values
+        that have conjugates as conjugates
+
+        :return: A copy of this matrix with all
+            of the value swapped with their conjugates,
+            if they have one
+        """
+
         newTable = []
 
         for value in self:
@@ -323,17 +350,25 @@ class Matrix(MathEntity, Negatable):
         if not self.isSquare:
             raise ArithmeticError("Only square Matrices have inverses")
 
-        table = []
+        tempMatrix = deepcopy(self)
+        newMatrix = Matrix.identity(self.rowLength)
 
-        for rowIndex in range(self.rowLength):
-            newRow = []
+        for index1 in range(tempMatrix.rowLength):
+            divisor = tempMatrix[(index1, index1)]
 
-            for colIndex in range(self.columnLength):
-                newRow.append(self[rowIndex, colIndex])
+            for index2 in range(tempMatrix.columnLength):
+                tempMatrix[(index1, index2)] /= divisor
+                newMatrix[(index1, index2)] /= divisor
 
-            table.append(newRow)
+            for index2 in range(tempMatrix.rowLength):
+                if tempMatrix[(index1, index2)] != 1:
+                    coefficient = tempMatrix[(index2, index1)]
 
-        return Matrix(inv(table, check_finite=False).tolist())
+                    for index3 in range(tempMatrix.columnLength):
+                        tempMatrix[(index2, index3)] -= coefficient * tempMatrix[(index1, index3)]
+                        newMatrix[(index2, index3)] -= coefficient * newMatrix[(index1, index3)]
+
+        return newMatrix
 
     def transpose(self):
         """
@@ -346,7 +381,7 @@ class Matrix(MathEntity, Negatable):
 
         for colIndex in range(self.rowLength):
             for rowIndex in range(self.columnLength):
-                table.append(self[rowIndex, colIndex])
+                table.append(self[(rowIndex, colIndex)])
 
         return Matrix(table, self.rowLength, self.columnLength)
 
@@ -433,6 +468,25 @@ class Matrix(MathEntity, Negatable):
 
         return iter(self.__table)
 
+    def __copy__(self):
+        """
+        Creates a shallow copy of this matrix
+
+        :return: A shallow copy of this matrix
+        """
+
+        return Matrix(self.__table, self.rowLength, self.columnLength)
+
+    def __deepcopy__(self, memodict={}):
+        """
+        Creates a deep copy of this matrix
+
+        :param memodict: N/A
+        :return: A deep copy of this matrix
+        """
+
+        return Matrix(copy(self.__table), self.rowLength, self.columnLength)
+
     def __hash__(self):
         """
         Computes a hash code for this matrix
@@ -486,6 +540,6 @@ class Matrix(MathEntity, Negatable):
             if rowIndex == self.rowLength - 1:
                 strRep += "]"
             else:
-                strRep += ", "
+                strRep += "\n"
 
-        return strRep
+        return strRep + "\n\n"

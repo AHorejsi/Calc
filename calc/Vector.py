@@ -337,6 +337,25 @@ class Vector(MathEntity, Negatable):
 
         return iter(self.__point)
 
+    def __copy__(self):
+        """
+        Creates a shallow copy of this vector
+
+        :return: A shallow copy of this vector
+        """
+
+        return Vector(self.__point)
+
+    def __deepcopy__(self, memodict={}):
+        """
+        Creates a deep copy of this vector
+
+        :param memodict: N/A
+        :return: A deep copy of this vector
+        """
+
+        return Vector(copy(self.__point))
+
     def __hash__(self):
         """
         Computes a hash code for this vector
