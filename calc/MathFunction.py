@@ -128,3 +128,11 @@ def acsch(mathEntity):
 
 def acoth(mathEntity):
     return 1 / atanh(mathEntity)
+
+
+def ceil(mathEntity):
+    return math.ceil(mathEntity)
+
+
+def floor(mathEntity):
+    return math.floor(mathEntity)
