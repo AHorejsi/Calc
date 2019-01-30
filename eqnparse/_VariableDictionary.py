@@ -1,7 +1,6 @@
 from os import mkdir, chdir, getcwd, path
-from calc.MathFunction import PI, E
+from calc.MathFunction import PI, E, IMAG_0, IMAG_1, IMAG_2, POSITIVE_INFINITY, NEGATIVE_INFINITY
 from itertools import chain
-from eqnparse.SingletonException import SingletonException
 from eqnparse.EquationParsing import _parseVariableValue
 
 
@@ -13,12 +12,18 @@ class _VariableDictionary:
         if _VariableDictionary.__instance is None:
             _VariableDictionary.__instance = self
 
-            self.__universalVars = {"pi" : PI, "e" : E}
+            self.__universalVars = {"pi" : PI,
+                                    "e" : E,
+                                    "i" : IMAG_0,
+                                    "j" : IMAG_1,
+                                    "k" : IMAG_2,
+                                    "pos_infinity" : POSITIVE_INFINITY,
+                                    "neg_infinity" : NEGATIVE_INFINITY}
             self.__tempVars = {}
             self.__permVars = {}
             self.__readPermVars()
         else:
-            raise SingletonException("This is a singleton class")
+            raise Exception("This is a singleton class")
 
     @staticmethod
     def instance():
@@ -72,7 +77,7 @@ class _VariableDictionary:
         return self.__universalVars.get(varName)
 
     def __getitem__(self, varName):
-        # Search "Var" dictionary
+        # Search "TempVar" dictionary
         var = self.getTempVar(varName)
         if var is not None:
             return var
@@ -117,7 +122,7 @@ class _VariableDictionary:
     def __contains__(self, varName):
         return self.hasTempVar(varName) or self.hasPermVar(varName) or self.hasUniversalVar(varName)
 
-    def removeVar(self, varName):
+    def removeTempVar(self, varName):
         try:
             del self.__tempVars[varName]
         except KeyError:

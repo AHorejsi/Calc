@@ -251,6 +251,15 @@ class Matrix(MathEntity, Negatable):
 
         return Matrix(table, size, size)
 
+    def conjugate(self):
+        newTable = []
+
+        for value in self:
+            if hasattr(value, "conjugate"):
+                newTable.append(value.conjugate())
+
+        return Matrix(newTable, self.rowLength, self.columnLength)
+
     @property
     def determinant(self):
         """

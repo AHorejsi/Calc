@@ -10,6 +10,7 @@ def parseMathEquation(equationString):
 def _parseVariableValue(strValue):
     if fullmatch("(-?\d+.?\d+)(e[-]?\d+)?[+|-](\d+.?\d+)(e[-]?\d+)?i", strValue) is not None:
         # Type is Complex
+
         strValue = strValue.replace("i", "j")
         builtInComplex = complex(strValue)
 
@@ -19,14 +20,14 @@ def _parseVariableValue(strValue):
             strValue) is not None:
         # Type is Quaternion
 
-        nums = split("[ijk]", str)
+        nums = split("[ijk]", strValue)
         com = complex(nums[0] + "j")
 
         return Quaternion(com.real, com.imag, float(nums[1]), float(nums[2]))
     elif fullmatch("<((-?\d+.?\d+)(e[-]?\d+)?\s*,\s*)*((-?\d+.?\d+)(e[-]?\d+)?)?>", strValue) is not None:
         # Type is Vector
 
-        nums = split(",", strValue[1: len(strValue) - 1])
+        nums = split(",", strValue[1 : len(strValue) - 1])
         listOfNums = []
 
         for numStr in nums:

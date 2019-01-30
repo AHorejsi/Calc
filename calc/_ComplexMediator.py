@@ -5,6 +5,22 @@ from math import sin, cos, atan, e
 from calc.MathFunction import log, exp
 
 
+def _typeName(type):
+    typeStr = str(type)
+    index = len(typeStr) - 1
+
+    while index >= 0:
+        if typeStr[index] == '.':
+            start = index
+        if typeStr[index] == '\'':
+            end = index
+            break
+
+        index -= 1
+
+    return typeStr[start : end]
+
+
 def _addition(leftComplex, rightOperand):
     typeOfOperand = type(rightOperand)
 
@@ -14,6 +30,8 @@ def _addition(leftComplex, rightOperand):
         return _complexPlusComplex(leftComplex, rightOperand)
     elif typeOfOperand is Quaternion:
         return _complexPlusQuaternion(leftComplex, rightOperand)
+
+    raise ArithmeticError("(Complex + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _complexPlusReal(leftComplex, rightReal):
@@ -40,6 +58,8 @@ def _subtraction(leftComplex, rightOperand):
         return _complexMinusComplex(leftComplex, rightOperand)
     elif typeOfOperand is Quaternion:
         return _complexMinusQuaternion(leftComplex, rightOperand)
+
+    raise ArithmeticError("(Complex - " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _complexMinusReal(leftComplex, rightReal):
@@ -68,6 +88,8 @@ def _multiplication(leftComplex, rightOperand):
         return _complexTimesQuaternion(leftComplex, rightOperand)
     elif typeOfOperand is Matrix:
         return _complexTimesMatrix(leftComplex, rightOperand)
+
+    raise ArithmeticError("(Complex * " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _complexTimesReal(leftComplex, rightReal):
@@ -101,6 +123,8 @@ def _division(leftComplex, rightOperand):
         return _complexDividedByComplex(leftComplex, rightOperand)
     elif typeOfOperand is Quaternion:
         return _complexDividedByQuaternion(leftComplex, rightOperand)
+
+    raise ArithmeticError("(Complex / " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _complexDividedByReal(leftComplex, rightReal):
@@ -166,6 +190,8 @@ def _exponent(leftComplex, rightOperand):
         return _complexToPowerOfComplex(leftComplex, rightOperand)
     elif typeOfOperand is Quaternion:
         return _complexToPowerOfQuaternion(leftComplex, rightOperand)
+
+    raise ArithmeticError("(Complex ^ " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _complexArgument(complex):

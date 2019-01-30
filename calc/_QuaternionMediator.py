@@ -4,6 +4,22 @@ from calc.Matrix import Matrix
 from calc.MathFunction import exp, log
 
 
+def _typeName(type):
+    typeStr = str(type)
+    index = len(typeStr) - 1
+
+    while index >= 0:
+        if typeStr[index] == '.':
+            start = index
+        if typeStr[index] == '\'':
+            end = index
+            break
+
+        index -= 1
+
+    return typeStr[start : end]
+
+
 def _addition(leftQuaternion, rightOperand):
     typeOfOperand = type(rightOperand)
 
@@ -13,6 +29,8 @@ def _addition(leftQuaternion, rightOperand):
         return _quaternionPlusComplex(leftQuaternion, rightOperand)
     elif typeOfOperand is Quaternion:
         return _quaternionPlusQuaternion(leftQuaternion, rightOperand)
+
+    raise ArithmeticError("(Quaternion + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _quaternionPlusReal(leftQuaternion, rightReal):
@@ -44,6 +62,8 @@ def _subtraction(leftQuaternion, rightOperand):
         return _quaternionMinusComplex(leftQuaternion, rightOperand)
     elif typeOfOperand is Quaternion:
         return _quaternionMinusQuaternion(leftQuaternion, rightOperand)
+
+    raise ArithmeticError("(Quaternion + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _quaternionMinusReal(leftQuaternion, rightReal):
@@ -78,6 +98,8 @@ def _multiplication(leftQuaternion, rightOperand):
         return _quaternionTimesQuaternion(leftQuaternion, rightOperand)
     elif typeOfOperand is Matrix:
         return _quaternionTimesMatrix(leftQuaternion, rightOperand)
+
+    raise ArithmeticError("(Quaternion + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _quaternionTimesReal(leftQuaternion, rightReal):
@@ -121,6 +143,8 @@ def _division(leftQuaternion, rightOperand):
     elif typeOfOperand is Quaternion:
         return _quaternionDividedByQuaternion(leftQuaternion, rightOperand)
 
+    raise ArithmeticError("(Quaternion + " + _typeName(typeOfOperand) + ") is not possible")
+
 
 def _quaternionDividedByReal(leftQuaternion, rightReal):
     return _quaternionTimesReal(leftQuaternion, 1 / rightReal)
@@ -154,7 +178,12 @@ def _quaternionDividedByQuaternion(leftQuaternion, rightQuaternion):
 
 
 def _exponent(leftQuaternion, rightOperand):
-    return exp(log(leftQuaternion) * rightOperand)
+    typeOfOperand = type(rightOperand)
+
+    if (typeOfOperand is int) or (typeOfOperand is float) or (typeOfOperand is Complex) or (typeOfOperand is Quaternion):
+        return exp(log(leftQuaternion) * rightOperand)
+
+    raise ArithmeticError("(Quaternion + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _equality(leftQuaternion, rightOperand):

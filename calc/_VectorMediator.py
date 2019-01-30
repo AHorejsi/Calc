@@ -2,11 +2,29 @@ from calc.Vector import Vector
 from calc.Matrix import Matrix
 
 
+def _typeName(type):
+    typeStr = str(type)
+    index = len(typeStr) - 1
+
+    while index >= 0:
+        if typeStr[index] == '.':
+            start = index
+        if typeStr[index] == '\'':
+            end = index
+            break
+
+        index -= 1
+
+    return typeStr[start : end]
+
+
 def _addition(leftVector, rightOperand):
     typeOfOperand = type(rightOperand)
 
     if typeOfOperand is Vector:
         return _vectorPlusVector(leftVector, rightOperand)
+
+    raise ArithmeticError("(Vector + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _vectorPlusVector(leftVector, rightVector):
@@ -26,6 +44,8 @@ def _subtraction(leftVector, rightOperand):
 
     if typeOfOperand is Vector:
         return _vectorMinusVector(leftVector, rightOperand)
+
+    raise ArithmeticError("(Vector + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _vectorMinusVector(leftVector, rightVector):
@@ -47,6 +67,8 @@ def _multiplication(leftVector, rightOperand):
         return _vectorTimesReal(leftVector, rightOperand)
     elif typeOfOperand is Matrix:
         return _vectorTimesMatrix(leftVector, rightOperand)
+
+    raise ArithmeticError("(Vector + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _vectorTimesReal(leftVector, rightReal):
@@ -80,6 +102,8 @@ def _division(leftVector, rightOperand):
 
     if (typeOfOperand is int) or (typeOfOperand is float):
         return _vectorDividedByReal(leftVector, rightOperand)
+
+    raise ArithmeticError("(Vector + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _vectorDividedByReal(leftVector, rightReal):

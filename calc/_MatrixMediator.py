@@ -4,11 +4,29 @@ from calc.Vector import Vector
 from calc.Matrix import Matrix
 
 
+def _typeName(type):
+    typeStr = str(type)
+    index = len(typeStr) - 1
+
+    while index >= 0:
+        if typeStr[index] == '.':
+            start = index
+        if typeStr[index] == '\'':
+            end = index
+            break
+
+        index -= 1
+
+    return typeStr[start : end]
+
+
 def _addition(leftMatrix, rightOperand):
     typeOfOperand = type(rightOperand)
 
     if typeOfOperand is Matrix:
         return _matrixPlusMatrix(leftMatrix, rightOperand)
+
+    raise ArithmeticError("(Matrix + " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _matrixPlusMatrix(leftMatrix, rightMatrix):
@@ -25,6 +43,8 @@ def _subtraction(leftMatrix, rightOperand):
 
     if typeOfOperand is Matrix:
         return _matrixMinusMatrix(leftMatrix, rightOperand)
+
+    raise ArithmeticError("(Matrix - " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _matrixMinusMatrix(leftMatrix, rightMatrix):
@@ -45,6 +65,8 @@ def _multiplication(leftMatrix, rightOperand):
         return _matrixTimesVector(leftMatrix, rightOperand)
     elif typeOfOperand is Matrix:
         return _matrixTimesMatrix(leftMatrix, rightOperand)
+
+    raise ArithmeticError("(Matrix * " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _matrixTimesScalar(leftMatrix, rightScalar):
@@ -107,6 +129,8 @@ def _division(leftMatrix, rightOperand):
         return _matrixDividedByScalar(leftMatrix, rightOperand)
     elif typeOfOperand is Matrix:
         return _matrixDividedByMatrix(leftMatrix, rightOperand)
+
+    raise ArithmeticError("(Matrix / " + _typeName(typeOfOperand) + ") is not possible")
 
 
 def _matrixDividedByScalar(leftMatrix, rightScalar):

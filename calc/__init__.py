@@ -5,6 +5,9 @@ from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Vector import Vector
 from calc.Matrix import Matrix
-from calc.MathFunction import pow, exp, sqrt, cbrt, log, log10, sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, \
-                              asinh, acosh, atanh, sec, csc, cot, asec, acsc, acot, sech, csch, coth, asech, acsch, \
-                              acoth, ceil, floor, PI, E, POSITIVE_INFINITY, NEGATIVE_INFINITY, NOT_A_NUMBER
+from calc.ComplexFunction import expComplex, logComplex, log10Complex, sqrtComplex, sinComplex, cosComplex, \
+                                 tanComplex, sinhComplex, coshComplex, tanhComplex, asinComplex, acosComplex, \
+                                 atanComplex, asinhComplex, acoshComplex, atanhComplex, ceilComplex, floorComplex, \
+                                 signumComplex
+from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, ceilQuaternion, \
+                                    floorQuaternion
