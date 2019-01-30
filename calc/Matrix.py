@@ -1,10 +1,11 @@
 from calc.MathEntity import MathEntity
 from calc.Negatable import Negatable
+from calc.Exponentable import Exponentable
 from math import floor, ceil
 from copy import copy, deepcopy
 
 
-class Matrix(MathEntity, Negatable):
+class Matrix(MathEntity, Negatable, Exponentable):
     """
     Instances of this class represent mathematical
     matrices. Matrices are containers of real numbers,
@@ -234,6 +235,11 @@ class Matrix(MathEntity, Negatable):
         from calc._MatrixMediator import _division
 
         return _division(self, mathEntity)
+
+    def __pow__(self, mathEntity, modulo=None):
+        from calc._MatrixMediator import _exponent
+
+        return _exponent(self, mathEntity)
 
     def __contains__(self, searchValue):
         """

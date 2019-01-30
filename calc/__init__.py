@@ -11,3 +11,5 @@ from calc.ComplexFunction import expComplex, logComplex, log10Complex, sqrtCompl
                                  signumComplex
 from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, ceilQuaternion, \
                                     floorQuaternion
+from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
+                                coshMatrix, tanhMatrix

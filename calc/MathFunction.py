@@ -19,7 +19,7 @@ def signum(mathEntity):
 
 
 def sqrt(mathEntity):
-    pass
+    return mathEntity ** 0.5
 
 
 def exp(mathEntity):
@@ -31,7 +31,7 @@ def log(mathEntity, base=E):
 
 
 def log10(mathEntity):
-    pass
+    return log(mathEntity, 10)
 
 
 def sin(mathEntity):

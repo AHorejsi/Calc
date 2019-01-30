@@ -2,6 +2,8 @@ from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Vector import Vector
 from calc.Matrix import Matrix
+from calc.MatrixFunction import expMatrix, logMatrix
+from copy import deepcopy
 
 
 def _typeName(type):
@@ -139,6 +141,46 @@ def _matrixDividedByScalar(leftMatrix, rightScalar):
 
 def _matrixDividedByMatrix(leftMatrix, rightMatrix):
     return leftMatrix * rightMatrix.inverse()
+
+
+def _exponent(leftMatrix, rightOperand):
+    typeOfOperand = type(rightOperand)
+
+    if typeOfOperand is int:
+        return _matrixToPowerOfInt(leftMatrix, rightOperand)
+    elif (typeOfOperand is float) or (typeOfOperand is Complex) or (typeOfOperand is Quaternion):
+        return _matrixToPowerOfFloat(leftMatrix, rightOperand)
+    elif typeOfOperand is Matrix:
+        return _matrixToPowerOfMatrix(leftMatrix, rightOperand)
+
+
+def _matrixToPowerOfInt(leftMatrix, rightInt):
+    newMatrix = deepcopy(leftMatrix)
+
+    for iteration in range(rightInt - 1):
+        newMatrix *= leftMatrix
+
+    return newMatrix
+
+
+def _matrixToPowerOfFloat(leftMatrix, rightFloat):
+    if rightFloat.is_integer():
+        return _matrixToPowerOfInt(rightFloat)
+    else:
+        return expMatrix(logMatrix(leftMatrix) * rightFloat)
+
+
+def _matrixToPowerOfMatrix(leftMatrix, rightMatrix):
+    result = expMatrix(logMatrix(leftMatrix) * rightMatrix)
+    newTable = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        for columnIndex in range(leftMatrix.columnLength):
+            if type(result[(rowIndex, columnIndex)]) is complex:
+                com = Complex.fromBuiltInComplex(result[(rowIndex, columnIndex)])
+                newTable.append(com)
+
+    return Matrix(newTable, leftMatrix.rowLength, leftMatrix.columnLength)
 
 
 def _equality(leftMatrix, rightOperand):
