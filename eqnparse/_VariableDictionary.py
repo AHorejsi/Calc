@@ -37,7 +37,7 @@ class _VariableDictionary:
         lines = file.readlines(path.getsize(_VariableDictionary.__filePath + "Calc/CalcVars.txt"))
 
         for line in lines:
-            parts = line.split(",")
+            parts = line.split(":")
             name = parts[0]
             value = _parseVariableValue(parts[1])
 
@@ -51,7 +51,7 @@ class _VariableDictionary:
         file.truncate(0)
 
         for varName, varValue in self.__permVars.items():
-            varData = str(varName) + "," + str(varValue) + "\n"
+            varData = str(varName) + ":" + str(varValue) + "\n"
             file.write(varData)
 
         file.close()

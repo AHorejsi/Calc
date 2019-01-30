@@ -1,10 +1,15 @@
 from math import ceil, floor
 from itertools import chain
-from calc.MathFunction import *
+from os import mkdir, chdir, getcwd, path
+from eqnparse.EquationParsing import _parseVariableValue
+from calc.MathFunction import ceil, floor, exp, log, signum, sqrt, sin, cos, tan, sinh, cosh, tanh, asin, acos, atan, \
+                              asinh, acosh, atanh, sec, csc, cot, sech, csch, coth, asec, acsc, acot, asech, acsch, \
+                              acoth
 
 
 class _FunctionDictionary:
     __instance = None
+    __filePath = "C:/Users/Public/Public Documents"
 
     def __init__(self):
         if _FunctionDictionary.__instance is None:
@@ -64,6 +69,7 @@ class _FunctionDictionary:
                                      "conj" : lambda entity: entity.conjugate()}
             self.__tempFuncs = {}
             self.__permFuncs = {}
+            self.__readPermFuncs()
         else:
             raise Exception("This is a singleton class")
 
@@ -73,6 +79,41 @@ class _FunctionDictionary:
             return _FunctionDictionary()
         else:
             return _FunctionDictionary.__instance
+
+    def __readPermFuncs(self):
+        file = _FunctionDictionary.__findFile("r")
+        lines = file.readlines(path.getsize(_FunctionDictionary.__filePath + "Calc/CalcVars.txt"))
+
+        for line in lines:
+            parts = line.split(":")
+            name = parts[0]
+            value = _parseVariableValue(parts[1])
+
+            if value is not None:
+                self.__permFuncs[name] = value
+
+        file.close()
+
+    def savePermFuncs(self):
+        file = _FunctionDictionary.__findFile("w")
+        file.truncate(0)
+
+        for varName, varValue in self.__permFuncs.items():
+            varData = str(varName) + ":" + str(varValue) + "\n"
+            file.write(varData)
+
+        file.close()
+
+    @staticmethod
+    def __findFile(modeInput):
+        path = _FunctionDictionary.__filePath + "Calc"
+        chdir(path)
+
+        if getcwd() != path:
+            mkdir(path)
+            chdir(path)
+
+        return open(path + "CalcVars.txt", mode=modeInput)
 
     def getUniversalFunc(self, funcName):
         return self.__universalFuncs.get(funcName)
@@ -150,3 +191,4 @@ class _FunctionDictionary:
 
     def __ne__(self, other):
         return self is not other
+
