@@ -15,10 +15,7 @@ class Negatable:
 
     def __neg__(self):
         """
-        Multiplies the given mathematical entity by -1 by default.
-        Therefore, the multiplication operator must be overloaded
-        for this method to work. Override this method if that
-        behavior does not negate a given kind of mathematical entity
+        Negates this mathematical entity
 
         :return: The negation of this mathematical entity
         """
