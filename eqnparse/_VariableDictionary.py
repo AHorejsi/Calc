@@ -1,5 +1,5 @@
 from os import mkdir, chdir, getcwd, path
-from calc.MathFunction import PI, E, IMAG_0, IMAG_1, IMAG_2, POSITIVE_INFINITY, NEGATIVE_INFINITY
+from calc.MathConstant import PI, EULER, IMAG_0, IMAG_1, IMAG_2, POSITIVE_INFINITY, NEGATIVE_INFINITY
 from itertools import chain
 from eqnparse.EquationParsing import _parseVariableValue
 
@@ -13,7 +13,7 @@ class _VariableDictionary:
             _VariableDictionary.__instance = self
 
             self.__universalVars = {"pi" : PI,
-                                    "e" : E,
+                                    "e" : EULER,
                                     "i" : IMAG_0,
                                     "j" : IMAG_1,
                                     "k" : IMAG_2,
