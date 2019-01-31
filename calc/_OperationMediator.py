@@ -226,9 +226,9 @@ def doNegation(mathEntity):
 
 
 def doExponentiation(mathEntity1, mathEntity2):
-    from calc.MathFunction import exp, log
+    from calc.MathFunction import expMath, logMath
 
-    return exp(log(mathEntity1) * mathEntity2)
+    return expMath(logMath(mathEntity1) * mathEntity2)
 
 
 def doEquality(mathEntity1, mathEntity2):
