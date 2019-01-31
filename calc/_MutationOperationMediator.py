@@ -18,9 +18,5 @@ def doFloorDivision(mathEntity1, mathEntity2):
     pass
 
 
-def doNegation(mathEntity):
-    pass
-
-
 def doExponentiation(mathEntity1, mathEntity2):
     pass

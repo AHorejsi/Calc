@@ -269,7 +269,10 @@ class MathEntity:
             entity
         """
 
-        return self ** mathEntity
+        from calc._MutationOperationMediator import doExponentiation
+        doExponentiation(self, mathEntity)
+
+        return self
 
     def __rpow__(self, mathEntity):
         """
