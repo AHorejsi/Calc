@@ -173,7 +173,7 @@ class Matrix(MathEntity):
     @staticmethod
     def identity(size):
         """
-        Returns aa square identity matrix of the
+        Returns a square identity matrix of the
         given size
 
         :param size: The number of rows and columns
