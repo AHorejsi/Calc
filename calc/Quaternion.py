@@ -74,28 +74,6 @@ class Quaternion(MathEntity, Negatable, Exponentable):
 
         return self.__imag2
 
-    def __rtruediv__(self, real):
-        """
-        Divides another mathematical entity by this quaternion
-        with this quaternion on the right side of the operator.
-        Real numbers, complex numbers, quaternions and matrices
-        can have quaternions divided from them. This method
-        will only be called when the number on the left side of
-        the operator is an int or a float
-
-        :param real: The mathematical entity on the left side
-            of the operator
-        :return: The quotient of the given mathematical entity
-            and this quaternion
-        """
-
-        absoluteValueOfRight = abs(self)
-
-        return Quaternion((real * self.real) / absoluteValueOfRight,
-                          (-real * self.imag0) / absoluteValueOfRight,
-                          (-real * self.imag1) / absoluteValueOfRight,
-                          (-real * self.imag2) / absoluteValueOfRight)
-
     def __abs__(self):
         """
         Returns the absolute value of this quaternion
