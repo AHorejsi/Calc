@@ -85,7 +85,7 @@ class Vector(MathEntity):
 
         dotProduct = 0.0
 
-        for leftValue, rightValue in zip(self, vector):
+        for (leftValue, rightValue) in zip(self, vector):
             dotProduct += leftValue * rightValue
 
         return dotProduct
@@ -166,7 +166,7 @@ class Vector(MathEntity):
 
         distance = 0.0
 
-        for leftValue, rightValue in zip(self, vector):
+        for (leftValue, rightValue) in zip(self, vector):
             distance += (leftValue - rightValue) ** 2
 
         distance = sqrt(distance)
