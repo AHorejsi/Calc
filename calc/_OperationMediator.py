@@ -1,4 +1,5 @@
 from math import e, nan, sin, cos, atan, log, floor
+from copy import deepcopy
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Vector import Vector
@@ -68,6 +69,50 @@ def __vectorTimesMatrix(leftVector, rightMatrix):
         table.append(value)
 
     return Matrix(table, 1, rightMatrix.columnLength)
+
+
+def __matrixTimesVector(leftMatrix, rightVector):
+    if leftMatrix.rowLength != len(rightVector):
+        raise ArithmeticError("The Matrix must have the same row length as the Vector's dimensions")
+
+    table = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        value = 0.0
+
+        for colIndex in range(leftMatrix.columnLength):
+            value += leftMatrix[rowIndex, colIndex] * rightVector[colIndex]
+
+        table.append(value)
+
+    return Matrix(table, leftMatrix.rowLength, 1)
+
+
+def __matrixTimesMatrix(leftMatrix, rightMatrix):
+    if not leftMatrix.multipliable(rightMatrix):
+        raise ArithmeticError("Left Matrix must have the same amount of columns and the right Matrix has rows")
+
+    table = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        newRow = []
+
+        for colIndex in range(rightMatrix.columnLength):
+            value = __calculateValue(leftMatrix, rightMatrix, rowIndex, colIndex)
+            newRow.append(value)
+
+        table.extend(newRow)
+
+    return Matrix(table, leftMatrix.rowLength, rightMatrix.columnLength)
+
+
+def __calculateValue(leftMatrix, rightMatrix, rowIndex, colIndex):
+    value = 0.0
+
+    for index in range(leftMatrix.rowLength):
+        value += leftMatrix[rowIndex, index] * rightMatrix[index, colIndex]
+
+    return value
 
 
 def __realDividedByComplex(leftReal, rightComplex):
@@ -161,6 +206,35 @@ def __complexToPowerOfComplex(leftComplex, rightComplex):
     value6 = sin(rightComplex.real * arg + 0.5 * rightComplex.imag0 * log(value1))
 
     return Complex(value4 * value5, value4 * value6)
+
+
+def __matrixToPowerOfInt(leftMatrix, rightInt):
+    newMatrix = deepcopy(leftMatrix)
+
+    for iteration in range(rightInt - 1):
+        newMatrix *= leftMatrix
+
+    return newMatrix
+
+
+def __matrixToPowerOfFloat(leftMatrix, rightFloat):
+    if rightFloat.is_integer():
+        return __matrixToPowerOfInt(rightFloat)
+    else:
+        return __generalExponent(leftMatrix, rightFloat)
+
+
+def __matrixToPowerOfMatrix(leftMatrix, rightMatrix):
+    result = __generalExponent(leftMatrix, rightMatrix)
+    newTable = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        for columnIndex in range(leftMatrix.columnLength):
+            if type(result[(rowIndex, columnIndex)]) is complex:
+                com = Complex.fromBuiltInComplex(result[(rowIndex, columnIndex)])
+                newTable.append(com)
+
+    return Matrix(newTable, leftMatrix.rowLength, leftMatrix.columnLength)
 
 
 def __generalExponent(leftEntity, rightEntity):
@@ -350,7 +424,16 @@ divDict = {(int, int): lambda leftInt, rightInt: leftInt / rightInt,
                                                                               leftQuaternion.imag1 / rightFloat,
                                                                               leftQuaternion.imag2 / rightFloat),
            (Quaternion, Complex): __quaternionDividedByComplex,
-           (Quaternion, Quaternion): __quaternionDividedByQuaternion}
+           (Quaternion, Quaternion): __quaternionDividedByQuaternion,
+           (Vector, int): lambda leftVector, rightInt: Vector([value / rightInt for value in leftVector]),
+           (Vector, float): lambda leftVector, rightFloat: Vector([value / rightFloat for value in leftVector]),
+           (Matrix, int): lambda leftMatrix, rightInt: Matrix([value / rightInt for value in leftMatrix],
+                                                              leftMatrix.rowLength,
+                                                              leftMatrix.columnLength),
+           (Matrix, float): lambda leftMatrix, rightFloat: Matrix([value / rightFloat for value in leftMatrix],
+                                                                  leftMatrix.rowLength,
+                                                                  leftMatrix.columnLength),
+           (Matrix, Matrix): lambda leftMatrix, rightMatrix: leftMatrix * rightMatrix.inverse()}
 
 negDict = {int: lambda int: -int,
            float: lambda float: -float,
@@ -378,11 +461,11 @@ expDict = {(int, int): lambda leftInt, rightInt: leftInt ** rightInt,
            (Quaternion, float): __generalExponent,
            (Quaternion, Complex): __generalExponent,
            (Quaternion, Quaternion): __generalExponent,
-           (Matrix, int): __generalExponent,
-           (Matrix, float): __generalExponent,
+           (Matrix, int): __matrixToPowerOfInt,
+           (Matrix, float): __matrixToPowerOfFloat,
            (Matrix, Complex): __generalExponent,
            (Matrix, Quaternion): __generalExponent,
-           (Matrix, Matrix): __generalExponent}
+           (Matrix, Matrix): __matrixToPowerOfMatrix}
 
 eqDict = {(int, int): lambda leftInt, rightInt: leftInt == rightInt,
           (int, float): lambda leftInt, rightFloat: leftInt == rightFloat,
