@@ -15,7 +15,3 @@ from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cos
                                 coshMatrix, tanhMatrix, signumMatrix, floorMatrix, ceilMatrix
 from calc.MathFunction import expMath, logMath, log10Math, sqrtMath, sinMath, cosMath, tanMath, floorMath, ceilMath
 from calc.MathConstant import PI, E, POSITIVE_INFINITY, NEGATIVE_INFINITY, NOT_A_NUMBER, IMAG_0, IMAG_1, IMAG_2
-
-x = Complex(5.112, 7.89)
-y = 9.043
-print(x ** x)

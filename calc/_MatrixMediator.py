@@ -6,58 +6,6 @@ from calc.MatrixFunction import expMatrix, logMatrix
 from copy import deepcopy
 
 
-def _typeName(type):
-    typeStr = str(type)
-    index = len(typeStr) - 1
-
-    while index >= 0:
-        if typeStr[index] == '.':
-            start = index
-        if typeStr[index] == '\'':
-            end = index
-            break
-
-        index -= 1
-
-    return typeStr[start : end]
-
-
-def _addition(leftMatrix, rightOperand):
-    typeOfOperand = type(rightOperand)
-
-    if typeOfOperand is Matrix:
-        return _matrixPlusMatrix(leftMatrix, rightOperand)
-
-    raise ArithmeticError("(Matrix + " + _typeName(typeOfOperand) + ") is not possible")
-
-
-def _matrixPlusMatrix(leftMatrix, rightMatrix):
-    table = []
-
-    for leftValue, rightValue in zip(leftMatrix, rightMatrix):
-        table.append(leftValue + rightValue)
-
-    return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
-
-
-def _subtraction(leftMatrix, rightOperand):
-    typeOfOperand = type(rightOperand)
-
-    if typeOfOperand is Matrix:
-        return _matrixMinusMatrix(leftMatrix, rightOperand)
-
-    raise ArithmeticError("(Matrix - " + _typeName(typeOfOperand) + ") is not possible")
-
-
-def _matrixMinusMatrix(leftMatrix, rightMatrix):
-    table = []
-
-    for leftValue, rightValue in zip(leftMatrix, rightMatrix):
-        table.append(leftValue - rightValue)
-
-    return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
-
-
 def _multiplication(leftMatrix, rightOperand):
     typeOfOperand = type(rightOperand)
 

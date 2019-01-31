@@ -53,6 +53,23 @@ def __matrixMinusMatrix(leftMatrix, rightMatrix):
     return Matrix(table, leftMatrix.rowLength, leftMatrix.columnLength)
 
 
+def __vectorTimesMatrix(leftVector, rightMatrix):
+    if len(leftVector) != rightMatrix.columnLength:
+        raise ArithmeticError("Dimensions of the Vector must be the same as the column length of the Matrix")
+
+    table = []
+
+    for colIndex in range(rightMatrix.columnLength):
+        value = 0.0
+
+        for rowIndex in range(rightMatrix.rowLength):
+            value += rightMatrix[rowIndex, colIndex] * leftVector[rowIndex]
+
+        table.append(value)
+
+    return Matrix(table, 1, rightMatrix.columnLength)
+
+
 def __realDividedByComplex(leftReal, rightComplex):
     conj = rightComplex.conjugate()
 
@@ -88,6 +105,33 @@ def __complexDividedByQuaternion(leftComplex, rightQuaternion):
                       imagOfResult / absoluteValueOfRight,
                       imag1OfResult / absoluteValueOfRight,
                       imag2OfResult / absoluteValueOfRight)
+
+
+def __quaternionDividedByComplex(leftQuaternion, rightComplex):
+    conjugateOfRightComplex = rightComplex.conjugate()
+    numerator = leftQuaternion * conjugateOfRightComplex
+    denominator = rightComplex * conjugateOfRightComplex
+    result = numerator / denominator.real
+
+    return result
+
+
+def __quaternionDividedByQuaternion(leftQuaternion, rightQuaternion):
+    absoluteValueOfLeft = abs(rightQuaternion)
+
+    realOfResult = leftQuaternion.real * rightQuaternion.real + leftQuaternion.imag * rightQuaternion.imag + \
+                   leftQuaternion.imag1 * rightQuaternion.imag1 + leftQuaternion.imag2 * rightQuaternion.imag2
+    imagOfResult = leftQuaternion.real * rightQuaternion.imag - leftQuaternion.imag * rightQuaternion.real - \
+                   leftQuaternion.imag1 * rightQuaternion.imag2 + leftQuaternion.imag2 * rightQuaternion.imag1
+    imag1OfResult = leftQuaternion.real * rightQuaternion.imag1 + leftQuaternion.imag * rightQuaternion.imag2 - \
+                    leftQuaternion.imag1 * rightQuaternion.real - leftQuaternion.imag2 * rightQuaternion.imag
+    imag2OfResult = leftQuaternion.real * rightQuaternion.imag2 - leftQuaternion.imag * rightQuaternion.imag1 + \
+                    leftQuaternion.imag1 * rightQuaternion.imag - leftQuaternion.imag2 * rightQuaternion.real
+
+    return Quaternion(realOfResult / absoluteValueOfLeft,
+                      imagOfResult / absoluteValueOfLeft,
+                      imag1OfResult / absoluteValueOfLeft,
+                      imag2OfResult / absoluteValueOfLeft)
 
 
 def __realToPowerOfComplex(leftReal, rightComplex):
@@ -278,7 +322,10 @@ multDict = {(int, int): lambda leftInt, rightInt: leftInt * rightInt,
                       leftQuaternion.imag1 * rightQuaternion.imag0 + leftQuaternion.imag2 * rightQuaternion.real),
             (Quaternion, Matrix): lambda leftQuaternion, rightMatrix: Matrix([leftQuaternion * value for value in rightMatrix],
                                                                              rightMatrix.rowLength,
-                                                                             rightMatrix.columnLength)}
+                                                                             rightMatrix.columnLength),
+            (Vector, int): lambda leftVector, rightInt: Vector([rightInt * value for value in leftVector]),
+            (Vector, float): lambda leftVector, rightFloat: Vector([rightFloat * value for value in leftVector]),
+            (Vector, Matrix): __vectorTimesMatrix}
 
 divDict = {(int, int): lambda leftInt, rightInt: leftInt / rightInt,
            (int, float): lambda leftInt, rightFloat: leftInt / rightFloat,
@@ -293,7 +340,17 @@ divDict = {(int, int): lambda leftInt, rightInt: leftInt / rightInt,
            (Complex, float): lambda leftComplex, rightInt: Complex(leftComplex.real / rightInt,
                                                                    leftComplex.imag0 / rightInt),
            (Complex, Complex): __complexDividedByComplex,
-           (Complex, Quaternion): __complexDividedByQuaternion}
+           (Complex, Quaternion): __complexDividedByQuaternion,
+           (Quaternion, int): lambda leftQuaternion, rightInt: Quaternion(leftQuaternion.real / rightInt,
+                                                                          leftQuaternion.imag0 / rightInt,
+                                                                          leftQuaternion.imag1 / rightInt,
+                                                                          leftQuaternion.imag2 / rightInt),
+           (Quaternion, float): lambda leftQuaternion, rightFloat: Quaternion(leftQuaternion.real / rightFloat,
+                                                                              leftQuaternion.imag0 / rightFloat,
+                                                                              leftQuaternion.imag1 / rightFloat,
+                                                                              leftQuaternion.imag2 / rightFloat),
+           (Quaternion, Complex): __quaternionDividedByComplex,
+           (Quaternion, Quaternion): __quaternionDividedByQuaternion}
 
 negDict = {int: lambda int: -int,
            float: lambda float: -float,
@@ -307,10 +364,12 @@ expDict = {(int, int): lambda leftInt, rightInt: leftInt ** rightInt,
            (int, float): lambda leftInt, rightFloat: leftInt ** rightFloat,
            (int, Complex): __realToPowerOfComplex,
            (int, Quaternion): __generalExponent,
+           (int, Matrix): __generalExponent,
            (float, int): lambda leftFloat, rightInt: leftFloat ** rightInt,
            (float, float): lambda leftFloat, rightFloat: leftFloat ** rightFloat,
            (float, Complex): __realToPowerOfComplex,
            (float, Quaternion): __generalExponent,
+           (float, Matrix): __generalExponent,
            (Complex, int): __complexToPowerOfReal,
            (Complex, float): __complexToPowerOfReal,
            (Complex, Complex): __complexToPowerOfComplex,
