@@ -59,26 +59,6 @@ class Complex(MathEntity, Negatable, Exponentable):
 
         return Complex(numerator.real / denominator, numerator.imag0 / denominator)
 
-    def __rpow__(self, real):
-        """
-        Takes another mathematical entity to the power of this
-        complex numbers with this complex number on the right
-        side of the operator. Complex numbers can be the exponent
-        of real numbers, complex numbers and quaternions. This method
-        will only be called when the mathematical entity on the left side
-        of the operator is an int or a float
-
-        :param real: The real number on the left side of the operator
-        :return: The result of taking the given real number to the
-            power of this complex number
-        """
-
-        value1 = (real ** 2) ** (self.real / 2)
-        value2 = cos(log(real))
-        value3 = sin(log(real))
-
-        return Complex(value1 * value2, value1 * value3)
-
     def __abs__(self):
         """
         Computes the absolute value of this complex number
