@@ -1,4 +1,3 @@
-from math import nan, floor
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Vector import Vector
@@ -8,10 +7,6 @@ from calc.Matrix import Matrix
 """
 Named functions
 """
-
-
-def __generalPlus(leftEntity, rightEntity):
-    return leftEntity + rightEntity
 
 
 def __entityPlusReal(leftEntity, rightReal):
@@ -47,10 +42,6 @@ def __matrixPlusMatrix(leftMatrix, rightMatrix):
             leftMatrix[(rowIndex, columnIndex)] += rightMatrix[(rowIndex, columnIndex)]
 
 
-def __generalMinus(leftEntity, rightEntity):
-    return leftEntity - rightEntity
-
-
 def __entityMinusReal(leftEntity, rightReal):
     leftEntity._real -= rightReal
 
@@ -84,6 +75,52 @@ def __matrixMinusMatrix(leftMatrix, rightMatrix):
             leftMatrix[(rowIndex, columnIndex)] -= rightMatrix[(rowIndex, columnIndex)]
 
 
+def __complexTimesReal(leftComplex, rightReal):
+    leftComplex._real *= rightReal
+    leftComplex._imag0 *= rightReal
+
+
+def __complexTimesComplex(leftComplex, rightComplex):
+    leftComplex._real = leftComplex.real * rightComplex.real - leftComplex.imag0 * rightComplex.imag0
+    leftComplex._imag0 = leftComplex.real * rightComplex.imag0 + leftComplex.imag0 * rightComplex.real
+
+
+def __quaternionTimesReal(leftQuaternion, rightReal):
+    leftQuaternion._real *= rightReal
+    leftQuaternion._imag0 *= rightReal
+    leftQuaternion._imag1 *= rightReal
+    leftQuaternion._imag2 *= rightReal
+
+
+def __quaternionTimesComplex(leftQuaternion, rightComplex):
+    leftQuaternion._real = leftQuaternion.real * rightComplex.real - leftQuaternion.imag0 * rightComplex.imag0
+    leftQuaternion._imag0 = leftQuaternion.real * rightComplex.imag0 + leftQuaternion.imag0 * rightComplex.real
+    leftQuaternion._imag1 = leftQuaternion.imag1 * rightComplex.real + leftQuaternion.imag2 * rightComplex.imag0
+    leftQuaternion._imag2 = -leftQuaternion.imag1 * rightComplex.imag0 + leftQuaternion.imag2 * rightComplex.real
+
+
+def __quaternionTimesQuaternion(leftQuaternion, rightQuaternion):
+    leftQuaternion._real = leftQuaternion.real * rightQuaternion.real - leftQuaternion.imag0 * rightQuaternion.imag0 - \
+                           leftQuaternion.imag1 * rightQuaternion.imag1 - leftQuaternion.imag2 * rightQuaternion.imag2
+    leftQuaternion._imag0 = leftQuaternion.real * rightQuaternion.imag0 + leftQuaternion.imag0 * rightQuaternion.real - \
+                            leftQuaternion.imag1 * rightQuaternion.imag2 + leftQuaternion.imag2 * rightQuaternion.imag1
+    leftQuaternion._imag1 = leftQuaternion.real * rightQuaternion.imag1 + leftQuaternion.imag0 * rightQuaternion.imag2 + \
+                            leftQuaternion.imag1 * rightQuaternion.real - leftQuaternion.imag2 * rightQuaternion.imag0
+    leftQuaternion._imag2 = leftQuaternion.real * rightQuaternion.imag2 - leftQuaternion.imag0 * rightQuaternion.imag1 + \
+                            leftQuaternion.imag1 * rightQuaternion.imag0 + leftQuaternion.imag2 * rightQuaternion.real
+
+
+def __vectorTimesReal(leftVector, rightReal):
+    for index in range(len(leftVector)):
+        leftVector[index] *= rightReal
+
+
+def __matrixTimesScalar(leftMatrix, rightScalar):
+    for rowIndex in range(leftMatrix.rowLength):
+        for columnIndex in range(leftMatrix.columnLength):
+            leftMatrix[(rowIndex, columnIndex)] *= rightScalar
+
+
 """
 Operation dictionaries
 """
@@ -92,7 +129,6 @@ Operation dictionaries
 addDict = {(Complex, int): __entityPlusReal,
            (Complex, float): __entityPlusReal,
            (Complex, Complex): __entityPlusComplex,
-           (Complex, Quaternion): __generalPlus,
            (Quaternion, int): __entityPlusReal,
            (Quaternion, float): __entityPlusReal,
            (Quaternion, Complex): __entityPlusComplex,
@@ -103,7 +139,6 @@ addDict = {(Complex, int): __entityPlusReal,
 subtDict = {(Complex, int): __entityMinusReal,
             (Complex, float): __entityMinusReal,
             (Complex, Complex): __entityMinusComplex,
-            (Complex, Quaternion): __generalPlus,
             (Quaternion, int): __entityMinusReal,
             (Quaternion, float): __entityMinusReal,
             (Quaternion, Complex): __entityMinusComplex,
@@ -111,7 +146,21 @@ subtDict = {(Complex, int): __entityMinusReal,
             (Vector, Vector): __vectorMinusVector,
             (Matrix, Matrix): __matrixMinusMatrix}
 
-multDict = {}
+multDict = {(Complex, int): __complexTimesReal,
+            (Complex, float): __complexTimesReal,
+            (Complex, Complex): __complexTimesComplex,
+            (Complex, Matrix): lambda leftComplex, rightMatrix: __matrixTimesScalar(rightMatrix, leftComplex),
+            (Quaternion, int): __quaternionTimesReal,
+            (Quaternion, float): __quaternionTimesReal,
+            (Quaternion, Complex): __quaternionTimesComplex,
+            (Quaternion, Quaternion): __quaternionTimesQuaternion,
+            (Quaternion, Matrix): lambda leftComplex, rightMatrix: __matrixTimesScalar(rightMatrix, leftComplex),
+            (Vector, int): __vectorTimesReal,
+            (Vector, float): __vectorTimesReal,
+            (Matrix, int): __matrixTimesScalar,
+            (Matrix, float): __matrixTimesScalar,
+            (Matrix, Complex): __matrixTimesScalar,
+            (Matrix, Quaternion): __matrixTimesScalar}
 
 divDict = {}
 
@@ -120,7 +169,10 @@ floorDivDict = {}
 expDict = {}
 
 mutationOperations = {(Complex, "+", Quaternion),
-                      (Complex, "-", Quaternion)}
+                      (Complex, "-", Quaternion),
+                      (Complex, "*", Quaternion),
+                      (Complex, "*", Matrix),
+                      (Quaternion, "*", Matrix)}
 
 
 """

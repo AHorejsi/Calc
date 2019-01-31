@@ -52,7 +52,7 @@ def tanComplex(complex):
 
 
 def asinComplex(complex):
-    return -IMAG_0 * logComplex(IMAG_0* complex + sqrtComplex(1 - (complex ** 2)))
+    return -IMAG_0 * logComplex(IMAG_0 * complex + sqrtComplex(1 - (complex ** 2)))
 
 
 def acosComplex(complex):
