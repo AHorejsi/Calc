@@ -21,68 +21,10 @@ def _typeName(type):
     return typeStr[start : end]
 
 
-def _addition(leftComplex, rightOperand):
-    typeOfOperand = type(rightOperand)
-
-    if (typeOfOperand is int) or (typeOfOperand is float):
-        return _complexPlusReal(leftComplex, rightOperand)
-    elif typeOfOperand is Complex:
-        return _complexPlusComplex(leftComplex, rightOperand)
-    elif typeOfOperand is Quaternion:
-        return _complexPlusQuaternion(leftComplex, rightOperand)
-
-    raise ArithmeticError("(Complex + " + _typeName(typeOfOperand) + ") is not possible")
-
-
-def _complexPlusReal(leftComplex, rightReal):
-    return Complex(leftComplex.real + rightReal, leftComplex.imag0)
-
-
-def _complexPlusComplex(leftComplex, rightComplex):
-    return Complex(leftComplex.real + rightComplex.real, leftComplex.imag0 + rightComplex.imag0)
-
-
-def _complexPlusQuaternion(leftComplex, rightQuaternion):
-    return Quaternion(leftComplex.real + rightQuaternion.real,
-                      leftComplex.imag0 + rightQuaternion.imag0,
-                      rightQuaternion.imag1,
-                      rightQuaternion.imag2)
-
-
-def _subtraction(leftComplex, rightOperand):
-    typeOfOperand = type(rightOperand)
-
-    if (typeOfOperand is int) or (typeOfOperand is float):
-        return _complexMinusReal(leftComplex, rightOperand)
-    elif typeOfOperand is Complex:
-        return _complexMinusComplex(leftComplex, rightOperand)
-    elif typeOfOperand is Quaternion:
-        return _complexMinusQuaternion(leftComplex, rightOperand)
-
-    raise ArithmeticError("(Complex - " + _typeName(typeOfOperand) + ") is not possible")
-
-
-def _complexMinusReal(leftComplex, rightReal):
-    return Complex(leftComplex.real - rightReal, leftComplex.imag0)
-
-
-def _complexMinusComplex(leftComplex, rightComplex):
-    return Complex(leftComplex.real - rightComplex.real, leftComplex.imag0 - rightComplex.imag0)
-
-
-def _complexMinusQuaternion(leftComplex, rightQuaternion):
-    return Quaternion(leftComplex.real - rightQuaternion.real,
-                      leftComplex.imag0 - rightQuaternion.imag0,
-                      -rightQuaternion.imag1,
-                      -rightQuaternion.imag2)
-
-
 def _multiplication(leftComplex, rightOperand):
     typeOfOperand = type(rightOperand)
 
-    if (typeOfOperand is int) or (typeOfOperand is float):
-        return _complexTimesReal(leftComplex, rightOperand)
-    elif typeOfOperand is Complex:
+    if typeOfOperand is Complex:
         return _complexTimesComplex(leftComplex, rightOperand)
     elif typeOfOperand is Quaternion:
         return _complexTimesQuaternion(leftComplex, rightOperand)
