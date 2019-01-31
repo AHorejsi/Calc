@@ -6,6 +6,11 @@ from calc.Vector import Vector
 from calc.Matrix import Matrix
 
 
+"""
+Named functions
+"""
+
+
 def __vectorPlusVector(leftVector, rightVector):
     if not leftVector.equalDimensions(rightVector):
         raise ArithmeticError("Vectors must be of equal dimensions to be added together")
@@ -241,6 +246,11 @@ def __generalExponent(leftEntity, rightEntity):
     from calc.MathFunction import expMath, logMath
 
     return expMath(logMath(leftEntity) * rightEntity)
+
+
+"""
+Operator dictionaries
+"""
 
 
 addDict = {(int, int): lambda leftInt, rightInt: leftInt + rightInt,
@@ -510,6 +520,11 @@ eqDict = {(int, int): lambda leftInt, rightInt: leftInt == rightInt,
                                                                                   leftQuaternion.imag1 == rightQuaternion.imag1 and
                                                                                   leftQuaternion.imag2 == rightQuaternion.imag2,
           (bool, bool): lambda leftBool, rightBool: leftBool == rightBool}
+
+
+"""
+Operator functions
+"""
 
 
 def doAddition(mathEntity1, mathEntity2):
