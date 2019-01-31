@@ -1,9 +1,8 @@
-from math import floor
+from math import nan, floor
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Vector import Vector
 from calc.Matrix import Matrix
-from calc.MathFunction import NOT_A_NUMBER
 
 
 addDict = {(int, "+", int): lambda leftInt, rightInt: leftInt + rightInt,
@@ -174,7 +173,7 @@ def doAddition(mathEntity1, mathEntity2):
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def doSubtraction(mathEntity1, mathEntity2):
@@ -184,7 +183,7 @@ def doSubtraction(mathEntity1, mathEntity2):
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def doMultiplication(mathEntity1, mathEntity2):
@@ -194,7 +193,7 @@ def doMultiplication(mathEntity1, mathEntity2):
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def doDivision(mathEntity1, mathEntity2):
@@ -204,16 +203,16 @@ def doDivision(mathEntity1, mathEntity2):
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def doFloorDivision(mathEntity1, mathEntity2):
     trueDiv = doDivision(mathEntity1, mathEntity2)
 
-    if (trueDiv is not None) and (trueDiv is not NOT_A_NUMBER):
+    if (trueDiv is not None) and (trueDiv is not nan):
         return floor(trueDiv)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def doNegation(mathEntity):
@@ -223,7 +222,7 @@ def doNegation(mathEntity):
     if operation is not None:
         return operation(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def doExponentiation(mathEntity1, mathEntity2):
@@ -239,4 +238,4 @@ def doEquality(mathEntity1, mathEntity2):
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
     else:
-        return NOT_A_NUMBER
+        return nan

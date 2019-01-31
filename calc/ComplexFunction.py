@@ -1,6 +1,7 @@
 import math
 from math import log as logOfComplex
 from calc.Complex import Complex
+from calc.MathConstant import IMAG_0
 
 
 def signumComplex(complex):
@@ -18,7 +19,7 @@ def signumComplex(complex):
 
 
 def expComplex(complex):
-    return (math.e ** complex.real) * (math.cos(complex.imag0) + Complex(0, 1) * math.cos(complex.imag0))
+    return (math.e ** complex.real) * (math.cos(complex.imag0) + IMAG_0 * math.cos(complex.imag0))
 
 
 def logComplex(complex, base=math.e):
@@ -51,21 +52,15 @@ def tanComplex(complex):
 
 
 def asinComplex(complex):
-    imag = Complex(0, 1)
-
-    return -imag * logComplex(imag * complex + sqrtComplex(1 - (complex ** 2)))
+    return -IMAG_0 * logComplex(IMAG_0* complex + sqrtComplex(1 - (complex ** 2)))
 
 
 def acosComplex(complex):
-    imag = Complex(0, 1)
-
-    return -imag * logComplex(complex + sqrtComplex((complex ** 2) - 1))
+    return -IMAG_0 * logComplex(complex + sqrtComplex((complex ** 2) - 1))
 
 
 def atanComplex(complex):
-    imag = Complex(0, 1)
-
-    return (1 / Complex(0, 2)) * logComplex((1 + imag * complex) / (1 - imag * complex))
+    return (1 / (2 * IMAG_0)) * logComplex((1 + IMAG_0 * complex) / (1 - IMAG_0 * complex))
 
 
 def sinhComplex(complex):

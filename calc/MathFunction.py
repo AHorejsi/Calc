@@ -1,4 +1,4 @@
-from math import e, pi, inf, nan, exp, log, log10, sqrt, sin, cos, tan, sinh, cosh, tanh, asin, acos, atan, \
+from math import nan, exp, log, log10, sqrt, sin, cos, tan, sinh, cosh, tanh, asin, acos, atan, \
                  asinh, acosh, atanh, floor, ceil
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
@@ -77,15 +77,6 @@ functionDictionary = {("exp", int): exp,
                       ("signum", Complex): signumComplex,
                       ("signum", Matrix): signumMatrix}
 
-E = e
-PI = pi
-IMAG_0 = Complex(0, 1)
-IMAG_1 = Quaternion(0, 0, 1, 0)
-IMAG_2 = Quaternion(0, 0, 0, 1)
-POSITIVE_INFINITY = inf
-NEGATIVE_INFINITY = -inf
-NOT_A_NUMBER = nan
-
 
 def expMath(mathEntity):
     key = ("exp", type(mathEntity))
@@ -94,7 +85,7 @@ def expMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def logMath(mathEntity):
@@ -104,7 +95,7 @@ def logMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def log10Math(mathEntity):
@@ -114,7 +105,7 @@ def log10Math(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def sqrtMath(mathEntity):
@@ -124,7 +115,7 @@ def sqrtMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def sinMath(mathEntity):
@@ -134,7 +125,7 @@ def sinMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def cosMath(mathEntity):
@@ -144,7 +135,7 @@ def cosMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def tanMath(mathEntity):
@@ -154,7 +145,7 @@ def tanMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def sinhMath(mathEntity):
@@ -164,7 +155,7 @@ def sinhMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def coshMath(mathEntity):
@@ -174,7 +165,7 @@ def coshMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def tanhMath(mathEntity):
@@ -184,7 +175,7 @@ def tanhMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def asinMath(mathEntity):
@@ -194,7 +185,7 @@ def asinMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return None
+        return nan
 
 
 def acosMath(mathEntity):
@@ -204,7 +195,7 @@ def acosMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def atanMath(mathEntity):
@@ -214,7 +205,7 @@ def atanMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def asinhMath(mathEntity):
@@ -224,7 +215,7 @@ def asinhMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def acoshMath(mathEntity):
@@ -234,7 +225,7 @@ def acoshMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def atanhMath(mathEntity):
@@ -244,7 +235,7 @@ def atanhMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def signumMath(mathEntity):
@@ -254,7 +245,7 @@ def signumMath(mathEntity):
     if func is not None:
         return func(mathEntity)
     else:
-        return NOT_A_NUMBER
+        return nan
 
 
 def floorMath(mathEntity):
