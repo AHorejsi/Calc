@@ -21,10 +21,10 @@ class Quaternion(MathEntity):
             quaternion
         """
 
-        self.__real = real
-        self.__imag0 = imag0
-        self.__imag1 = imag1
-        self.__imag2 = imag2
+        self._real = real
+        self._imag0 = imag0
+        self._imag1 = imag1
+        self._imag2 = imag2
 
     @property
     def real(self):
@@ -34,7 +34,7 @@ class Quaternion(MathEntity):
         :return: The real component of this quaternion
         """
 
-        return self.__real
+        return self._real
 
     @property
     def imag0(self):
@@ -46,7 +46,7 @@ class Quaternion(MathEntity):
             this quaternion
         """
 
-        return self.__imag0
+        return self._imag0
 
     @property
     def imag1(self):
@@ -58,7 +58,7 @@ class Quaternion(MathEntity):
             this quaternion
         """
 
-        return self.__imag1
+        return self._imag1
 
     @property
     def imag2(self):
@@ -70,7 +70,7 @@ class Quaternion(MathEntity):
             this quaternion
         """
 
-        return self.__imag2
+        return self._imag2
 
     def __abs__(self):
         """

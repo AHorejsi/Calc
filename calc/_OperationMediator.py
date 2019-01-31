@@ -253,16 +253,12 @@ Operator dictionaries
 """
 
 
-addDict = {(int, int): lambda leftInt, rightInt: leftInt + rightInt,
-           (int, float): lambda leftInt, rightFloat: leftInt + rightFloat,
-           (int, Complex): lambda leftInt, rightComplex: Complex(leftInt + rightComplex.real,
+addDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt + rightComplex.real,
                                                                       rightComplex.imag0),
            (int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftInt + rightQuaternion.real,
                                                                                rightQuaternion.imag0,
                                                                                rightQuaternion.imag1,
                                                                                rightQuaternion.imag2),
-           (float, int): lambda leftFloat, rightInt: leftFloat + rightInt,
-           (float, float): lambda leftFloat, rightFloat: leftFloat + rightFloat,
            (float, Complex): lambda leftFloat, rightComplex: Complex(leftFloat + rightComplex.real,
                                                                           rightComplex.imag0),
            (float, Quaternion): lambda leftFloat, rightQuaternion: Quaternion(leftFloat + rightQuaternion.real,
@@ -298,16 +294,12 @@ addDict = {(int, int): lambda leftInt, rightInt: leftInt + rightInt,
            (Vector, Vector): __vectorPlusVector,
            (Matrix, Matrix): __matrixPlusMatrix}
 
-subtDict = {(int, int): lambda leftInt, rightInt: leftInt - rightInt,
-            (int, float): lambda leftInt, rightFloat: leftInt - rightFloat,
-            (int, Complex): lambda leftInt, rightComplex: Complex(leftInt - rightComplex.real,
+subtDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt - rightComplex.real,
                                                                        -rightComplex.imag0),
             (int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftInt - rightQuaternion.real,
                                                                                 -rightQuaternion.imag0,
                                                                                 -rightQuaternion.imag1,
                                                                                 -rightQuaternion.imag2),
-            (float, int): lambda leftFloat, rightInt: leftFloat - rightInt,
-            (float, float): lambda leftFloat, rightFloat: leftFloat - rightFloat,
             (float, Complex): lambda leftFloat, rightComplex: Complex(leftFloat - rightComplex.real,
                                                                            -rightComplex.imag0),
             (float, Quaternion): lambda leftFloat, rightQuaternion: Quaternion(leftFloat - rightQuaternion.real,
@@ -343,9 +335,7 @@ subtDict = {(int, int): lambda leftInt, rightInt: leftInt - rightInt,
             (Vector, Vector): __vectorMinusVector,
             (Matrix, Matrix): __matrixMinusMatrix}
 
-multDict = {(int, int): lambda leftInt, rightInt: leftInt * rightInt,
-            (int, float): lambda leftInt, rightFloat: leftInt * rightFloat,
-            (int, Complex): lambda leftInt, rightComplex: Complex(leftInt * rightComplex.real,
+multDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt * rightComplex.real,
                                                                        leftInt * rightComplex.imag0),
             (int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftInt * rightQuaternion.real,
                                                                                 leftInt * rightQuaternion.imag0,
@@ -355,8 +345,6 @@ multDict = {(int, int): lambda leftInt, rightInt: leftInt * rightInt,
             (int, Matrix): lambda leftInt, rightMatrix: Matrix([leftInt * value for value in rightMatrix],
                                                                rightMatrix.rowLength,
                                                                rightMatrix.columnLength),
-            (float, int): lambda leftFloat, rightInt: leftFloat * rightInt,
-            (float, float): lambda leftFloat, rightFloat: leftFloat * rightFloat,
             (float, Complex): lambda leftInt, rightComplex: Complex(leftInt * rightComplex.real,
                                                                          leftInt * rightComplex.imag0),
             (float, Quaternion): lambda leftFloat, rightQuaternion: Quaternion(leftFloat * rightQuaternion.real,
@@ -411,12 +399,8 @@ multDict = {(int, int): lambda leftInt, rightInt: leftInt * rightInt,
             (Vector, float): lambda leftVector, rightFloat: Vector([rightFloat * value for value in leftVector]),
             (Vector, Matrix): __vectorTimesMatrix}
 
-divDict = {(int, int): lambda leftInt, rightInt: leftInt / rightInt,
-           (int, float): lambda leftInt, rightFloat: leftInt / rightFloat,
-           (int, Complex): __realDividedByComplex,
+divDict = {(int, Complex): __realDividedByComplex,
            (int, Quaternion): __realDividedByQuaternion,
-           (float, int): lambda leftFloat, rightInt: leftFloat / rightInt,
-           (float, float): lambda leftFloat, rightFloat: leftFloat / rightFloat,
            (float, Complex): __realDividedByComplex,
            (float, Quaternion): __realDividedByQuaternion,
            (Complex, int): lambda leftComplex, rightInt: Complex(leftComplex.real / rightInt,
@@ -445,21 +429,15 @@ divDict = {(int, int): lambda leftInt, rightInt: leftInt / rightInt,
                                                                   leftMatrix.columnLength),
            (Matrix, Matrix): lambda leftMatrix, rightMatrix: leftMatrix * rightMatrix.inverse()}
 
-negDict = {int: lambda int: -int,
-           float: lambda float: -float,
-           Complex: lambda complex: Complex(-complex.real, -complex.imag0),
+negDict = {Complex: lambda complex: Complex(-complex.real, -complex.imag0),
            Quaternion: lambda quaternion: Quaternion(-quaternion.real, -quaternion.imag0,
                                                             -quaternion.imag1, -quaternion.imag2),
            Vector: lambda vector: Vector([-value for value in vector]),
            Matrix: lambda matrix: Matrix([-value for value in matrix])}
 
-expDict = {(int, int): lambda leftInt, rightInt: leftInt ** rightInt,
-           (int, float): lambda leftInt, rightFloat: leftInt ** rightFloat,
-           (int, Complex): __realToPowerOfComplex,
+expDict = {(int, Complex): __realToPowerOfComplex,
            (int, Quaternion): __generalExponent,
            (int, Matrix): __generalExponent,
-           (float, int): lambda leftFloat, rightInt: leftFloat ** rightInt,
-           (float, float): lambda leftFloat, rightFloat: leftFloat ** rightFloat,
            (float, Complex): __realToPowerOfComplex,
            (float, Quaternion): __generalExponent,
            (float, Matrix): __generalExponent,
@@ -477,16 +455,12 @@ expDict = {(int, int): lambda leftInt, rightInt: leftInt ** rightInt,
            (Matrix, Quaternion): __generalExponent,
            (Matrix, Matrix): __matrixToPowerOfMatrix}
 
-eqDict = {(int, int): lambda leftInt, rightInt: leftInt == rightInt,
-          (int, float): lambda leftInt, rightFloat: leftInt == rightFloat,
-          (int, Complex): lambda leftInt, rightComplex: leftInt == rightComplex.real and
+eqDict = {(int, Complex): lambda leftInt, rightComplex: leftInt == rightComplex.real and
                                                               rightComplex.imag0 == 0,
           (int, Quaternion): lambda leftInt, rightQuaternion: leftInt == rightQuaternion.real and
                                                                     rightQuaternion.imag0 == 0 and
                                                                     rightQuaternion.imag1 == 0 and
                                                                     rightQuaternion.imag2 == 0,
-          (float, int): lambda leftFloat, rightInt: leftFloat == rightInt,
-          (float, float): lambda leftFloat, rightFloat: leftFloat == rightFloat,
           (float, Complex): lambda leftFloat, rightComplex: leftFloat == rightComplex.real and
                                                                   rightComplex.imag0 == 0,
           (float, Quaternion): lambda leftFloat, rightQuaternion: leftFloat == rightQuaternion.real and

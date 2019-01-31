@@ -15,8 +15,8 @@ class Complex(MathEntity):
         :param real: The real component of this complex number
         :param imag0: The imaginary component of this complex number
         """
-        self.__real = real
-        self.__imag0 = imag0
+        self._real = real
+        self._imag0 = imag0
 
     @property
     def real(self):
@@ -26,7 +26,7 @@ class Complex(MathEntity):
         :return: The real component of this complex number
         """
 
-        return self.__real
+        return self._real
 
     @property
     def imag0(self):
@@ -36,7 +36,7 @@ class Complex(MathEntity):
         :return: The imaginary component of this complex number
         """
 
-        return self.__imag0
+        return self._imag0
 
     def __abs__(self):
         """
