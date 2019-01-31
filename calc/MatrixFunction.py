@@ -42,7 +42,7 @@ def logMatrix(matrix):
 
 
 def sqrtMatrix(matrix):
-    result = matrix ** 0.5
+    return matrix ** 0.5
 
 
 def sinMatrix(matrix):
