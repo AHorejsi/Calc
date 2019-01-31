@@ -74,124 +74,6 @@ class Quaternion(MathEntity, Negatable, Exponentable):
 
         return self.__imag2
 
-    def __add__(self, mathEntity):
-        """
-        Adds this quaternion to the given mathematical entity
-        with this quaternion on the left side of the operator.
-        Quaternions can be added to real numbers, complex
-        numbers and quaternions
-
-        :param mathEntity: The mathematical entity on the
-            right side of the operator
-        :return: The sum of this quaternion and the given
-            mathematical entity
-        """
-
-        from calc._QuaternionMediator import _addition
-
-        return _addition(self, mathEntity)
-
-    def __radd__(self, real):
-        """
-        Adds this quaternion to another mathematical entity with
-        the complex number on the right side of the operator.
-        Quaternions can be added to real numbers, complex numbers and
-        quaternions. This method will only be called when the number on the
-        left side of the operator is an int or a float
-
-        :param real: The mathematical entity on the left side
-            of the operator
-        :return: The sum of the given mathematical entity and this
-            complex number
-        """
-
-        return self + real
-
-    def __sub__(self, mathEntity):
-        """
-        Subtracts a mathematical entity from this quaternion
-        with this quaternion on the left side of the operator.
-        Real numbers, complex numbers and quaternions can be
-        subtracted from quaternions
-
-        :param mathEntity: The mathematical entity on the right
-            side of the operator
-        :return: The difference of this quaternion and the given
-            mathematical entity
-        """
-
-        from calc._QuaternionMediator import _subtraction
-
-        return _subtraction(self, mathEntity)
-
-    def __rsub__(self, real):
-        """
-        Subtracts this quaternion from another mathematical
-        entity with this quaternion on the right side of the
-        operator. Real numbers, complex numbers and quaternions
-        can have quaternions subtracted from them. This method
-        will only be called when the number on the left side of
-        the operator is an int or a float
-
-        :param real: The mathematical entity on the left side of
-            the operator
-        :return: The difference of the given mathematical entity
-            and this quaternion
-        """
-
-        return Quaternion(real - self.real, -self.imag0, -self.imag1, -self.imag2)
-
-    def __mul__(self, mathEntity):
-        """
-        Multiplies this quaternion by the given mathematical
-        entity with this quaternion on the left side of the
-        operator. Real numbers, complex numbers, quaternions
-        and matrices can be multiplied by quaternions
-
-        :param mathEntity: The mathematical entity on the right
-            side of the operator
-        :return: The product of this quaternion and the given
-            mathematical entity
-        """
-
-        from calc._QuaternionMediator import _multiplication
-
-        return _multiplication(self, mathEntity)
-
-    def __rmul__(self, real):
-        """
-        Multiplies this quaternion by the given mathematical
-        entity with this quaternion on the right side of the
-        operator. Real numbers, complex numbers, quaternions
-        and matrices can be multiplied by quaternions. This method
-        will only be called when the number on the left side of
-        the operator is an int or a float
-
-        :param real: The mathematical entity on the left side
-            of the operator
-        :return: The product of the given mathematical entity
-            and this quaternion
-        """
-
-        return self * real
-
-    def __truediv__(self, mathEntity):
-        """
-        Divides this quaternion by the given mathematical entity
-        with this quaternion on the left side of the operator.
-        Real numbers, complex numbers and quaternions can be
-        divided from quaternions
-
-        :param mathEntity: The mathematical entity on the right
-            side of the operator
-        :return: The quotient of this quaternion and the given
-            mathematical entity
-        """
-
-        from calc._QuaternionMediator import _division
-
-        return _division(self, mathEntity)
-
     def __rtruediv__(self, real):
         """
         Divides another mathematical entity by this quaternion
@@ -213,43 +95,6 @@ class Quaternion(MathEntity, Negatable, Exponentable):
                           (-real * self.imag0) / absoluteValueOfRight,
                           (-real * self.imag1) / absoluteValueOfRight,
                           (-real * self.imag2) / absoluteValueOfRight)
-
-    def __pow__(self, mathEntity, modulo=None):
-        """
-        Takes this quaternion to the power of the given mathematical
-        entity with this quaternion on the left side of the operator.
-        Quaternions can be taken to the power of real numbers
-
-        :param mathEntity: The mathematical entity on the left side
-            of the operator
-        :param modulo: The value that this quaternion will be modded
-                by after the exponent is applied
-        :return: The result of taking this quaternion to the power
-            of the given mathematical entity
-        """
-
-        from calc._QuaternionMediator import _exponent
-
-        return _exponent(self, mathEntity)
-
-    def __rpow__(self, real):
-        """
-        Takes the given mathematical entity to the power of this
-        quaternion with this quaternion on the right side of the
-        operator. Quaternions can be exponents of real numbers,
-        complex numbers and quaternions. This method
-        will only be called when the number on the left side of
-        the operator is an int or a float
-
-        :param real: The real number on the left side of the
-            operator
-        :return: The result of taking the given real number to
-            the power of this quaternion
-        """
-
-        from calc.MathFunction import exp
-
-        return exp(log(real) * self)
 
     def __abs__(self):
         """
@@ -350,22 +195,6 @@ class Quaternion(MathEntity, Negatable, Exponentable):
                MODIFIER * hash(self.imag0) + \
                MODIFIER * hash(self.imag1) + \
                MODIFIER * hash(self.imag2)
-
-    def __eq__(self, mathEntity):
-        """
-        Checks if this quaternion is mathematically equal to
-        the given mathematical entity. Quaternions can be equal
-        to real numbers, complex numbers and quaternions
-
-        :param mathEntity: The mathematical entity to be compared
-            with this quaternion for equality
-        :return: True if this quaternion is equal to the given
-            mathematical entity, False otherwise
-        """
-
-        from calc._QuaternionMediator import _equality
-
-        return _equality(self, mathEntity)
 
     def __str__(self):
         """

@@ -160,87 +160,6 @@ class Matrix(MathEntity, Negatable, Exponentable):
 
         self.__table[coordinates[0] * self.columnLength + coordinates[1]] = value
 
-    def __add__(self, mathEntity):
-        """
-        Adds this matrix to another mathematical entity with
-        this matrix on the left side of the operator. Matrices
-        can only be added to other matrices
-
-        :param mathEntity: The mathematical entity on the right
-            side of the operator
-        :return: The sum of this matrix and the given mathematical
-            entity
-        :raises ArithmeticError: Raised if this matrix and the
-            given matrix do not have the same dimensions
-        """
-
-        from calc._MatrixMediator import _addition
-
-        return _addition(self, mathEntity)
-
-    def __sub__(self, mathEntity):
-        """
-        Subtracts another mathematical entity from this matrix with
-        this matrix on the left side of the operator. Matrices can
-        have only other matrices subtracted from them
-
-        :param mathEntity: The mathematical entity on the
-            right side of the operator
-        :return: The difference of this matrix and the given
-            mathematical entity
-        :raises ArithmeticError: Raised if this matrix and the given
-            matrix do not have the same dimensions
-        """
-
-        from calc._MatrixMediator import _subtraction
-
-        return _subtraction(self, mathEntity)
-
-    def __mul__(self, mathEntity):
-        """
-        Multiplies this matrix by another mathematical entity with
-        this matrix on the left side of the operator. Matrices can
-        be multiplied by real numbers, complex numbers, quaternions,
-        vectors and matrices
-
-        :param mathEntity: The mathematical entity on the right side
-            of the operator
-        :return: The product of this matrix and the given mathematical
-            entity
-        :raises ArithmeticError: Raised if the given mathematical entity
-            is a matrix and does not satisfy the conditions for matrix
-            multiplication
-        """
-
-        from calc._MatrixMediator import _multiplication
-
-        return _multiplication(self, mathEntity)
-
-    def __truediv__(self, mathEntity):
-        """
-        Divides this matrix by another mathematical entity with
-        this matrix on the left side of the operator. Matrices
-        can be divided by real numbers, complex numbers, quaternions
-        and matrices
-
-        :param mathEntity: The mathematical entity on the right side
-            of the operator
-        :return: The quotient of this matrix and the given mathematical
-            entity
-        :raises ArithmeticError: Raised if the given mathematical entity
-            is a matrix and does not satisfy the conditions for matrix
-            division
-        """
-
-        from calc._MatrixMediator import _division
-
-        return _division(self, mathEntity)
-
-    def __pow__(self, mathEntity, modulo=None):
-        from calc._MatrixMediator import _exponent
-
-        return _exponent(self, mathEntity)
-
     def __contains__(self, searchValue):
         """
         Checks if this matrix contains a certain value
@@ -507,21 +426,6 @@ class Matrix(MathEntity, Negatable, Exponentable):
             hashCode += MODIFIER * hash(value)
 
         return hashCode
-
-    def __eq__(self, mathEntity):
-        """
-        Checks if this matrix is equal to the given mathematical
-        entity. Matrices can only be equal to other matrices
-
-        :param mathEntity: The mathematical entity to be compared with
-            this matrix for equality
-        :return: True if this matrix and the given mathematical entity
-            are mathematically equal, False otherwise
-        """
-
-        from calc._MatrixMediator import _equality
-
-        return _equality(self, mathEntity)
 
     def __str__(self):
         """

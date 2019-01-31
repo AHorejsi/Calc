@@ -23,4 +23,6 @@ class Negatable:
         :return: The negation of this mathematical entity
         """
 
-        return self * -1
+        from calc._OperationMediator import doNegation
+
+        return doNegation(self)

@@ -1,6 +1,3 @@
-from math import floor
-
-
 class MathEntity:
     """
     Superclass for all mathematical entities that represent some type of mathematical
@@ -13,29 +10,24 @@ class MathEntity:
         """
         Performs addition with this entity on the left side of the
         addition operator and another mathematical entity on the
-        right side. By default, this method raises an ArithmeticError
 
         :param mathEntity: The mathematical entity being added to this
             entity
         :return: The sum of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override this method
         """
 
-        raise ArithmeticError("Left addition is not possible with this type")
+        from calc._OperationMediator import doAddition
+
+        return doAddition(self, mathEntity)
 
     def __iadd__(self, mathEntity):
         """
         Updates the value of this entity by performing addition with
         this entity on the left side of the addition operator and another
-        mathematical entity on the right side. By default, this method
-        raises an ArithmeticError
-
+        mathematical entity on the right side.
         :param mathEntity: The mathematical entity being added to this
             entity
         :return: The sum of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-             override the addition operator
         """
 
         return self + mathEntity
@@ -49,39 +41,36 @@ class MathEntity:
         :param mathEntity: The mathematical entity that this entity
             is being added to
         :return: The sum of the given entity and this entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override this method
         """
 
-        raise ArithmeticError("Right addition is not possible with this type")
+        from calc._OperationMediator import doAddition
+
+        return doAddition(mathEntity, self)
 
     def __sub__(self, mathEntity):
         """
         Performs subtraction with this entity on the left side of the
         subtraction operator and another mathematical entity on the
-        right side. By default, this method raises an ArithmeticError
+        right side
 
         :param mathEntity: The mathematical entity being subtracted from
             this entity
         :return: The difference of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override this method
         """
 
-        raise ArithmeticError("Left subtraction is not possible with this type")
+        from calc._OperationMediator import doSubtraction
+
+        return doSubtraction(self, mathEntity)
 
     def __isub__(self, mathEntity):
         """
         Updates the value of this entity by performing subtraction with
         this entity on the left side of the subtraction operator and another
-        mathematical entity on the right side. By default, this method
-        raises an ArithmeticError
+        mathematical entity on the right side
 
         :param mathEntity: The mathematical entity being subtracted this
             entity
         :return: The difference of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-             override the subtraction operator
         """
 
         return self - mathEntity
@@ -90,44 +79,41 @@ class MathEntity:
         """
         Performs subtraction with this entity on the right side of the
         subtraction operator and another mathematical entity on the
-        left side. By default, this method raises an ArithmeticError
+        left side
 
         :param mathEntity: The mathematical entity that this entity
             is being subtracted from
         :return: The difference of the given entity and this entity
-        :exception ArithmeticError: Raised if the subclass does not
-             override this method
         """
 
-        raise ArithmeticError("Right subtraction is not possible with this type")
+        from calc._OperationMediator import doSubtraction
+
+        return doSubtraction(mathEntity, self)
 
     def __mul__(self, mathEntity):
         """
         Performs multiplication with this entity on the left side of the
         multiplication operator and another mathematical entity on the
-        right side. By default, this method raises an ArithmeticError
+        right side
 
         :param mathEntity: The mathematical entity being multiplied to
             this entity
         :return: The product of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override this method
         """
 
-        raise ArithmeticError("Left multiplication is not possible with this type")
+        from calc._OperationMediator import doMultiplication
+
+        return doMultiplication(self, mathEntity)
 
     def __imul__(self, mathEntity):
         """
         Updates the value of this entity by performing multiplication with
         this entity on the left side of the multiplication operator and another
-        mathematical entity on the right side. By default, this method
-        raises an ArithmeticError
+        mathematical entity on the right side
 
         :param mathEntity: The mathematical entity being multiplied to this
             entity
         :return: The product of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-             override the multiplication operator
         """
 
         return self * mathEntity
@@ -136,44 +122,41 @@ class MathEntity:
         """
         Performs multiplication with this entity on the right side of the
         multiplication operator and another mathematical entity on the
-        left side. By default, this method raises an ArithmeticError
+        left side
 
         :param mathEntity: The mathematical entity that this entity
             is being multiplied to
         :return: The product of the given entity and this entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override this method
         """
 
-        raise ArithmeticError("Right multiplication is not possible with this type")
+        from calc._OperationMediator import doMultiplication
+
+        return doMultiplication(mathEntity, self)
 
     def __truediv__(self, mathEntity):
         """
         Performs division with this entity on the left side of the
         division operator and another mathematical entity on the
-        right side. By default, this method raises an ArithmeticError
+        right side
 
         :param mathEntity: The mathematical entity being divided from
             this entity
         :return: The quotient of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override this method
         """
 
-        raise ArithmeticError("Left division is not possible with this type")
+        from calc._OperationMediator import doDivision
+
+        return doDivision(self, mathEntity)
 
     def __itruediv__(self, mathEntity):
         """
         Updates the value of this entity by performing division with
         this entity on the left side of the division operator and another
-        mathematical entity on the right side. By default, this method
-        raises an ArithmeticError
+        mathematical entity on the right side
 
         :param mathEntity: The mathematical entity being divided from this
             entity
         :return: The quotient of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-             override the division operator
         """
 
         return self / mathEntity
@@ -182,47 +165,41 @@ class MathEntity:
         """
         Performs division with this entity on the right side of the
         division operator and another mathematical entity on the
-        left side. By default, this method raises an ArithmeticError
+        left side
 
         :param mathEntity: The mathematical entity that this entity
             is being divided from
         :return: The quotient of the given entity and this entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override this method
         """
 
-        raise ArithmeticError("Right division is not possible with this type")
+        from calc._OperationMediator import doDivision
+
+        return doDivision(mathEntity, self)
 
     def __floordiv__(self, mathEntity):
         """
         Performs floor division with this entity on the left side of the
         floor division operator and another mathematical entity on the
-        right side. By default, this method raises an ArithmeticError
+        right side
 
         :param mathEntity: The mathematical entity being divided from
             this entity
         :return: The floor quotient of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override the division operator and the floor function
         """
 
-        trueDiv = self / mathEntity
-        floorDiv = floor(trueDiv)
+        from calc._OperationMediator import doFloorDivision
 
-        return floorDiv
+        return doFloorDivision(self, mathEntity)
 
     def __ifloordiv__(self, mathEntity):
         """
         Updates the value of this entity by performing floor division with
         this entity on the left side of the floor division operator and another
-        mathematical entity on the right side. By default, this method
-        raises an ArithmeticError
+        mathematical entity on the right side
 
         :param mathEntity: The mathematical entity being floor divided from
             this entity
         :return: The floor quotient of this entity and the given entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override the floor division operator
         """
 
         return self // mathEntity
@@ -231,19 +208,16 @@ class MathEntity:
         """
         Performs floor division with this entity on the right side of the
         floor division operator and another mathematical entity on the
-        left side. By default, this method raises an ArithmeticError
+        left side
 
         :param mathEntity: The mathematical entity that this entity
             is being floor divided from
         :return: The floor quotient of the given entity and this entity
-        :exception ArithmeticError: Raised if the subclass does not
-            override this method
         """
 
-        trueDiv = mathEntity / self
-        floorDiv = floor(trueDiv)
+        from calc._OperationMediator import doFloorDivision
 
-        return floorDiv
+        return doFloorDivision(mathEntity, self)
 
     def __eq__(self, mathEntity):
         """
@@ -256,7 +230,9 @@ class MathEntity:
             false otherwise
         """
 
-        raise NotImplementedError("This method must be implemented")
+        from calc._OperationMediator import doEquality
+
+        return doEquality(self, mathEntity)
 
     def __ne__(self, mathEntity):
         """

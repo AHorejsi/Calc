@@ -1,138 +1,106 @@
-import math
-from calc.ComplexFunction import *
-from calc.QuaternionFunction import *
-from calc.MatrixFunction import *
+from math import e, pi, inf, nan, exp, log, log10, sqrt, sin, floor, ceil
+from calc.Complex import Complex
+from calc.Quaternion import Quaternion
+from calc.Vector import Vector
+from calc.Matrix import Matrix
+from calc.ComplexFunction import expComplex, logComplex, log10Complex, sqrtComplex, sinComplex, cosComplex, \
+    tanComplex, sinhComplex, coshComplex, tanhComplex, asinComplex, acosComplex, \
+    atanComplex, asinhComplex, acoshComplex, atanhComplex, signumComplex
+from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion
+from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
+    coshMatrix, tanhMatrix
 
 
-E = math.e
-PI = math.pi
+functionDictionary = {("exp", int): exp,
+                      ("exp", float): exp,
+                      ("exp", Complex): expComplex,
+                      ("exp", Quaternion): expQuaternion,
+                      ("exp", Matrix): expMatrix,
+                      ("log", int): log,
+                      ("log", float): log,
+                      ("log", Complex): logComplex,
+                      ("log", Quaternion): logQuaternion,
+                      ("log", Matrix): logMatrix,
+                      ("log10", int): log10,
+                      ("log10", float): log10,
+                      ("log10", Complex): log10Complex,
+                      ("log10", Quaternion): log10Quaternion,
+                      ("sqrt", int): sqrt,
+                      ("sqrt", float): sqrt,
+                      ("sqrt", Complex): sqrtComplex,
+                      ("sqrt", Quaternion): sqrtQuaternion,
+                      ("sqrt", Matrix): sqrtMatrix,
+                      ("floor", int): floor,
+                      ("floor", float): floor,
+                      ("floor", Complex): floor,
+                      ("floor", Quaternion): floor,
+                      ("floor", Vector): floor,
+                      ("floor", Matrix): floor,
+                      ("ceil", int): ceil,
+                      ("ceil", float): ceil,
+                      ("ceil", Complex): ceil,
+                      ("ceil", Quaternion): ceil,
+                      ("ceil", Vector): ceil,
+                      ("ceil", Matrix): ceil,
+                      ("sin", int): sin,
+                      ("sin", float): sin,
+                      ("sin", Complex): sinComplex,
+                      ("sin", Matrix): sinMatrix,}
+E = e
+PI = pi
 IMAG_0 = Complex(0, 1)
 IMAG_1 = Quaternion(0, 0, 1, 0)
 IMAG_2 = Quaternion(0, 0, 0, 1)
-POSITIVE_INFINITY = math.inf
-NEGATIVE_INFINITY = -math.inf
-NOT_A_NUMBER = math.nan
+POSITIVE_INFINITY = inf
+NEGATIVE_INFINITY = -inf
+NOT_A_NUMBER = nan
 
 
-def signum(mathEntity):
-    pass
+def expMath(mathEntity):
+    key = ("exp", type(mathEntity))
+    func = functionDictionary.get(key)
+
+    if func is not None:
+        return func(mathEntity)
+    else:
+        return NOT_A_NUMBER
 
 
-def sqrt(mathEntity):
-    return mathEntity ** 0.5
+def logMath(mathEntity):
+    key = ("log", type(mathEntity))
+    func = functionDictionary.get(key)
+
+    if func is not None:
+        return func(mathEntity)
+    else:
+        return NOT_A_NUMBER
 
 
-def exp(mathEntity):
-    pass
+def log10Math(mathEntity):
+    key = ("log10", type(mathEntity))
+    func = functionDictionary.get(key)
+
+    if func is not None:
+        return func(mathEntity)
+    else:
+        return NOT_A_NUMBER
 
 
-def log(mathEntity, base=E):
-    pass
+def sqrtMath(mathEntity):
+    key = ("sqrt", type(mathEntity))
+    func = functionDictionary.get(key)
+
+    if func is not None:
+        return func(mathEntity)
+    else:
+        return NOT_A_NUMBER
 
 
-def log10(mathEntity):
-    return log(mathEntity, 10)
+def sinMath(mathEntity):
+    key = ("sin", type(mathEntity))
+    func = functionDictionary.get(key)
 
-
-def sin(mathEntity):
-    pass
-
-
-def cos(mathEntity):
-    pass
-
-
-def tan(mathEntity):
-    pass
-
-
-def sinh(mathEntity):
-    pass
-
-
-def cosh(mathEntity):
-    pass
-
-
-def tanh(mathEntity):
-    pass
-
-
-def asin(mathEntity):
-    pass
-
-
-def acos(mathEntity):
-    pass
-
-
-def atan(mathEntity):
-    pass
-
-
-def asinh(mathEntity):
-    pass
-
-
-def acosh(mathEntity):
-    pass
-
-
-def atanh(mathEntity):
-    pass
-
-
-def sec(mathEntity):
-    return 1 / cos(mathEntity)
-
-
-def csc(mathEntity):
-    return 1 / sin(mathEntity)
-
-
-def cot(mathEntity):
-    return 1 / tan(mathEntity)
-
-
-def sech(mathEntity):
-    return 1 / cosh(mathEntity)
-
-
-def csch(mathEntity):
-    return 1 / sinh(mathEntity)
-
-
-def coth(mathEntity):
-    return 1 / tanh(mathEntity)
-
-
-def asec(mathEntity):
-    return 1 / acos(mathEntity)
-
-
-def acsc(mathEntity):
-    return 1 / asin(mathEntity)
-
-
-def acot(mathEntity):
-    return 1 / atan(mathEntity)
-
-
-def asech(mathEntity):
-    return 1 / acosh(mathEntity)
-
-
-def acsch(mathEntity):
-    return 1 / asinh(mathEntity)
-
-
-def acoth(mathEntity):
-    return 1 / atanh(mathEntity)
-
-
-def ceil(mathEntity):
-    return math.ceil(mathEntity)
-
-
-def floor(mathEntity):
-    return math.floor(mathEntity)
+    if func is not None:
+        return func(mathEntity)
+    else:
+        return NOT_A_NUMBER

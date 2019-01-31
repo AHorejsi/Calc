@@ -21,9 +21,9 @@ class Exponentable:
             entity
         """
 
-        from calc.MathFunction import exp, log
+        from calc._OperationMediator import doExponentiation
 
-        return exp(log(self) * mathEntity)
+        return doExponentiation(self, mathEntity)
 
     def __ipow__(self, mathEntity):
         """
@@ -58,6 +58,6 @@ class Exponentable:
             entity
         """
 
-        from calc.MathFunction import exp, log
+        from calc._OperationMediator import doExponentiation
 
-        return exp(log(mathEntity) * self)
+        return doExponentiation(mathEntity, self)

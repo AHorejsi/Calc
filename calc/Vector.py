@@ -69,87 +69,6 @@ class Vector(MathEntity, Negatable):
 
         self.__point[index] = value
 
-    def __add__(self, mathEntity):
-        """
-        Adds this vector to the given mathematical entity
-        with this vector on the right side of the operator.
-        Vectors can be added to only vectors
-
-        :param mathEntity: The mathematical entity on the
-            right side of the operator
-        :return: The sum of this vector and the given
-            mathematical entity
-        """
-
-        from calc._VectorMediator import _addition
-
-        return _addition(self, mathEntity)
-
-    def __sub__(self, mathEntity):
-        """
-        Subtracts another mathematical entity from this
-        vector with this vector on the left side of the
-        operator. Vectors can only have vectors
-        subtracted from them
-
-        :param mathEntity: The mathematical entity on
-            the right side of the operator
-        :return: The difference of this vector and the
-            given mathematical entity
-        """
-
-        from calc._VectorMediator import _subtraction
-
-        return _subtraction(self, mathEntity)
-
-    def __mul__(self, mathEntity):
-        """
-        Multiplies this vector by another mathematical entity
-        with this vector on the left side of the operator.
-        Vectors can be multiplied by real numbers and matrices
-
-        :param mathEntity: The mathematical entity on the right
-            side of the operator
-        :return: The product of this vector and the given
-            mathematical entity
-        """
-
-        from calc._VectorMediator import _multiplication
-
-        return _multiplication(self, mathEntity)
-
-    def __rmul__(self, mathEntity):
-        """
-        Multiplies this vector by another mathematical entity
-        with this vector on the right side of the operator.
-        Vectors can be multiplied by real numbers and matrices.
-        This method will only be called when the mathematical entity
-        on the left side of the operator is an int or a float
-
-        :param mathEntity: The mathematical entity on the left
-            side of the operator
-        :return: The product of the given mathematical entity
-            and this vector
-        """
-
-        return self * mathEntity
-
-    def __truediv__(self, mathEntity):
-        """
-        Divides this vector by another mathematical entity with
-        this vector on the left side of the operator. Vectors can
-        be divided by real numbers
-
-        :param mathEntity: The mathematical entity on the right
-            side of the operator
-        :return: The quotient of this vector and the given
-            mathematical entity
-        """
-
-        from calc._VectorMediator import _division
-
-        return _division(self, mathEntity)
-
     def dot(self, vector):
         """
         Computes the dot product of two vectors
@@ -370,23 +289,6 @@ class Vector(MathEntity, Negatable):
             hashCode += MODIFIER * hash(value)
 
         return hashCode
-
-    def __eq__(self, mathEntity):
-        """
-        Checks if this vector is mathematically equal to
-        the given mathematical entity. Vector can only be equal
-        to other vectors
-
-        :param mathEntity: The mathematical entity which will
-            be compared with this vector for mathematical
-            equality
-        :return: True if this vector is equal to the given
-            mathematical entity, False otherwise
-        """
-
-        from calc._VectorMediator import _equality
-
-        return _equality(self, mathEntity)
 
     def __str__(self):
         """

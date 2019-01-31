@@ -40,119 +40,6 @@ class Complex(MathEntity, Negatable, Exponentable):
 
         return self.__imag0
 
-    def __add__(self, mathEntity):
-        """
-        Adds this complex number to another mathematical entity with
-        this complex number on the left side of the operator. Complex
-        numbers can be added to real numbers, complex numbers and
-        quaternions
-
-        :param mathEntity: The mathematical entity on the right side
-            of the operator
-        :return: The sum of this complex number and the given mathematical
-            entity
-        """
-
-        from calc._ComplexMediator import _addition
-
-        return _addition(self, mathEntity)
-
-    def __radd__(self, mathEntity):
-        """
-        Adds this complex number to another mathematical entity with
-        the complex number on the right side of the operator. Complex
-        numbers can be added to real numbers, complex numbers and
-        quaternions. This method will only be called when the number on the
-        left side of the operator is an int or a float
-
-        :param mathEntity: The mathematical entity on the left side
-            of the operator
-        :return: The sum of the given mathematical entity and this
-            complex number
-        """
-
-        return self + mathEntity
-
-    def __sub__(self, mathEntity):
-        """
-        Subtracts a mathematical entity from this complex number with this
-        complex number on the left side of the operator. Real number, complex
-        numbers and quaternions can be subtracted from complex numbers
-
-        :param mathEntity: The mathematical entity on the right side
-            of the operator
-        :return: The difference of this complex number and the given
-            mathematical entity
-        """
-
-        from calc._ComplexMediator import _subtraction
-
-        return _subtraction(self, mathEntity)
-
-    def __rsub__(self, real):
-        """
-        Subtracts this complex number from the given mathematical entity
-        with this complex number on the right side of the operator. Complex
-        numbers can be subtracted from real number, complex numbers and
-        quaternions. This method will only be called when the number on the
-        left side of the operator is an int or a float
-
-        :param real: The real number that is being subtracted by this complex
-            number
-        :return: The difference of the given real number and this complex
-            number
-        """
-
-        return Complex(real - self.real, -self.imag0)
-
-    def __mul__(self, mathEntity):
-        """
-        Multiplies this complex number by another mathematical entity with
-        this complex number on the left side of the operator. Complex numbers
-        can be multiplied by real number, complex numbers, quaternions and
-        matrices
-
-        :param mathEntity: The mathematical entity on the right side of
-            the operator
-        :return: The product of this complex number and the given
-            mathematical entity
-        """
-
-        from calc._ComplexMediator import _multiplication
-
-        return _multiplication(self, mathEntity)
-
-    def __rmul__(self, mathEntity):
-        """
-        Multiplies this complex number with another mathematical entity
-        with this complex number on the right side of the operator.
-        Complex numbers can be multiplied to real numbers, complex numbers,
-        quaternions and matrices
-
-        :param mathEntity: The mathematical entity on the left side of
-            the operator
-        :return: The product of the given mathematical entity and this
-            complex number
-        """
-
-        return self * mathEntity
-
-    def __truediv__(self, mathEntity):
-        """
-        Divides this complex number by another mathematical entity with
-        this complex number on the left side of the operator. Complex numbers
-        can be divided real numbers, complex numbers and quaternions
-
-        :param mathEntity: The mathematical entity on the left side of the
-            operator
-        :return: The quotient of this complex number and the given
-            mathematical entity
-        """
-
-        from calc._ComplexMediator import _division
-
-        return _division(self, mathEntity)
-
     def __rtruediv__(self, real):
         """
         Divides another mathematical entity by this complex number with
@@ -171,30 +58,6 @@ class Complex(MathEntity, Negatable, Exponentable):
         denominator = (self * conj).real
 
         return Complex(numerator.real / denominator, numerator.imag0 / denominator)
-
-    def __pow__(self, mathEntity, modulo=None):
-        """
-        Takes this complex number to the power of the given mathematical
-        entity with this complex number on the left side of the operator.
-        Complex numbers can be taken to the power of real numbers, complex
-        numbers and quaternions
-
-        :param mathEntity: The mathematical entity on the left side
-            of the operator
-        :param modulo: The value that this complex number will be modded
-             by after the exponent is applied
-        :return: The result of taking this complex number to the power
-            of the given mathematical entity
-        """
-
-        from calc._ComplexMediator import _exponent
-
-        result = _exponent(self, mathEntity)
-
-        if modulo is None:
-            return result
-        else:
-            return result % modulo
 
     def __rpow__(self, real):
         """
@@ -355,23 +218,6 @@ class Complex(MathEntity, Negatable, Exponentable):
         MODIFIER = 31
 
         return MODIFIER * hash(self.real) + MODIFIER * hash(self.imag0)
-
-    def __eq__(self, mathEntity):
-        """
-        Checkes if this complex number is mathematically equal to
-        another mathematical entity. Complex numbers can be equal to
-        real numbers, complex numbers and quaternions
-
-        :param mathEntity: The mathematical entity which will
-            be compared with this complex number for mathematical
-            equality
-        :return: True if this complex number and the given
-            mathematical entity are equal, False otherwise
-        """
-
-        from calc._ComplexMediator import _equality
-
-        return _equality(self, mathEntity)
 
     def __str__(self):
         """
