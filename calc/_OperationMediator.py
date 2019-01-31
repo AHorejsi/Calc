@@ -103,21 +103,16 @@ def __matrixTimesMatrix(leftMatrix, rightMatrix):
         newRow = []
 
         for colIndex in range(rightMatrix.columnLength):
-            value = __calculateValue(leftMatrix, rightMatrix, rowIndex, colIndex)
+            value = 0.0
+
+            for index in range(leftMatrix.rowLength):
+                value += leftMatrix[rowIndex, index] * rightMatrix[index, colIndex]
+
             newRow.append(value)
 
         table.extend(newRow)
 
     return Matrix(table, leftMatrix.rowLength, rightMatrix.columnLength)
-
-
-def __calculateValue(leftMatrix, rightMatrix, rowIndex, colIndex):
-    value = 0.0
-
-    for index in range(leftMatrix.rowLength):
-        value += leftMatrix[rowIndex, index] * rightMatrix[index, colIndex]
-
-    return value
 
 
 def __realDividedByComplex(leftReal, rightComplex):

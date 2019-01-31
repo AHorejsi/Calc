@@ -40,6 +40,23 @@ class Matrix(MathEntity):
             self.__rowLength = rowLength
             self.__columnLength = columnLength
 
+    def setNewTable(self, newTable, rowLength=None, columnLength=None):
+        if (rowLength is None) and (columnLength is None):
+            self.__table = []
+            self.__rowLength = len(newTable)
+
+            if self.__rowLength == 0:
+                self.__columnLength = 0
+            else:
+                self.__columnLength = len(newTable[0])
+
+            for row in newTable:
+                self.__table.extend(row)
+        else:
+            self.__table = newTable
+            self.__rowLength = rowLength
+            self.__columnLength = columnLength
+
     def __len__(self):
         return self.rowLength * self.columnLength
 

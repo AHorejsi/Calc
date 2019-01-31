@@ -121,6 +121,45 @@ def __matrixTimesScalar(leftMatrix, rightScalar):
             leftMatrix[(rowIndex, columnIndex)] *= rightScalar
 
 
+def __matrixTimesVector(leftMatrix, rightVector):
+    if leftMatrix.rowLength != len(rightVector):
+        raise ArithmeticError("The Matrix must have the same row length as the Vector's dimensions")
+
+    table = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        value = 0.0
+
+        for colIndex in range(leftMatrix.columnLength):
+            value += leftMatrix[rowIndex, colIndex] * rightVector[colIndex]
+
+        table.append(value)
+
+    leftMatrix.setNewTable(table, leftMatrix.rowLength, 1)
+
+
+def __matrixTimesMatrix(leftMatrix, rightMatrix):
+    if not leftMatrix.multipliable(rightMatrix):
+        raise ArithmeticError("Left Matrix must have the same amount of columns and the right Matrix has rows")
+
+    table = []
+
+    for rowIndex in range(leftMatrix.rowLength):
+        newRow = []
+
+        for colIndex in range(rightMatrix.columnLength):
+            value = 0.0
+
+            for index in range(leftMatrix.rowLength):
+                value += leftMatrix[rowIndex, index] * rightMatrix[index, colIndex]
+
+            newRow.append(value)
+
+        table.extend(newRow)
+
+    leftMatrix.setNewTable(table, leftMatrix.rowLength, rightMatrix.columnLength)
+
+
 """
 Operation dictionaries
 """
@@ -149,18 +188,18 @@ subtDict = {(Complex, int): __entityMinusReal,
 multDict = {(Complex, int): __complexTimesReal,
             (Complex, float): __complexTimesReal,
             (Complex, Complex): __complexTimesComplex,
-            (Complex, Matrix): lambda leftComplex, rightMatrix: __matrixTimesScalar(rightMatrix, leftComplex),
             (Quaternion, int): __quaternionTimesReal,
             (Quaternion, float): __quaternionTimesReal,
             (Quaternion, Complex): __quaternionTimesComplex,
             (Quaternion, Quaternion): __quaternionTimesQuaternion,
-            (Quaternion, Matrix): lambda leftComplex, rightMatrix: __matrixTimesScalar(rightMatrix, leftComplex),
             (Vector, int): __vectorTimesReal,
             (Vector, float): __vectorTimesReal,
             (Matrix, int): __matrixTimesScalar,
             (Matrix, float): __matrixTimesScalar,
             (Matrix, Complex): __matrixTimesScalar,
-            (Matrix, Quaternion): __matrixTimesScalar}
+            (Matrix, Quaternion): __matrixTimesScalar,
+            (Matrix, Vector): __matrixTimesVector,
+            (Matrix, Matrix): __matrixTimesMatrix}
 
 divDict = {}
 
@@ -172,7 +211,8 @@ mutationOperations = {(Complex, "+", Quaternion),
                       (Complex, "-", Quaternion),
                       (Complex, "*", Quaternion),
                       (Complex, "*", Matrix),
-                      (Quaternion, "*", Matrix)}
+                      (Quaternion, "*", Matrix),
+                      (Vector, "*", Matrix)}
 
 
 """
@@ -185,11 +225,10 @@ def doAddition(mathEntity1, mathEntity2):
     func = addDict.get(key)
 
     if func is not None:
-        if (key[0], "+", key[1]) in mutationOperations:
-            return False
-        else:
-            func(mathEntity1, mathEntity2)
-            return True
+        func(mathEntity1, mathEntity2)
+        return True
+    elif (key[0], "+", key[1]) in mutationOperations:
+        return False
     else:
         raise ArithmeticError("Invalid operation")
 
@@ -199,11 +238,10 @@ def doSubtraction(mathEntity1, mathEntity2):
     func = subtDict.get(key)
 
     if func is not None:
-        if (key[0], "-", key[1]) in mutationOperations:
-            return False
-        else:
-            func(mathEntity1, mathEntity2)
-            return True
+        func(mathEntity1, mathEntity2)
+        return True
+    elif (key[0], "-", key[1]) in mutationOperations:
+        return False
     else:
         raise ArithmeticError("Invalid operation")
 
@@ -213,11 +251,10 @@ def doMultiplication(mathEntity1, mathEntity2):
     func = multDict.get(key)
 
     if func is not None:
-        if (key[0], "*", key[1]) in mutationOperations:
-            return False
-        else:
-            func(mathEntity1, mathEntity2)
-            return True
+        func(mathEntity1, mathEntity2)
+        return True
+    elif (key[0], "*", key[1]) in mutationOperations:
+        return False
     else:
         raise ArithmeticError("Invalid operation")
 
@@ -227,11 +264,10 @@ def doDivision(mathEntity1, mathEntity2):
     func = divDict.get(key)
 
     if func is not None:
-        if (key[0], "/", key[1]) in mutationOperations:
-            return False
-        else:
-            func(mathEntity1, mathEntity2)
-            return True
+        func(mathEntity1, mathEntity2)
+        return True
+    elif (key[0], "/", key[1]) in mutationOperations:
+        return False
     else:
         raise ArithmeticError("Invalid operation")
 
@@ -241,11 +277,10 @@ def doFloorDivision(mathEntity1, mathEntity2):
     func = expDict.get(key)
 
     if func is not None:
-        if (key[0], "//", key[1]) in mutationOperations:
-            return False
-        else:
-            func(mathEntity1, mathEntity2)
-            return True
+        func(mathEntity1, mathEntity2)
+        return True
+    elif (key[0], "//", key[1]) in mutationOperations:
+        return False
     else:
         raise ArithmeticError("Invalid operation")
 
@@ -255,10 +290,9 @@ def doExponentiation(mathEntity1, mathEntity2):
     func = expDict.get(key)
 
     if func is not None:
-        if (key[0], "**", key[1]) in mutationOperations:
-            return False
-        else:
-            func(mathEntity1, mathEntity2)
-            return True
+        func(mathEntity1, mathEntity2)
+        return True
+    elif (key[0], "**", key[1]) in mutationOperations:
+        return False
     else:
         raise ArithmeticError("Invalid operation")
