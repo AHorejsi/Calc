@@ -1,7 +1,7 @@
 from calc.MathEntity import MathEntity
 from calc.Negatable import Negatable
 from calc.Exponentable import Exponentable
-from math import sqrt, floor, ceil, sin, cos, log
+from math import sqrt, floor, ceil
 
 
 class Complex(MathEntity, Negatable, Exponentable):
@@ -39,25 +39,6 @@ class Complex(MathEntity, Negatable, Exponentable):
         """
 
         return self.__imag0
-
-    def __rtruediv__(self, real):
-        """
-        Divides another mathematical entity by this complex number with
-        this complex number on the right side of the operator. Complex numbers
-        can be divided from real numbers, complex numbers, quaternions and
-        matrices. This method will only be called when the mathematical entity
-        on the left side of the operator is an int or a float
-
-        :param real: The real number on the left side of the operator
-        :return: The quotient of the given real number and this complex
-            number
-        """
-
-        conj = self.conjugate()
-        numerator = real * conj
-        denominator = (self * conj).real
-
-        return Complex(numerator.real / denominator, numerator.imag0 / denominator)
 
     def __abs__(self):
         """

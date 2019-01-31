@@ -1,5 +1,5 @@
 import math
-from math import log as logOfComplex
+from cmath import log as logOfComplex
 from calc.Complex import Complex
 from calc.MathConstant import IMAG_0
 
