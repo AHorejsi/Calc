@@ -1,10 +1,8 @@
 from calc.MathEntity import MathEntity
-from calc.Negatable import Negatable
-from calc.Exponentable import Exponentable
-from math import sqrt, log, floor, ceil
+from math import sqrt, floor, ceil
 
 
-class Quaternion(MathEntity, Negatable, Exponentable):
+class Quaternion(MathEntity):
     """
     Instances of this class represent quaternions
     """

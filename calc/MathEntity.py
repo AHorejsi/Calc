@@ -30,7 +30,10 @@ class MathEntity:
         :return: The sum of this entity and the given entity
         """
 
-        return self + mathEntity
+        from calc._MutationOperationMediator import doAddition
+        doAddition(self, mathEntity)
+
+        return self
 
     def __radd__(self, mathEntity):
         """
@@ -73,7 +76,10 @@ class MathEntity:
         :return: The difference of this entity and the given entity
         """
 
-        return self - mathEntity
+        from calc._MutationOperationMediator import doSubtraction
+        doSubtraction(self, mathEntity)
+
+        return self
 
     def __rsub__(self, mathEntity):
         """
@@ -116,7 +122,10 @@ class MathEntity:
         :return: The product of this entity and the given entity
         """
 
-        return self * mathEntity
+        from calc._MutationOperationMediator import doMultiplication
+        doMultiplication(self, mathEntity)
+
+        return self
 
     def __rmul__(self, mathEntity):
         """
@@ -159,7 +168,10 @@ class MathEntity:
         :return: The quotient of this entity and the given entity
         """
 
-        return self / mathEntity
+        from calc._MutationOperationMediator import doDivision
+        doDivision(self, mathEntity)
+
+        return self
 
     def __rtruediv__(self, mathEntity):
         """
@@ -202,7 +214,10 @@ class MathEntity:
         :return: The floor quotient of this entity and the given entity
         """
 
-        return self // mathEntity
+        from calc._MutationOperationMediator import doFloorDivision
+        doFloorDivision(self, mathEntity)
+
+        return self
 
     def __rfloordiv__(self, mathEntity):
         """
@@ -218,6 +233,84 @@ class MathEntity:
         from calc._OperationMediator import doFloorDivision
 
         return doFloorDivision(mathEntity, self)
+
+    def __pow__(self, mathEntity, modulo=None):
+        """
+        Takes this mathematical entity to the power of
+        another mathematical entity
+
+        :param mathEntity: The mathematical entity
+            that is acts as the exponent for this
+            operation
+        :param modulo: Another mathematical entity
+            that the result of this mathematical entity
+            taken to the power of another mathematical
+            entity will be modded by
+        :return: The result of taking this mathematical
+            entity to the power of this another mathematical
+            entity
+        """
+
+        from calc._OperationMediator import doExponentiation
+
+        return doExponentiation(self, mathEntity)
+
+    def __ipow__(self, mathEntity):
+        """
+        Updates this mathematical entity by taking this
+        mathematical entity to the power of
+        another mathematical entity
+
+        :param mathEntity: The mathematical entity
+            that is acts as the exponent for this
+            operation
+        :return: The result of taking this mathematical
+            entity to the power of this another mathematical
+            entity
+        """
+
+        return self ** mathEntity
+
+    def __rpow__(self, mathEntity):
+        """
+        Takes another mathematical entity to the power of
+        this mathematical entity
+
+        :param mathEntity: The mathematical entity
+            that is acts as the base for this
+            operation
+        :param modulo: Another mathematical entity
+            that the result of another mathematical entity
+            taken to the power of this mathematical
+            entity will be modded by
+        :return: The result of taking another mathematical
+            entity to the power of this this mathematical
+            entity
+        """
+
+        from calc._OperationMediator import doExponentiation
+
+        return doExponentiation(mathEntity, self)
+
+    def __pos__(self):
+        """
+        Returns a reference to this mathematical entity
+
+        :return: This mathematical entity
+        """
+
+        return self
+
+    def __neg__(self):
+        """
+        Negates this mathematical entity
+
+        :return: The negation of this mathematical entity
+        """
+
+        from calc._OperationMediator import doNegation
+
+        return doNegation(self)
 
     def __eq__(self, mathEntity):
         """

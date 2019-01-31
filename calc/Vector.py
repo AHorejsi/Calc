@@ -1,10 +1,9 @@
 from calc.MathEntity import MathEntity
-from calc.Negatable import Negatable
 from math import sqrt, acos, floor, ceil
 from copy import copy
 
 
-class Vector(MathEntity, Negatable):
+class Vector(MathEntity):
     """
     Instances of this class represent mathematical vectors
     """

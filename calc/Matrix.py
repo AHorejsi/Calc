@@ -1,11 +1,9 @@
 from calc.MathEntity import MathEntity
-from calc.Negatable import Negatable
-from calc.Exponentable import Exponentable
 from math import floor, ceil
 from copy import copy, deepcopy
 
 
-class Matrix(MathEntity, Negatable, Exponentable):
+class Matrix(MathEntity):
     """
     Instances of this class represent mathematical
     matrices. Matrices are containers of real numbers,

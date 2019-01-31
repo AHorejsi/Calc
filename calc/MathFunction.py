@@ -1,14 +1,14 @@
-from math import nan, exp, log, log10, sqrt, sin, cos, tan, sinh, cosh, tanh, asin, acos, atan, \
-                 asinh, acosh, atanh, floor, ceil
+from math import nan, exp, log, log10, sqrt, sin, cos, tan, sinh, cosh, tanh, asin, acos, atan, asinh, acosh, atanh, \
+                 floor, ceil
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Matrix import Matrix
 from calc.ComplexFunction import expComplex, logComplex, log10Complex, sqrtComplex, sinComplex, cosComplex, \
-    tanComplex, sinhComplex, coshComplex, tanhComplex, asinComplex, acosComplex, \
-    atanComplex, asinhComplex, acoshComplex, atanhComplex, signumComplex
+                                 tanComplex, sinhComplex, coshComplex, tanhComplex, asinComplex, acosComplex, \
+                                 atanComplex, asinhComplex, acoshComplex, atanhComplex, signumComplex
 from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion
 from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
-    coshMatrix, tanhMatrix, signumMatrix
+                                coshMatrix, tanhMatrix, signumMatrix
 
 
 functionDictionary = {("exp", int): exp,

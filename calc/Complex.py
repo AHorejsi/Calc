@@ -1,10 +1,8 @@
 from calc.MathEntity import MathEntity
-from calc.Negatable import Negatable
-from calc.Exponentable import Exponentable
 from math import sqrt, floor, ceil
 
 
-class Complex(MathEntity, Negatable, Exponentable):
+class Complex(MathEntity):
     """
     Instances of this class represent complex numbers
     """
