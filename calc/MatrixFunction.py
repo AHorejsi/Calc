@@ -1,6 +1,7 @@
+from math import floor, ceil
 from calc.Matrix import Matrix
 from calc.Complex import Complex
-from scipy.linalg import expm, logm, sinm, cosm, tanm, sinhm, coshm, tanhm
+from scipy.linalg import expm, logm, sinm, cosm, tanm, sinhm, coshm, tanhm, signm
 import scipy
 
 
@@ -72,3 +73,16 @@ def coshMatrix(matrix):
 def tanhMatrix(matrix):
     scipyArray = tanhm(_createScipyArray(matrix))
     return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
+
+
+def signumMatrix(matrix):
+    scipyArray = signm(_createScipyArray(matrix))
+    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
+
+
+def floorMatrix(matrix):
+    return floor(matrix)
+
+
+def ceilMatrix(matrix):
+    return ceil(matrix)

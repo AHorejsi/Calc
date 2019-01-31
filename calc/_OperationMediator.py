@@ -6,7 +6,7 @@ from calc.Matrix import Matrix
 from calc.MathFunction import NOT_A_NUMBER
 
 
-operationDictionary = {(int, "+", int): lambda leftInt, rightInt: leftInt + rightInt,
+addDict = {(int, "+", int): lambda leftInt, rightInt: leftInt + rightInt,
                              (int, "+", float): lambda leftInt, rightFloat: leftInt + rightFloat,
                              (int, "+", Complex): lambda leftInt, rightComplex: Complex(leftInt + rightComplex.real,
                                                                                         rightComplex.imag0),
@@ -56,8 +56,9 @@ operationDictionary = {(int, "+", int): lambda leftInt, rightInt: leftInt + righ
                                  leftQuaternion.real + rightQuaternion.real,
                                  leftQuaternion.imag0 + rightQuaternion.imag0,
                                  leftQuaternion.imag1 + rightQuaternion.imag1,
-                                 leftQuaternion.imag2 + rightQuaternion.imag2),
-                             (int, "-", int): lambda leftInt, rightInt: leftInt - rightInt,
+                                 leftQuaternion.imag2 + rightQuaternion.imag2)}
+
+subtDict = {(int, "-", int): lambda leftInt, rightInt: leftInt - rightInt,
                              (int, "-", float): lambda leftInt, rightFloat: leftInt - rightFloat,
                              (int, "-", Complex): lambda leftInt, rightComplex: Complex(leftInt - rightComplex.real,
                                                                                         -rightComplex.imag0),
@@ -108,23 +109,27 @@ operationDictionary = {(int, "+", int): lambda leftInt, rightInt: leftInt + righ
                                  leftQuaternion.real - rightQuaternion.real,
                                  leftQuaternion.imag0 - rightQuaternion.imag0,
                                  leftQuaternion.imag1 - rightQuaternion.imag1,
-                                 leftQuaternion.imag2 - rightQuaternion.imag2),
-                             (int, "*", int): lambda leftInt, rightInt: leftInt * rightInt,
+                                 leftQuaternion.imag2 - rightQuaternion.imag2)}
+
+multDict = {(int, "*", int): lambda leftInt, rightInt: leftInt * rightInt,
                              (int, "*", float): lambda leftInt, rightFloat: leftInt * rightFloat,
                              (float, "*", int): lambda leftFloat, rightInt: leftFloat * rightInt,
-                             (float, "*", float): lambda leftFloat, rightFloat: leftFloat * rightFloat,
-                             (int, "/", int): lambda leftInt, rightInt: leftInt / rightInt,
+                             (float, "*", float): lambda leftFloat, rightFloat: leftFloat * rightFloat}
+
+divDict = {(int, "/", int): lambda leftInt, rightInt: leftInt / rightInt,
                              (int, "/", float): lambda leftInt, rightFloat: leftInt / rightFloat,
                              (float, "/", int): lambda leftFloat, rightInt: leftFloat / rightInt,
-                             (float, "/", float): lambda leftFloat, rightFloat: leftFloat / rightFloat,
-                             ("-", int): lambda int: -int,
+                             (float, "/", float): lambda leftFloat, rightFloat: leftFloat / rightFloat}
+
+negDict = {("-", int): lambda int: -int,
                              ("-", float): lambda float: -float,
                              ("-", Complex): lambda complex: Complex(-complex.real, -complex.imag0),
                              ("-", Quaternion): lambda quaternion: Quaternion(-quaternion.real, -quaternion.imag0,
                                                                               -quaternion.imag1, -quaternion.imag2),
                              ("-", Vector): lambda vector: Vector([-value for value in vector]),
-                             ("-", Matrix): lambda matrix: Matrix([-value for value in matrix]),
-                             (int, "==", int): lambda leftInt, rightInt: leftInt == rightInt,
+                             ("-", Matrix): lambda matrix: Matrix([-value for value in matrix])}
+
+eqDict = {(int, "==", int): lambda leftInt, rightInt: leftInt == rightInt,
                              (int, "==", float): lambda leftInt, rightFloat: leftInt == rightFloat,
                              (int, "==", Complex): lambda leftInt, rightComplex: leftInt == rightComplex.real and
                                                                                  rightComplex.imag0 == 0,
@@ -171,7 +176,7 @@ operationDictionary = {(int, "+", int): lambda leftInt, rightInt: leftInt + righ
 
 def doAddition(mathEntity1, mathEntity2):
     key = (type(mathEntity1), "+", type(mathEntity2))
-    operation = operationDictionary.get(key)
+    operation = addDict.get(key)
 
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
@@ -181,7 +186,7 @@ def doAddition(mathEntity1, mathEntity2):
 
 def doSubtraction(mathEntity1, mathEntity2):
     key = (type(mathEntity1), "-", type(mathEntity2))
-    operation = operationDictionary.get(key)
+    operation = subtDict.get(key)
 
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
@@ -191,7 +196,7 @@ def doSubtraction(mathEntity1, mathEntity2):
 
 def doMultiplication(mathEntity1, mathEntity2):
     key = (type(mathEntity1), "*", type(mathEntity2))
-    operation = operationDictionary.get(key)
+    operation = multDict.get(key)
 
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
@@ -201,7 +206,7 @@ def doMultiplication(mathEntity1, mathEntity2):
 
 def doDivision(mathEntity1, mathEntity2):
     key = (type(mathEntity1), "/", type(mathEntity2))
-    operation = operationDictionary.get(key)
+    operation = divDict.get(key)
 
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
@@ -220,7 +225,7 @@ def doFloorDivision(mathEntity1, mathEntity2):
 
 def doNegation(mathEntity):
     key = ("-", type(mathEntity))
-    operation = operationDictionary.get(key)
+    operation = negDict.get(key)
 
     if operation is not None:
         return operation(mathEntity)
@@ -236,7 +241,7 @@ def doExponentiation(mathEntity1, mathEntity2):
 
 def doEquality(mathEntity1, mathEntity2):
     key = (type(mathEntity1), "==", mathEntity2)
-    operation = operationDictionary.get(key)
+    operation = eqDict.get(key)
 
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
