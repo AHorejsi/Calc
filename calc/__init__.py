@@ -14,4 +14,4 @@ from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion
 from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
                                 coshMatrix, tanhMatrix, signumMatrix, floorMatrix, ceilMatrix
 from calc.MathFunction import expMath, logMath, log10Math, sqrtMath, sinMath, cosMath, tanMath, floorMath, ceilMath
-from calc.MathConstant import PI, E, POSITIVE_INFINITY, NEGATIVE_INFINITY, NOT_A_NUMBER, IMAG_0, IMAG_1, IMAG_2
+from calc.MathConstant import PI, EULER, POSITIVE_INFINITY, NEGATIVE_INFINITY, NOT_A_NUMBER, IMAG_0, IMAG_1, IMAG_2

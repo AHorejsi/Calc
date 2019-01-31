@@ -2,7 +2,7 @@ from math import e, pi, inf, nan
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 
-E = e
+EULER = e
 PI = pi
 POSITIVE_INFINITY = inf
 NEGATIVE_INFINITY = -inf
