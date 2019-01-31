@@ -302,11 +302,11 @@ class Matrix(MathEntity):
 
         table = []
 
-        for colIndex in range(self.rowLength):
-            for rowIndex in range(self.columnLength):
+        for colIndex in range(self.columnLength):
+            for rowIndex in range(self.rowLength):
                 table.append(self[(rowIndex, colIndex)])
 
-        return Matrix(table, self.rowLength, self.columnLength)
+        return Matrix(table, self.columnLength, self.rowLength)
 
     def to2DList(self):
         """
@@ -448,6 +448,6 @@ class Matrix(MathEntity):
             if rowIndex == self.rowLength - 1:
                 strRep += "]"
             else:
-                strRep += "\n"
+                strRep += ", "
 
-        return strRep + "\n\n"
+        return strRep
