@@ -240,7 +240,9 @@ def __matrixToPowerOfMatrix(leftMatrix, rightMatrix):
 def __generalExponent(leftEntity, rightEntity):
     from calc.MathFunction import expMath, logMath
 
-    return expMath(logMath(leftEntity) * rightEntity)
+    return expMath(
+        logMath(leftEntity) *
+        rightEntity)
 
 
 """
