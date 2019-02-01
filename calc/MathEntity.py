@@ -30,13 +30,7 @@ class MathEntity(object):
         :return: The sum of this entity and the given entity
         """
 
-        from calc._MutationOperationMediator import doAddition
-        mut = doAddition(self, mathEntity)
-
-        if mut:
-            return self + mathEntity
-        else:
-            return self
+        return self + mathEntity
 
     def __radd__(self, mathEntity):
         """
@@ -79,13 +73,7 @@ class MathEntity(object):
         :return: The difference of this entity and the given entity
         """
 
-        from calc._MutationOperationMediator import doSubtraction
-        mut = doSubtraction(self, mathEntity)
-
-        if mut:
-            return self - mathEntity
-        else:
-            return self
+        return self - mathEntity
 
     def __rsub__(self, mathEntity):
         """
@@ -128,13 +116,7 @@ class MathEntity(object):
         :return: The product of this entity and the given entity
         """
 
-        from calc._MutationOperationMediator import doMultiplication
-        mut = doMultiplication(self, mathEntity)
-
-        if mut:
-            return self * mathEntity
-        else:
-            return self
+        return self * mathEntity
 
     def __rmul__(self, mathEntity):
         """
@@ -177,13 +159,7 @@ class MathEntity(object):
         :return: The quotient of this entity and the given entity
         """
 
-        from calc._MutationOperationMediator import doDivision
-        mut = doDivision(self, mathEntity)
-
-        if mut:
-            return self / mathEntity
-        else:
-            return self
+        return self / mathEntity
 
     def __rtruediv__(self, mathEntity):
         """
@@ -226,13 +202,7 @@ class MathEntity(object):
         :return: The floor quotient of this entity and the given entity
         """
 
-        from calc._MutationOperationMediator import doFloorDivision
-        mut = doFloorDivision(self, mathEntity)
-
-        if mut:
-            return self // mathEntity
-        else:
-            return self
+        return self // mathEntity
 
     def __rfloordiv__(self, mathEntity):
         """
@@ -284,13 +254,7 @@ class MathEntity(object):
             entity
         """
 
-        from calc._MutationOperationMediator import doExponentiation
-        mut = doExponentiation(self, mathEntity)
-
-        if mut:
-            return self ** mathEntity
-        else:
-            return self
+        return self ** mathEntity
 
     def __rpow__(self, mathEntity):
         """

@@ -135,7 +135,7 @@ def __complexDividedByComplex(leftComplex, rightComplex):
     numerator = leftComplex * conj
     denominator = (rightComplex * conj).real
 
-    return Complex(numerator.real / denominator, numerator.imag0 / denominator)
+    return numerator / denominator
 
 
 def __complexDividedByQuaternion(leftComplex, rightQuaternion):
@@ -164,14 +164,14 @@ def __quaternionDividedByComplex(leftQuaternion, rightComplex):
 def __quaternionDividedByQuaternion(leftQuaternion, rightQuaternion):
     absoluteValueOfLeft = abs(rightQuaternion)
 
-    realOfResult = leftQuaternion.real * rightQuaternion.real + leftQuaternion.imag * rightQuaternion.imag + \
+    realOfResult = leftQuaternion.real * rightQuaternion.real + leftQuaternion.imag0 * rightQuaternion.imag0 + \
                    leftQuaternion.imag1 * rightQuaternion.imag1 + leftQuaternion.imag2 * rightQuaternion.imag2
-    imagOfResult = leftQuaternion.real * rightQuaternion.imag - leftQuaternion.imag * rightQuaternion.real - \
+    imagOfResult = leftQuaternion.real * rightQuaternion.imag0 - leftQuaternion.imag0 * rightQuaternion.real - \
                    leftQuaternion.imag1 * rightQuaternion.imag2 + leftQuaternion.imag2 * rightQuaternion.imag1
-    imag1OfResult = leftQuaternion.real * rightQuaternion.imag1 + leftQuaternion.imag * rightQuaternion.imag2 - \
-                    leftQuaternion.imag1 * rightQuaternion.real - leftQuaternion.imag2 * rightQuaternion.imag
-    imag2OfResult = leftQuaternion.real * rightQuaternion.imag2 - leftQuaternion.imag * rightQuaternion.imag1 + \
-                    leftQuaternion.imag1 * rightQuaternion.imag - leftQuaternion.imag2 * rightQuaternion.real
+    imag1OfResult = leftQuaternion.real * rightQuaternion.imag1 + leftQuaternion.imag0 * rightQuaternion.imag2 - \
+                    leftQuaternion.imag1 * rightQuaternion.real - leftQuaternion.imag2 * rightQuaternion.imag0
+    imag2OfResult = leftQuaternion.real * rightQuaternion.imag2 - leftQuaternion.imag0 * rightQuaternion.imag1 + \
+                    leftQuaternion.imag1 * rightQuaternion.imag0 - leftQuaternion.imag2 * rightQuaternion.real
 
     return Quaternion(realOfResult / absoluteValueOfLeft,
                       imagOfResult / absoluteValueOfLeft,
