@@ -1,5 +1,7 @@
+from __future__ import annotations
 from calc.MathEntity import MathEntity
 from math import sqrt, floor, ceil
+from typing import Union, Iterable
 
 
 class Quaternion(MathEntity):
@@ -7,7 +9,8 @@ class Quaternion(MathEntity):
     Instances of this class represent quaternions
     """
 
-    def __init__(self, real, imag0, imag1, imag2):
+    def __init__(self: Quaternion, real: Union[int, float], imag0: Union[int, float],
+                 imag1: Union[int, float], imag2: Union[int, float]):
         """
         Constructs a quaternion with the given real and
         imaginary components
@@ -27,7 +30,7 @@ class Quaternion(MathEntity):
         self._imag2 = imag2
 
     @property
-    def real(self):
+    def real(self: Quaternion) -> Union[int, float]:
         """
         Returns the real component of this quaternion
 
@@ -37,7 +40,7 @@ class Quaternion(MathEntity):
         return self._real
 
     @property
-    def imag0(self):
+    def imag0(self: Quaternion) -> Union[int, float]:
         """
         Returns the first imaginary component of
         this quaternion
@@ -49,7 +52,7 @@ class Quaternion(MathEntity):
         return self._imag0
 
     @property
-    def imag1(self):
+    def imag1(self: Quaternion) -> Union[int, float]:
         """
         Returns the second imaginary component of
         this quaternion
@@ -61,7 +64,7 @@ class Quaternion(MathEntity):
         return self._imag1
 
     @property
-    def imag2(self):
+    def imag2(self: Quaternion) -> Union[int, float]:
         """
         Returns the third imaginary component of
         this quaternion
@@ -72,7 +75,7 @@ class Quaternion(MathEntity):
 
         return self._imag2
 
-    def __abs__(self):
+    def __abs__(self: Quaternion) -> float:
         """
         Returns the absolute value of this quaternion
 
@@ -81,7 +84,7 @@ class Quaternion(MathEntity):
 
         return sqrt((self.real ** 2) + (self.imag0 ** 2) + (self.imag1 ** 2) + (self.imag2 ** 2))
 
-    def conjugate(self):
+    def conjugate(self: Quaternion) -> Quaternion:
         """
         Returns the conjugate of this quaternion
 
@@ -90,7 +93,7 @@ class Quaternion(MathEntity):
 
         return Quaternion(self.real, -self.imag0, -self.imag1, -self.imag2)
 
-    def normalize(self):
+    def normalize(self: Quaternion) -> Quaternion:
         """
         Returns the normalized value of this quaternion
 
@@ -99,7 +102,7 @@ class Quaternion(MathEntity):
 
         return self / abs(self)
 
-    def __floor__(self):
+    def __floor__(self: Quaternion) -> Quaternion:
         """
         Rounds the real and imaginary components of quaternion
         down
@@ -115,7 +118,7 @@ class Quaternion(MathEntity):
 
         return Quaternion(real, imag0, imag1, imag2)
 
-    def __ceil__(self):
+    def __ceil__(self: Quaternion) -> Quaternion:
         """
         Rounds the real and imaginary components of quaternion
         up
@@ -131,7 +134,7 @@ class Quaternion(MathEntity):
 
         return Quaternion(real, imag0, imag1, imag2)
 
-    def __round__(self, numDecimals=None):
+    def __round__(self: Quaternion, numDecimals: int=None):
         """
         Rounds the real and imaginary components of quaternion
         to the given number of decimal places
@@ -149,7 +152,7 @@ class Quaternion(MathEntity):
 
         return Quaternion(real, imag0, imag1, imag2)
 
-    def __iter__(self):
+    def __iter__(self: Quaternion) -> Iterable[Union[int, float]]:
         """
         Returns an iterator over the components of this quaternion
 
@@ -158,7 +161,7 @@ class Quaternion(MathEntity):
 
         return iter([self.real, self.imag0, self.imag1, self.imag2])
 
-    def __hash__(self):
+    def __hash__(self: Quaternion) -> int:
         """
         Returns a hash code for this quaternion
 
@@ -172,7 +175,7 @@ class Quaternion(MathEntity):
                MODIFIER * hash(self.imag1) + \
                MODIFIER * hash(self.imag2)
 
-    def __str__(self):
+    def __str__(self: Quaternion) -> str:
         """
         Returns a string representation of this quaternion
 
@@ -192,7 +195,7 @@ class Quaternion(MathEntity):
             return strRep
 
     @staticmethod
-    def __symbol(value, axis):
+    def __symbol(value: Union[int, float], axis: str) -> str:
         """
         Computes the string representation of a given component
         of this quaternion
