@@ -537,7 +537,7 @@ Operator functions
 """
 
 
-def doAddition(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, nan]:
+def doAddition(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
     key = (type(mathEntity1), type(mathEntity2))
     operation = addDict.get(key)
 
@@ -547,7 +547,7 @@ def doAddition(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[in
         return nan
 
 
-def doSubtraction(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, nan]:
+def doSubtraction(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
     key = (type(mathEntity1), type(mathEntity2))
     operation = subtDict.get(key)
 
@@ -557,7 +557,7 @@ def doSubtraction(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union
         return nan
 
 
-def doMultiplication(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, nan]:
+def doMultiplication(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
     key = (type(mathEntity1), type(mathEntity2))
     operation = multDict.get(key)
 
@@ -567,7 +567,7 @@ def doMultiplication(mathEntity1: Union[int, float, MathEntity], mathEntity2: Un
         return nan
 
 
-def doDivision(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, nan]:
+def doDivision(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
     key = (type(mathEntity1), type(mathEntity2))
     operation = divDict.get(key)
 
@@ -577,7 +577,7 @@ def doDivision(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[in
         return nan
 
 
-def doFloorDivision(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, nan]:
+def doFloorDivision(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
     trueDiv = doDivision(mathEntity1, mathEntity2)
 
     if (trueDiv is not None) and (trueDiv is not nan):
@@ -586,7 +586,7 @@ def doFloorDivision(mathEntity1: Union[int, float, MathEntity], mathEntity2: Uni
         return nan
 
 
-def doNegation(mathEntity: MathEntity) -> Union[MathEntity, nan]:
+def doNegation(mathEntity: MathEntity) -> Union[MathEntity, float]:
     operation = negDict.get(type(mathEntity))
 
     if operation is not None:
@@ -595,7 +595,7 @@ def doNegation(mathEntity: MathEntity) -> Union[MathEntity, nan]:
         return nan
 
 
-def doExponentiation(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, nan]:
+def doExponentiation(mathEntity1: Union[int, float, MathEntity], mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
     key = (type(mathEntity1), type(mathEntity2))
     operation = expDict.get(key)
 

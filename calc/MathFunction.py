@@ -1,5 +1,6 @@
 from math import nan, exp, log, log10, sqrt, sin, cos, tan, sinh, cosh, tanh, asin, acos, atan, asinh, acosh, atanh, \
                  floor, ceil
+from calc.MathEntity import MathEntity
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Matrix import Matrix
@@ -9,6 +10,7 @@ from calc.ComplexFunction import expComplex, logComplex, log10Complex, sqrtCompl
 from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion
 from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
                                 coshMatrix, tanhMatrix, signumMatrix
+from typing import Union
 
 
 functionDictionary = {("exp", int): exp,
@@ -78,7 +80,7 @@ functionDictionary = {("exp", int): exp,
                       ("signum", Matrix): signumMatrix}
 
 
-def expMath(mathEntity):
+def expMath(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union[int, float, Complex, Quaternion, Matrix]:
     key = ("exp", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -88,7 +90,7 @@ def expMath(mathEntity):
         return nan
 
 
-def logMath(mathEntity):
+def logMath(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union[int, float, Complex, Quaternion, Matrix]:
     key = ("log", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -98,7 +100,7 @@ def logMath(mathEntity):
         return nan
 
 
-def log10Math(mathEntity):
+def log10Math(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union[int, float, Complex, Quaternion, Matrix]:
     key = ("log10", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -108,7 +110,7 @@ def log10Math(mathEntity):
         return nan
 
 
-def sqrtMath(mathEntity):
+def sqrtMath(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union[int, float, Complex, Quaternion, Matrix]:
     key = ("sqrt", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -118,7 +120,7 @@ def sqrtMath(mathEntity):
         return nan
 
 
-def sinMath(mathEntity):
+def sinMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
     key = ("sin", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -128,7 +130,7 @@ def sinMath(mathEntity):
         return nan
 
 
-def cosMath(mathEntity):
+def cosMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
     key = ("cos", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -138,7 +140,7 @@ def cosMath(mathEntity):
         return nan
 
 
-def tanMath(mathEntity):
+def tanMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
     key = ("tan", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -148,7 +150,7 @@ def tanMath(mathEntity):
         return nan
 
 
-def sinhMath(mathEntity):
+def sinhMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
     key = ("sinh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -158,7 +160,7 @@ def sinhMath(mathEntity):
         return nan
 
 
-def coshMath(mathEntity):
+def coshMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
     key = ("cosh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -168,7 +170,7 @@ def coshMath(mathEntity):
         return nan
 
 
-def tanhMath(mathEntity):
+def tanhMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
     key = ("tanh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -178,7 +180,7 @@ def tanhMath(mathEntity):
         return nan
 
 
-def asinMath(mathEntity):
+def asinMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
     key = ("asin", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -188,7 +190,7 @@ def asinMath(mathEntity):
         return nan
 
 
-def acosMath(mathEntity):
+def acosMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
     key = ("acos", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -198,7 +200,7 @@ def acosMath(mathEntity):
         return nan
 
 
-def atanMath(mathEntity):
+def atanMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
     key = ("atan", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -208,7 +210,7 @@ def atanMath(mathEntity):
         return nan
 
 
-def asinhMath(mathEntity):
+def asinhMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
     key = ("asinh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -218,7 +220,7 @@ def asinhMath(mathEntity):
         return nan
 
 
-def acoshMath(mathEntity):
+def acoshMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
     key = ("acosh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -228,7 +230,7 @@ def acoshMath(mathEntity):
         return nan
 
 
-def atanhMath(mathEntity):
+def atanhMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
     key = ("atanh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -238,7 +240,7 @@ def atanhMath(mathEntity):
         return nan
 
 
-def signumMath(mathEntity):
+def signumMath(mathEntity: MathEntity) -> Union[MathEntity, float]:
     key = ("signum", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -248,9 +250,9 @@ def signumMath(mathEntity):
         return nan
 
 
-def floorMath(mathEntity):
+def floorMath(mathEntity: MathEntity) -> Union[MathEntity, float]:
     return floor(mathEntity)
 
 
-def ceilMath(mathEntity):
+def ceilMath(mathEntity: MathEntity) -> Union[MathEntity, float]:
     return ceil(mathEntity)
