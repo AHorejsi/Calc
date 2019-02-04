@@ -11,7 +11,7 @@ class MathEntity(object):
     these operations
     """
 
-    def __add__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __add__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs addition with this entity on the left side of the
         addition operator and another mathematical entity on the
@@ -21,11 +21,11 @@ class MathEntity(object):
         :return: The sum of this entity and the given entity
         """
 
-        from calc._OperationMediator import doAddition
+        from calc._AdditionMediator import doAddition
 
         return doAddition(self, mathEntity)
 
-    def __iadd__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __iadd__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing addition with
         this entity on the left side of the addition operator and another
@@ -37,7 +37,7 @@ class MathEntity(object):
 
         return self + mathEntity
 
-    def __radd__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __radd__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs addition with this entity on the right side of the
         addition operator and another mathematical entity on the
@@ -48,11 +48,11 @@ class MathEntity(object):
         :return: The sum of the given entity and this entity
         """
 
-        from calc._OperationMediator import doAddition
+        from calc._AdditionMediator import doAddition
 
         return doAddition(mathEntity, self)
 
-    def __sub__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __sub__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs subtraction with this entity on the left side of the
         subtraction operator and another mathematical entity on the
@@ -63,11 +63,11 @@ class MathEntity(object):
         :return: The difference of this entity and the given entity
         """
 
-        from calc._OperationMediator import doSubtraction
+        from calc._SubtractionMediator import doSubtraction
 
         return doSubtraction(self, mathEntity)
 
-    def __isub__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __isub__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing subtraction with
         this entity on the left side of the subtraction operator and another
@@ -80,7 +80,7 @@ class MathEntity(object):
 
         return self - mathEntity
 
-    def __rsub__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __rsub__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs subtraction with this entity on the right side of the
         subtraction operator and another mathematical entity on the
@@ -91,11 +91,11 @@ class MathEntity(object):
         :return: The difference of the given entity and this entity
         """
 
-        from calc._OperationMediator import doSubtraction
+        from calc._SubtractionMediator import doSubtraction
 
         return doSubtraction(mathEntity, self)
 
-    def __mul__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __mul__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs multiplication with this entity on the left side of the
         multiplication operator and another mathematical entity on the
@@ -106,11 +106,11 @@ class MathEntity(object):
         :return: The product of this entity and the given entity
         """
 
-        from calc._OperationMediator import doMultiplication
+        from calc._MultiplicationMediator import doMultiplication
 
         return doMultiplication(self, mathEntity)
 
-    def __imul__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __imul__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing multiplication with
         this entity on the left side of the multiplication operator and another
@@ -123,7 +123,7 @@ class MathEntity(object):
 
         return self * mathEntity
 
-    def __rmul__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __rmul__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs multiplication with this entity on the right side of the
         multiplication operator and another mathematical entity on the
@@ -134,11 +134,11 @@ class MathEntity(object):
         :return: The product of the given entity and this entity
         """
 
-        from calc._OperationMediator import doMultiplication
+        from calc._MultiplicationMediator import doMultiplication
 
         return doMultiplication(mathEntity, self)
 
-    def __truediv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __truediv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs division with this entity on the left side of the
         division operator and another mathematical entity on the
@@ -149,11 +149,11 @@ class MathEntity(object):
         :return: The quotient of this entity and the given entity
         """
 
-        from calc._OperationMediator import doDivision
+        from calc._DivisionMediator import doDivision
 
         return doDivision(self, mathEntity)
 
-    def __itruediv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __itruediv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing division with
         this entity on the left side of the division operator and another
@@ -166,7 +166,7 @@ class MathEntity(object):
 
         return self / mathEntity
 
-    def __rtruediv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __rtruediv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs division with this entity on the right side of the
         division operator and another mathematical entity on the
@@ -177,11 +177,11 @@ class MathEntity(object):
         :return: The quotient of the given entity and this entity
         """
 
-        from calc._OperationMediator import doDivision
+        from calc._DivisionMediator import doDivision
 
         return doDivision(mathEntity, self)
 
-    def __floordiv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __floordiv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs floor division with this entity on the left side of the
         floor division operator and another mathematical entity on the
@@ -192,11 +192,11 @@ class MathEntity(object):
         :return: The floor quotient of this entity and the given entity
         """
 
-        from calc._OperationMediator import doFloorDivision
+        from calc._DivisionMediator import doFloorDivision
 
         return doFloorDivision(self, mathEntity)
 
-    def __ifloordiv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __ifloordiv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing floor division with
         this entity on the left side of the floor division operator and another
@@ -209,7 +209,7 @@ class MathEntity(object):
 
         return self // mathEntity
 
-    def __rfloordiv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __rfloordiv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs floor division with this entity on the right side of the
         floor division operator and another mathematical entity on the
@@ -220,11 +220,11 @@ class MathEntity(object):
         :return: The floor quotient of the given entity and this entity
         """
 
-        from calc._OperationMediator import doFloorDivision
+        from calc._DivisionMediator import doFloorDivision
 
         return doFloorDivision(mathEntity, self)
 
-    def __pow__(self: MathEntity, mathEntity: Union[MathEntity, int, float], modulo: Optional[int]=None) -> Union[MathEntity, nan]:
+    def __pow__(self: MathEntity, mathEntity: Union[MathEntity, int, float], modulo: Optional[int]=None) -> Union[MathEntity, float]:
         """
         Takes this mathematical entity to the power of
         another mathematical entity
@@ -241,11 +241,11 @@ class MathEntity(object):
             entity
         """
 
-        from calc._OperationMediator import doExponentiation
+        from calc._ExponentiationMediator import doExponentiation
 
         return doExponentiation(self, mathEntity)
 
-    def __ipow__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __ipow__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates this mathematical entity by taking this
         mathematical entity to the power of
@@ -261,7 +261,7 @@ class MathEntity(object):
 
         return self ** mathEntity
 
-    def __rpow__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, nan]:
+    def __rpow__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Takes another mathematical entity to the power of
         this mathematical entity
@@ -278,7 +278,7 @@ class MathEntity(object):
             entity
         """
 
-        from calc._OperationMediator import doExponentiation
+        from calc._ExponentiationMediator import doExponentiation
 
         return doExponentiation(mathEntity, self)
 
@@ -291,14 +291,14 @@ class MathEntity(object):
 
         return self
 
-    def __neg__(self: MathEntity) -> Union[MathEntity, nan]:
+    def __neg__(self: MathEntity) -> Union[MathEntity, float]:
         """
         Negates this mathematical entity
 
         :return: The negation of this mathematical entity
         """
 
-        from calc._OperationMediator import doNegation
+        from calc._NegationMediator import doNegation
 
         return doNegation(self)
 
@@ -313,7 +313,7 @@ class MathEntity(object):
             false otherwise
         """
 
-        from calc._OperationMediator import doEquality
+        from calc._EqualityMediator import doEquality
 
         return doEquality(self, mathEntity)
 
