@@ -1,7 +1,6 @@
 from os import mkdir, chdir, getcwd, path
 from calc.MathConstant import PI, EULER, IMAG_0, IMAG_1, IMAG_2, POSITIVE_INFINITY, NEGATIVE_INFINITY
 from itertools import chain
-from eqnparse.EquationParsing import _parseVariableValue
 
 
 class _VariableDictionary:
@@ -33,13 +32,15 @@ class _VariableDictionary:
             return _VariableDictionary.__instance
 
     def __readPermVars(self):
+        from eqnparse.ValueParsing import parseVariableValue
+
         file = _VariableDictionary.__findFile("r")
-        lines = file.readlines(path.getsize(_VariableDictionary.__filePath + "Calc/CalcVars.txt"))
+        lines = file.readlines(path.getsize(_VariableDictionary.__filePath + "/Calc/Perms/CalcVars.txt"))
 
         for line in lines:
             parts = line.split(":")
             name = parts[0]
-            value = _parseVariableValue(parts[1])
+            value = parseVariableValue(parts[1])
 
             if value is not None:
                 self.__permVars[name] = value
@@ -58,14 +59,14 @@ class _VariableDictionary:
 
     @staticmethod
     def __findFile(modeInput):
-        path = _VariableDictionary.__filePath + "Calc"
+        path = _VariableDictionary.__filePath + "/Calc/Perms"
         chdir(path)
 
         if getcwd() != path:
             mkdir(path)
             chdir(path)
 
-        return open(path + "CalcVars.txt", mode=modeInput)
+        return open(path + "/CalcVars.txt", mode=modeInput)
 
     def getTempVar(self, varName):
         return self.__tempVars.get(varName)

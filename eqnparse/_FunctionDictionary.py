@@ -1,4 +1,4 @@
-from math import ceil, floor
+from math import factorial, ceil, floor
 from random import randrange, random
 from itertools import chain
 from calc.MathFunction import expMath, logMath, signumMath, sqrtMath, sinMath, cosMath, tanMath, sinhMath, coshMath, \
@@ -63,6 +63,9 @@ class _FunctionDictionary:
                                      "bit_or" : lambda int1, int2: int1 | int2,
                                      "bit_not" : lambda integer: ~integer,
                                      "bit_xor" : lambda int1, int2: int1 ^ int2,
+                                     "factorial" : factorial,
+                                     "choose" : lambda value1, value2: factorial(value1) / (factorial(value2) * factorial(value1 - value2)),
+                                     "choose_repeat" : lambda value1, value2: self.__universalFuncs["choose"](value1 + value2 - 1, value2),
                                      "dot" : lambda vec1, vec2: vec1.dot(vec2),
                                      "cross" : lambda vec1, vec2: vec1.cross(vec2),
                                      "mag" : lambda vec: vec.magnitude,
