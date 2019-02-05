@@ -72,7 +72,6 @@ def parseMatrix(valueString):
     "\])?\])\s*", valueString) is not None:
         rows = list(filter(lambda string: string != "", split("\[\[|\]\]|\]\s*\,\s*\[", valueString)))
         table = []
-        print(rows)
 
         for row in rows:
             newRow = []

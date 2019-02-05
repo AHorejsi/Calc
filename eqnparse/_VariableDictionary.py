@@ -1,11 +1,11 @@
 from os import mkdir, chdir, getcwd, path
 from calc.MathConstant import PI, EULER, IMAG_0, IMAG_1, IMAG_2, POSITIVE_INFINITY, NEGATIVE_INFINITY
 from itertools import chain
+from re import split
 
 
 class _VariableDictionary:
     __instance = None
-    __filePath = "C:/Users/Public/Public Documents"
 
     def __init__(self):
         if _VariableDictionary.__instance is None:
@@ -20,6 +20,8 @@ class _VariableDictionary:
                                     "neg_infinity" : NEGATIVE_INFINITY}
             self.__tempVars = {}
             self.__permVars = {}
+            self.__mainDirectory = getcwd()
+            self.__dataDirectory = "C:\\Users\\alexh\\Documents"
             self.__readPermVars()
         else:
             raise Exception("This is a singleton class")
@@ -34,11 +36,11 @@ class _VariableDictionary:
     def __readPermVars(self):
         from eqnparse.ValueParsing import parseVariableValue
 
-        file = _VariableDictionary.__findFile("r")
-        lines = file.readlines(path.getsize(_VariableDictionary.__filePath + "/Calc/Perms/CalcVars.txt"))
+        file = self.__findFile("r")
+        lines = file.readlines(path.getsize(self.__dataDirectory + "\\Calc\\Perms\\CalcVars.txt"))
 
         for line in lines:
-            parts = line.split(":")
+            parts = split("\s*:\s*", line)
             name = parts[0]
             value = parseVariableValue(parts[1])
 
@@ -46,9 +48,10 @@ class _VariableDictionary:
                 self.__permVars[name] = value
 
         file.close()
+        chdir(self.__mainDirectory)
 
     def savePermVars(self):
-        file = _VariableDictionary.__findFile("w")
+        file = self.__findFile("w")
         file.truncate(0)
 
         for varName, varValue in self.__permVars.items():
@@ -56,17 +59,17 @@ class _VariableDictionary:
             file.write(varData)
 
         file.close()
+        chdir(self.__mainDirectory)
 
-    @staticmethod
-    def __findFile(modeInput):
-        path = _VariableDictionary.__filePath + "/Calc/Perms"
+    def __findFile(self, modeInput):
+        path = self.__dataDirectory + "\\Calc\\Perms"
         chdir(path)
 
         if getcwd() != path:
             mkdir(path)
             chdir(path)
 
-        return open(path + "/CalcVars.txt", mode=modeInput)
+        return open(path + "\\CalcVars.txt", mode=modeInput)
 
     def getTempVar(self, varName):
         return self.__tempVars.get(varName)
@@ -138,13 +141,13 @@ class _VariableDictionary:
             pass
 
     def iterTempVars(self):
-        return iter(self.__tempVars)
+        return iter(self.__tempVars.items())
 
     def iterPermVars(self):
-        return iter(self.__permVars)
+        return iter(self.__permVars.items())
 
     def iterUniversalVars(self):
-        return iter(self.__universalVars)
+        return iter(self.__universalVars.items())
 
     def __iter__(self):
         return chain(self.iterUniversalVars(), self.iterPermVars(), self.iterTempVars())
@@ -164,8 +167,8 @@ class _VariableDictionary:
     def __str__(self):
         rep = ""
 
-        for varName, varValue in self:
-            rep += varName + " = " + varValue + "\n"
+        for (varName, varValue) in self:
+            rep += str(varName) + " = " + str(varValue) + "\n"
 
         return rep
 
