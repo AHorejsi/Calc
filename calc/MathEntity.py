@@ -11,7 +11,7 @@ class MathEntity(object):
     these operations
     """
 
-    def __add__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __add__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs addition with this entity on the left side of the
         addition operator and another mathematical entity on the
@@ -25,7 +25,7 @@ class MathEntity(object):
 
         return doAddition(self, mathEntity)
 
-    def __iadd__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __iadd__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing addition with
         this entity on the left side of the addition operator and another
@@ -37,7 +37,7 @@ class MathEntity(object):
 
         return self + mathEntity
 
-    def __radd__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __radd__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs addition with this entity on the right side of the
         addition operator and another mathematical entity on the
@@ -52,7 +52,7 @@ class MathEntity(object):
 
         return doAddition(mathEntity, self)
 
-    def __sub__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __sub__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs subtraction with this entity on the left side of the
         subtraction operator and another mathematical entity on the
@@ -67,7 +67,7 @@ class MathEntity(object):
 
         return doSubtraction(self, mathEntity)
 
-    def __isub__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __isub__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing subtraction with
         this entity on the left side of the subtraction operator and another
@@ -80,7 +80,7 @@ class MathEntity(object):
 
         return self - mathEntity
 
-    def __rsub__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __rsub__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs subtraction with this entity on the right side of the
         subtraction operator and another mathematical entity on the
@@ -95,7 +95,7 @@ class MathEntity(object):
 
         return doSubtraction(mathEntity, self)
 
-    def __mul__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __mul__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs multiplication with this entity on the left side of the
         multiplication operator and another mathematical entity on the
@@ -110,7 +110,7 @@ class MathEntity(object):
 
         return doMultiplication(self, mathEntity)
 
-    def __imul__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __imul__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing multiplication with
         this entity on the left side of the multiplication operator and another
@@ -123,7 +123,7 @@ class MathEntity(object):
 
         return self * mathEntity
 
-    def __rmul__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __rmul__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs multiplication with this entity on the right side of the
         multiplication operator and another mathematical entity on the
@@ -138,7 +138,7 @@ class MathEntity(object):
 
         return doMultiplication(mathEntity, self)
 
-    def __truediv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __truediv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs division with this entity on the left side of the
         division operator and another mathematical entity on the
@@ -153,7 +153,7 @@ class MathEntity(object):
 
         return doDivision(self, mathEntity)
 
-    def __itruediv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __itruediv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing division with
         this entity on the left side of the division operator and another
@@ -166,7 +166,7 @@ class MathEntity(object):
 
         return self / mathEntity
 
-    def __rtruediv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __rtruediv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs division with this entity on the right side of the
         division operator and another mathematical entity on the
@@ -181,7 +181,7 @@ class MathEntity(object):
 
         return doDivision(mathEntity, self)
 
-    def __floordiv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __floordiv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs floor division with this entity on the left side of the
         floor division operator and another mathematical entity on the
@@ -196,7 +196,7 @@ class MathEntity(object):
 
         return doFloorDivision(self, mathEntity)
 
-    def __ifloordiv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __ifloordiv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing floor division with
         this entity on the left side of the floor division operator and another
@@ -209,7 +209,7 @@ class MathEntity(object):
 
         return self // mathEntity
 
-    def __rfloordiv__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __rfloordiv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Performs floor division with this entity on the right side of the
         floor division operator and another mathematical entity on the
@@ -224,7 +224,7 @@ class MathEntity(object):
 
         return doFloorDivision(mathEntity, self)
 
-    def __pow__(self: MathEntity, mathEntity: Union[MathEntity, int, float], modulo: Optional[int]=None) -> Union[MathEntity, float]:
+    def __pow__(self, mathEntity: Union[MathEntity, int, float], modulo: Optional[int]=None) -> Union[MathEntity, float]:
         """
         Takes this mathematical entity to the power of
         another mathematical entity
@@ -245,7 +245,7 @@ class MathEntity(object):
 
         return doExponentiation(self, mathEntity)
 
-    def __ipow__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __ipow__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Updates this mathematical entity by taking this
         mathematical entity to the power of
@@ -261,7 +261,7 @@ class MathEntity(object):
 
         return self ** mathEntity
 
-    def __rpow__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __rpow__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
         """
         Takes another mathematical entity to the power of
         this mathematical entity
@@ -282,7 +282,7 @@ class MathEntity(object):
 
         return doExponentiation(mathEntity, self)
 
-    def __pos__(self: MathEntity) -> MathEntity:
+    def __pos__(self) -> MathEntity:
         """
         Returns a reference to this mathematical entity
 
@@ -291,7 +291,7 @@ class MathEntity(object):
 
         return self
 
-    def __neg__(self: MathEntity) -> Union[MathEntity, float]:
+    def __neg__(self) -> Union[MathEntity, float]:
         """
         Negates this mathematical entity
 
@@ -302,7 +302,7 @@ class MathEntity(object):
 
         return doNegation(self)
 
-    def __eq__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> bool:
+    def __eq__(self, mathEntity: Union[MathEntity, int, float]) -> bool:
         """
         Checks if this mathematical entity is equal to
         another mathematical entity
@@ -317,7 +317,7 @@ class MathEntity(object):
 
         return doEquality(self, mathEntity)
 
-    def __ne__(self: MathEntity, mathEntity: Union[MathEntity, int, float]) -> bool:
+    def __ne__(self, mathEntity: Union[MathEntity, int, float]) -> bool:
         """
         Checks if this mathematical entity is not equal to
         another mathematical entity
@@ -330,7 +330,7 @@ class MathEntity(object):
 
         return not (self == mathEntity)
 
-    def __repr__(self: MathEntity) -> str:
+    def __repr__(self) -> str:
         """
         Returns a string for the Python shell. Returns the
         same string as the __str__ method
