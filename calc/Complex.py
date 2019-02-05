@@ -99,7 +99,7 @@ class Complex(MathEntity):
 
         return Complex(real, imag0)
 
-    def __round__(self, numDecimals: int=None):
+    def __round__(self, numDecimals: int=None) -> Complex:
         """
         Returns the result of rounding the real and
         imaginary components of this complex number
