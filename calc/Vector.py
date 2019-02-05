@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Union, List, Iterable
+from typing import Union, List, Iterable, Optional
 from calc.MathEntity import MathEntity
 from math import sqrt, acos, floor, ceil
 from copy import copy
@@ -10,7 +10,7 @@ class Vector(MathEntity):
     Instances of this class represent mathematical vectors
     """
 
-    def __init__(self: Vector, point: List[Union[int, float]]):
+    def __init__(self, point: List[Union[int, float]]):
         """
         Constructs a vector with the given list of real numbers
 
@@ -20,7 +20,7 @@ class Vector(MathEntity):
 
         self.__point = point
 
-    def __len__(self: Vector) -> int:
+    def __len__(self) -> int:
         """
         Returns the dimensions of this vector
 
@@ -29,7 +29,7 @@ class Vector(MathEntity):
 
         return len(self.__point)
 
-    def equalDimensions(self: Vector, vector: Vector) -> bool:
+    def equalDimensions(self, vector: Vector) -> bool:
         """
         Checks if this vector has the same dimensions of another
         vector
@@ -42,7 +42,7 @@ class Vector(MathEntity):
 
         return len(self) == len(vector)
 
-    def __getitem__(self: Vector, index: int) -> Union[int, float]:
+    def __getitem__(self, index: int) -> Union[int, float]:
         """
         Returns a component of this vector based
         on its indexed position
@@ -56,7 +56,7 @@ class Vector(MathEntity):
 
         return self.__point[index]
 
-    def __setitem__(self: Vector, index: int, value: Union[int, float]) -> None:
+    def __setitem__(self, index: int, value: Union[int, float]) -> None:
         """
         Resets a component of this vector with a new value
         based on an indexed position
@@ -70,7 +70,7 @@ class Vector(MathEntity):
 
         self.__point[index] = value
 
-    def dot(self: Vector, vector: Vector) -> float:
+    def dot(self, vector: Vector) -> float:
         """
         Computes the dot product of two vectors
 
@@ -92,7 +92,7 @@ class Vector(MathEntity):
 
         return dotProduct
 
-    def cross(self: Vector, vector: Vector) -> Vector:
+    def cross(self, vector: Vector) -> Vector:
         """
         Computes the cross product of two vectors
 
@@ -112,7 +112,7 @@ class Vector(MathEntity):
         raise ArithmeticError("Vectors must be of 3 dimensions to have a cross product")
 
     @property
-    def magnitude(self: Vector) -> float:
+    def magnitude(self) -> float:
         """
         Computes the magnitude of this vector
 
@@ -128,7 +128,7 @@ class Vector(MathEntity):
 
         return mag
 
-    def normalize(self: Vector) -> Vector:
+    def normalize(self) -> Vector:
         """
         Returns the normalized value of this vector
 
@@ -137,7 +137,7 @@ class Vector(MathEntity):
 
         return self / self.magnitude
 
-    def angleBetween(self: Vector, vector: Vector) -> float:
+    def angleBetween(self, vector: Vector) -> float:
         """
         Calculates the angle between two vectors
 
@@ -151,7 +151,7 @@ class Vector(MathEntity):
 
         return acos(self.dot(vector) / (self.magnitude * vector.magnitude))
 
-    def distanceFrom(self: Vector, vector: Vector) -> float:
+    def distanceFrom(self, vector: Vector) -> float:
         """
         Calculates the distance between two vectors
 
@@ -175,7 +175,7 @@ class Vector(MathEntity):
 
         return distance
 
-    def toList(self: Vector) -> List[Union[int, float]]:
+    def toList(self) -> List[Union[int, float]]:
         """
         Converts this vector to a list
 
@@ -185,7 +185,7 @@ class Vector(MathEntity):
 
         return copy(self.__point)
 
-    def __floor__(self: Vector) -> Vector:
+    def __floor__(self) -> Vector:
         """
         Rounds all the components of this vector down
 
@@ -200,7 +200,7 @@ class Vector(MathEntity):
 
         return Vector(point)
 
-    def __ceil__(self: Vector) -> Vector:
+    def __ceil__(self) -> Vector:
         """
         Rounds all the components of this vector up
 
@@ -215,7 +215,7 @@ class Vector(MathEntity):
 
         return Vector(point)
 
-    def __round__(self: Vector, numDecimals: int=None) -> Vector:
+    def __round__(self, numDecimals: Optional[int]=None) -> Vector:
         """
         Rounds all the components of this vector to a
         given number of decimal places
@@ -234,7 +234,7 @@ class Vector(MathEntity):
 
         return Vector(point)
 
-    def __contains__(self: Vector, searchValue: Union[int, float]) -> bool:
+    def __contains__(self, searchValue: Union[int, float]) -> bool:
         """
         Checks if this vector contains a specific value
 
@@ -246,7 +246,7 @@ class Vector(MathEntity):
 
         return searchValue in self.__point
 
-    def __iter__(self: Vector) -> Iterable[Union[int, float]]:
+    def __iter__(self) -> Iterable[Union[int, float]]:
         """
         Returns an iterator over the components of
         this vector
@@ -257,7 +257,7 @@ class Vector(MathEntity):
 
         return iter(self.__point)
 
-    def __copy__(self: Vector) -> Vector:
+    def __copy__(self) -> Vector:
         """
         Creates a shallow copy of this vector
 
@@ -266,7 +266,7 @@ class Vector(MathEntity):
 
         return Vector(self.__point)
 
-    def __deepcopy__(self: Vector, memodict: dict={}) -> Vector:
+    def __deepcopy__(self, memodict: dict={}) -> Vector:
         """
         Creates a deep copy of this vector
 
@@ -276,7 +276,7 @@ class Vector(MathEntity):
 
         return Vector(copy(self.__point))
 
-    def __hash__(self: Vector) -> int:
+    def __hash__(self) -> int:
         """
         Computes a hash code for this vector
 
@@ -291,7 +291,7 @@ class Vector(MathEntity):
 
         return hashCode
 
-    def __str__(self: Vector) -> str:
+    def __str__(self) -> str:
         """
         Returns a string representation of this vector
 

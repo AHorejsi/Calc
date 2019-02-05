@@ -14,8 +14,7 @@ class Matrix(MathEntity):
     into rows and columns
     """
 
-    def __init__(self: Matrix,
-                 table: List[List[Union[int, float, Complex, Quaternion]]]):
+    def __init__(self, table: List[List[Union[int, float, Complex, Quaternion]]]):
         """
         Constructs a matrix based on the 2D list of real numbers,
         complex numbers and quaternions
@@ -34,8 +33,7 @@ class Matrix(MathEntity):
         for row in table:
             self.__table.extend(row)
 
-    def setNewTable(self: Matrix,
-                    newTable: List[List[Union[int, float, Complex, Quaternion]]]) -> None:
+    def setNewTable(self, newTable: List[List[Union[int, float, Complex, Quaternion]]]) -> None:
         """
         Reconstructs this matrix with a new table of values
 
@@ -66,11 +64,11 @@ class Matrix(MathEntity):
 
         return mat
 
-    def __len__(self: Matrix) -> int:
+    def __len__(self) -> int:
         return self.rowLength * self.columnLength
 
     @property
-    def rowLength(self: Matrix) -> int:
+    def rowLength(self) -> int:
         """
         Returns the number of rows that this matrix
         has
@@ -82,7 +80,7 @@ class Matrix(MathEntity):
         return self.__rowLength
 
     @property
-    def columnLength(self: Matrix) -> int:
+    def columnLength(self) -> int:
         """
         Returns the number of columns that this
         matrix has
@@ -93,7 +91,7 @@ class Matrix(MathEntity):
 
         return self.__columnLength
 
-    def equalDimensions(self: Matrix, matrix: Matrix) -> bool:
+    def equalDimensions(self, matrix: Matrix) -> bool:
         """
         Checks if two matrices have the same number
         of rows and the same number of columns
@@ -106,7 +104,7 @@ class Matrix(MathEntity):
 
         return self.rowLength == matrix.rowLength and self.columnLength == matrix.columnLength
 
-    def multipliable(self: Matrix, matrix: Matrix) -> bool:
+    def multipliable(self, matrix: Matrix) -> bool:
         """
         Checks if this matrix can be multiplied by another
         matrix with this matrix on the left side of the
@@ -121,7 +119,7 @@ class Matrix(MathEntity):
 
         return self.columnLength == matrix.rowLength
 
-    def divisible(self: Matrix, matrix: Matrix) -> bool:
+    def divisible(self, matrix: Matrix) -> bool:
         """
         Checks if this matrix can be divided by another
         matrix with this matrix on the left side of the
@@ -137,7 +135,7 @@ class Matrix(MathEntity):
         return self.multipliable(matrix) and matrix.isSquare
 
     @property
-    def isSquare(self: Matrix) -> bool:
+    def isSquare(self) -> bool:
         """
         Checks if the number of rows that this matrix has is equal
         to the number of columns it has
@@ -148,7 +146,7 @@ class Matrix(MathEntity):
 
         return self.rowLength == self.columnLength
 
-    def __getitem__(self: Matrix, coordinates: Tuple[int, int]) -> Union[int, float, Complex, Quaternion]:
+    def __getitem__(self, coordinates: Tuple[int, int]) -> Union[int, float, Complex, Quaternion]:
         """
         Returns the element at the given row and column indices
 
@@ -165,7 +163,7 @@ class Matrix(MathEntity):
 
         return self.__table[coordinates[0] * self.columnLength + coordinates[1]]
 
-    def __setitem__(self: Matrix, coordinates: Tuple[int, int], value: Union[int, float, Complex, Quaternion]) -> None:
+    def __setitem__(self, coordinates: Tuple[int, int], value: Union[int, float, Complex, Quaternion]) -> None:
         """
         Sets the elements at the given row and column indices
 
@@ -184,7 +182,7 @@ class Matrix(MathEntity):
 
         self.__table[coordinates[0] * self.columnLength + coordinates[1]] = value
 
-    def __contains__(self: Matrix, searchValue: Union[int, float, Complex, Quaternion]) -> bool:
+    def __contains__(self, searchValue: Union[int, float, Complex, Quaternion]) -> bool:
         """
         Checks if this matrix contains a certain value
 
@@ -218,7 +216,7 @@ class Matrix(MathEntity):
 
         return Matrix.createMatrixFrom1DList(table, size, size)
 
-    def conjugate(self: Matrix) -> Matrix:
+    def conjugate(self) -> Matrix:
         """
         Returns a matrix with all of the values
         that have conjugates as conjugates
@@ -237,7 +235,7 @@ class Matrix(MathEntity):
         return Matrix.createMatrixFrom1DList(newTable, self.rowLength, self.columnLength)
 
     @property
-    def determinant(self: Matrix) -> float:
+    def determinant(self) -> float:
         """
         Returns the determinant of this matrix
 
@@ -287,7 +285,7 @@ class Matrix(MathEntity):
 
             return det
 
-    def inverse(self: Matrix) -> Matrix:
+    def inverse(self) -> Matrix:
         """
         Returns the inverse of this matrix
 
@@ -319,7 +317,7 @@ class Matrix(MathEntity):
 
         return newMatrix
 
-    def transpose(self: Matrix) -> Matrix:
+    def transpose(self) -> Matrix:
         """
         Returns the transpose of this matrix
 
@@ -334,7 +332,7 @@ class Matrix(MathEntity):
 
         return Matrix.createMatrixFrom1DList(table, self.columnLength, self.rowLength)
 
-    def to2DList(self: Matrix) -> List[List[Union[int, float, Complex, Quaternion]]]:
+    def to2DList(self) -> List[List[Union[int, float, Complex, Quaternion]]]:
         """
         Converts this matrix to a 2D list
 
@@ -354,7 +352,7 @@ class Matrix(MathEntity):
 
         return table
 
-    def __floor__(self: Matrix) -> Matrix:
+    def __floor__(self) -> Matrix:
         """
         Rounds all elements of this matrix
         down
@@ -370,7 +368,7 @@ class Matrix(MathEntity):
 
         return Matrix.createMatrixFrom1DList(table, self.rowLength, self.columnLength)
 
-    def __ceil__(self: Matrix) -> Matrix:
+    def __ceil__(self) -> Matrix:
         """
         Rounds all elements of this matrix
         up
@@ -386,7 +384,7 @@ class Matrix(MathEntity):
 
         return Matrix.createMatrixFrom1DList(table, self.rowLength, self.columnLength)
 
-    def __round__(self: Matrix, numDecimals: Optional[int]=None) -> Matrix:
+    def __round__(self, numDecimals: Optional[int]=None) -> Matrix:
         """
         Rounds all elements of this matrix
         to a given number of decimal places
@@ -406,7 +404,7 @@ class Matrix(MathEntity):
 
         return Matrix.createMatrixFrom1DList(table, self.rowLength, self.columnLength)
 
-    def __iter__(self: Matrix) -> Iterable[Union[int, float, Complex, Quaternion]]:
+    def __iter__(self) -> Iterable[Union[int, float, Complex, Quaternion]]:
         """
         Returns a row-by-row iterator over the elements
         of this matrix
@@ -426,7 +424,7 @@ class Matrix(MathEntity):
 
         return Matrix.createMatrixFrom1DList(self.__table, self.rowLength, self.columnLength)
 
-    def __deepcopy__(self: Matrix, memodict: dict={}) -> Matrix:
+    def __deepcopy__(self, memodict: dict={}) -> Matrix:
         """
         Creates a deep copy of this matrix
 
@@ -436,7 +434,7 @@ class Matrix(MathEntity):
 
         return Matrix.createMatrixFrom1DList(copy(self.__table), self.rowLength, self.columnLength)
 
-    def __hash__(self: Matrix) -> int:
+    def __hash__(self) -> int:
         """
         Computes a hash code for this matrix
 
@@ -451,7 +449,7 @@ class Matrix(MathEntity):
 
         return hashCode
 
-    def __str__(self: Matrix) -> str:
+    def __str__(self) -> str:
         """
         Returns a string representation of this matrix
 

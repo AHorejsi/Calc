@@ -1,22 +1,23 @@
 from re import fullmatch, split
-from calc import Complex, Quaternion, Vector, Matrix
+from calc import Complex, Quaternion, Vector, Matrix, MathEntity
+from typing import Optional
 
 
-def parseInt(valueString):
+def parseInt(valueString: str) -> Optional[int]:
     if fullmatch("\s*(\-?\d+)\s*", valueString) is not None:
         return int(valueString)
     else:
         return None
 
 
-def parseFloat(valueString):
+def parseFloat(valueString: str) -> Optional[float]:
     if fullmatch("\s*((\-?\d+\.\d+)(e[\+|\-]?\d+)?)\s*", valueString) is not None:
         return float(valueString)
     else:
         return None
 
 
-def parseComplex(valueString):
+def parseComplex(valueString: str) -> Optional[Complex]:
     if fullmatch("\s*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?i)\s*", valueString) is not None:
         strValue = valueString.replace("i", "j")
         builtInComplex = complex(strValue)
@@ -26,7 +27,7 @@ def parseComplex(valueString):
         return None
 
 
-def parseQuaternion(valueString):
+def parseQuaternion(valueString: str) -> Optional[Quaternion]:
     if fullmatch(
             "\s*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?i[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?j[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?k)\s*",
             valueString) is not None:
@@ -36,7 +37,7 @@ def parseQuaternion(valueString):
         return Quaternion(com.real, com.imag, float(nums[1]), float(nums[2]))
 
 
-def parseVector(valueString):
+def parseVector(valueString: str) -> Optional[Vector]:
     if fullmatch("\s*(<((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?\s*\,\s*)*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?)?>)\s*", valueString) is not None:
         nums = split(",", valueString[1 : len(valueString) - 1])
         listOfNums = []
@@ -49,7 +50,7 @@ def parseVector(valueString):
         return None
 
 
-def parseMatrix(valueString):
+def parseMatrix(valueString: str) -> Optional[Matrix]:
     if fullmatch(
     "\s*(\["
     "(\["
@@ -91,7 +92,7 @@ def parseMatrix(valueString):
         return None
 
 
-def parseBool(valueString):
+def parseBool(valueString: str) -> Optional[bool]:
     if fullmatch("[t|T][r|R][u|U][e|E]", valueString) is not None:
         return True
     elif fullmatch("[f|F][a|A][l|L][s|S][e|E]", valueString) is not None:
@@ -100,7 +101,7 @@ def parseBool(valueString):
         return None
 
 
-def parseVariableValue(valueString):
+def parseVariableValue(valueString: str) -> Optional[MathEntity]:
     for func in [parseInt, parseFloat, parseComplex, parseQuaternion, parseVector, parseMatrix, parseBool]:
         value = func(valueString)
 

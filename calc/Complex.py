@@ -9,7 +9,7 @@ class Complex(MathEntity):
     Instances of this class represent complex numbers
     """
 
-    def __init__(self: Complex, real: Union[int, float], imag0: Union[int, float]):
+    def __init__(self, real: Union[int, float], imag0: Union[int, float]):
         """
         Constructs a complex number with the given real
         and imaginary components
@@ -21,7 +21,7 @@ class Complex(MathEntity):
         self._imag0 = imag0
 
     @property
-    def real(self: Complex) -> Union[int, float]:
+    def real(self) -> Union[int, float]:
         """
         Returns the real component of this complex number
 
@@ -31,7 +31,7 @@ class Complex(MathEntity):
         return self._real
 
     @property
-    def imag0(self: Complex) -> Union[int, float]:
+    def imag0(self) -> Union[int, float]:
         """
         Returns the imaginary component of this complex number
 
@@ -40,7 +40,7 @@ class Complex(MathEntity):
 
         return self._imag0
 
-    def __abs__(self: Complex) -> float:
+    def __abs__(self) -> float:
         """
         Computes the absolute value of this complex number
 
@@ -49,7 +49,7 @@ class Complex(MathEntity):
 
         return sqrt((self.real ** 2) + (self.imag0 ** 2))
 
-    def conjugate(self: Complex) -> Complex:
+    def conjugate(self) -> Complex:
         """
         Returns the conjugate of this complex number
 
@@ -58,7 +58,7 @@ class Complex(MathEntity):
 
         return Complex(self.real, -self.imag0)
 
-    def normalize(self: Complex) -> Complex:
+    def normalize(self) -> Complex:
         """
         Returns the normalized value of this complex number
 
@@ -67,7 +67,7 @@ class Complex(MathEntity):
 
         return self / abs(self)
 
-    def __floor__(self: Complex) -> Complex:
+    def __floor__(self) -> Complex:
         """
         Returns the result of rounding the real and
         imaginary components of this complex number
@@ -83,7 +83,7 @@ class Complex(MathEntity):
 
         return Complex(real, imag0)
 
-    def __ceil__(self: Complex) -> Complex:
+    def __ceil__(self) -> Complex:
         """
         Returns the result of rounding the real and
         imaginary components of this complex number
@@ -99,7 +99,7 @@ class Complex(MathEntity):
 
         return Complex(real, imag0)
 
-    def __round__(self: Complex, numDecimals: int=None):
+    def __round__(self, numDecimals: int=None):
         """
         Returns the result of rounding the real and
         imaginary components of this complex number
@@ -147,7 +147,7 @@ class Complex(MathEntity):
 
         return complex(customComplex.real, customComplex.imag0)
 
-    def __complex__(self: Complex) -> complex:
+    def __complex__(self) -> complex:
         """
         Converts a variable of type Complex to a variable
         of type complex
@@ -158,7 +158,7 @@ class Complex(MathEntity):
 
         return Complex.toBuiltInComplex(self)
 
-    def __iter__(self: Complex) -> Iterable[Union[int, float]]:
+    def __iter__(self) -> Iterable[Union[int, float]]:
         """
         Returns an iterator over the real and imaginary components
         of this complex number
@@ -169,7 +169,7 @@ class Complex(MathEntity):
 
         return iter([self.real, self.imag0])
 
-    def __hash__(self: Complex) -> int:
+    def __hash__(self) -> int:
         """
         Computes a hash code for this complex number
 
@@ -180,7 +180,7 @@ class Complex(MathEntity):
 
         return MODIFIER * hash(self.real) + MODIFIER * hash(self.imag0)
 
-    def __str__(self: Complex) -> str:
+    def __str__(self) -> str:
         """
         Returns a string representation of this complex number
 

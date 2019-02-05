@@ -1,3 +1,5 @@
+from __future__ import annotations
+from typing import Optional, Iterable, Tuple
 from math import factorial, ceil, floor
 from random import randrange, random
 from itertools import chain
@@ -76,42 +78,71 @@ class _FunctionDictionary:
                                      "transpose" : lambda matrix: matrix.transpose(),
                                      "norm" : lambda entity: entity.normalize(),
                                      "conj" : lambda entity: entity.conjugate()}
+            self.__tempFuncs = {}
+            self.__permFuncs = {}
         else:
             raise Exception("This is a singleton class")
 
     @staticmethod
-    def instance():
+    def instance() -> _FunctionDictionary:
         if _FunctionDictionary.__instance is None:
             return _FunctionDictionary()
         else:
             return _FunctionDictionary.__instance
 
-    def getUniversalFunc(self, funcName):
+    def getUniversalFunc(self, funcName: str) -> Optional[function]:
         return self.__universalFuncs.get(funcName)
 
-    def __getitem__(self, funcName):
+    def getPermFunc(self, funcName: str) -> Optional[function]:
+        return self.__permFuncs.get(funcName)
+
+    def getTempFunc(self, funcName: str) -> Optional[function]:
+        return self.__tempFuncs.get(funcName)
+
+    def __getitem__(self, funcName: str) -> Optional[function]:
         # Search "UniversalFunc" dictionary
         universalFunc = self.getUniversalFunc(funcName)
         if universalFunc is not None:
             return universalFunc
 
+        # Search "TempFunc" dictionary
+        tempFunc = self.getTempFunc(funcName)
+        if tempFunc is not None:
+            return tempFunc
+
+        # Search "PermFunc" dictionary
+        permFunc = self.getPermFunc(funcName)
+        if permFunc is not None:
+            return permFunc
+
         return None
 
-    def hasUniversalFunc(self, funcName):
+    def hasUniversalFunc(self, funcName: str) -> bool:
         return funcName in self.__universalFuncs
 
-    def __contains__(self, funcName):
-        return self.getUniversalFunc(funcName)
+    def hasPermFunc(self, funcName: str) -> bool:
+        return funcName in self.__permFuncs
 
-    def iterUniversalFuncs(self):
-        return iter(self.__universalFuncs)
+    def hasTempFunc(self, funcName: str) -> bool:
+        return funcName in self.__tempFuncs
 
-    def __iter__(self):
+    def __contains__(self, funcName: str) -> bool:
+        return self.hasUniversalFunc(funcName) or self.hasPermFunc(funcName) or self.hasTempFunc(funcName)
+
+    def iterUniversalFuncs(self) -> Iterable[Tuple[str, function]]:
+        return iter(self.__universalFuncs.items())
+
+    def iterPermFuncs(self) -> Iterable[Tuple[str, function]]:
+        return iter(self.__permFuncs.items())
+
+    def iterTempFuncs(self) -> Iterable[Tuple[str, function]]:
+        return iter(self.__tempFuncs.items())
+
+    def __iter__(self) -> Iterable[Tuple[str, function]]:
         return chain(self.__universalFuncs)
 
-    def __eq__(self, other):
+    def __eq__(self, other: _FunctionDictionary) -> bool:
         return self is other
 
-    def __ne__(self, other):
+    def __ne__(self, other: _FunctionDictionary) -> bool:
         return self is not other
-
