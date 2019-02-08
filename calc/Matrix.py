@@ -352,58 +352,6 @@ class Matrix(MathEntity):
 
         return table
 
-    def __floor__(self) -> Matrix:
-        """
-        Rounds all elements of this matrix
-        down
-
-        :return: A new matrix with each element
-            of this matrix rounded down
-        """
-
-        table = []
-
-        for value in self:
-            table.append(value.__floor__())
-
-        return Matrix.createMatrixFrom1DList(table, self.rowLength, self.columnLength)
-
-    def __ceil__(self) -> Matrix:
-        """
-        Rounds all elements of this matrix
-        up
-
-        :return: A new matrix with each element
-            of this matrix rounded up
-        """
-
-        table = []
-
-        for value in self:
-            table.append(value.__ceil__())
-
-        return Matrix.createMatrixFrom1DList(table, self.rowLength, self.columnLength)
-
-    def __round__(self, numDecimals: Optional[int]=None) -> Matrix:
-        """
-        Rounds all elements of this matrix
-        to a given number of decimal places
-
-        :param numDecimals: The number of decimals
-            this matrix's elements should be rounded
-            to
-        :return: A new matrix with each element
-            of this matrix rounded to the given number
-            of decimal places
-        """
-
-        table = []
-
-        for value in self:
-            table.append(round(value, numDecimals))
-
-        return Matrix.createMatrixFrom1DList(table, self.rowLength, self.columnLength)
-
     def __iter__(self) -> Iterable[Union[int, float, Complex, Quaternion]]:
         """
         Returns a row-by-row iterator over the elements

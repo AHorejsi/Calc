@@ -17,8 +17,8 @@ class Complex(MathEntity):
         :param real: The real component of this complex number
         :param imag0: The imaginary component of this complex number
         """
-        self._real = real
-        self._imag0 = imag0
+        self.__real = real
+        self.__imag0 = imag0
 
     @property
     def real(self) -> Union[int, float]:
@@ -28,7 +28,7 @@ class Complex(MathEntity):
         :return: The real component of this complex number
         """
 
-        return self._real
+        return self.__real
 
     @property
     def imag0(self) -> Union[int, float]:
@@ -38,7 +38,7 @@ class Complex(MathEntity):
         :return: The imaginary component of this complex number
         """
 
-        return self._imag0
+        return self.__imag0
 
     def __abs__(self) -> float:
         """
@@ -66,58 +66,6 @@ class Complex(MathEntity):
         """
 
         return self / abs(self)
-
-    def __floor__(self) -> Complex:
-        """
-        Returns the result of rounding the real and
-        imaginary components of this complex number
-        down
-
-        :return: The result of rounding the real and
-            imaginary components of this complex number
-            down
-        """
-
-        real = floor(self.real)
-        imag0 = floor(self.imag0)
-
-        return Complex(real, imag0)
-
-    def __ceil__(self) -> Complex:
-        """
-        Returns the result of rounding the real and
-        imaginary components of this complex number
-        up
-
-        :return: The result of rounding the real and
-            imaginary components of this complex number
-            up
-        """
-
-        real = ceil(self.real)
-        imag0 = ceil(self.imag0)
-
-        return Complex(real, imag0)
-
-    def __round__(self, numDecimals: int=None) -> Complex:
-        """
-        Returns the result of rounding the real and
-        imaginary components of this complex number
-        to the given number of decimal places
-
-        :param numDecimals: The number of decimal
-            places the real and imaginary components
-            will be rounded to
-        :return: The result of rounding the real and
-            imaginary components of this complex
-            number to the given number of decimal
-            places
-        """
-
-        real = round(self.real, numDecimals)
-        imag0 = round(self.imag0, numDecimals)
-
-        return Complex(real, imag0)
 
     @staticmethod
     def fromBuiltInComplex(builtInComplex: complex) -> Complex:

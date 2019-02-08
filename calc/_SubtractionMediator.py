@@ -6,6 +6,7 @@ from calc.Quaternion import Quaternion
 from calc.Vector import Vector
 from calc.Matrix import Matrix
 
+
 def __vectorMinusVector(leftVector: Vector, rightVector: Vector) -> Vector:
     if not leftVector.equalDimensions(rightVector):
         raise ArithmeticError("Vectors must be of equal dimensions to be subtracted from each other")

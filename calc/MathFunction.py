@@ -1,5 +1,4 @@
-from math import nan, exp, log, log10, sqrt, sin, cos, tan, sinh, cosh, tanh, asin, acos, atan, asinh, acosh, atanh, \
-                 floor, ceil
+from math import nan, exp, log, log10, sqrt, sin, cos, tan, sinh, cosh, tanh, asin, acos, atan, asinh, acosh, atanh
 from calc.MathEntity import MathEntity
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
@@ -7,7 +6,7 @@ from calc.Matrix import Matrix
 from calc.ComplexFunction import expComplex, logComplex, log10Complex, sqrtComplex, sinComplex, cosComplex, \
                                  tanComplex, sinhComplex, coshComplex, tanhComplex, asinComplex, acosComplex, \
                                  atanComplex, asinhComplex, acoshComplex, atanhComplex, signumComplex
-from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion
+from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, signumQuaternion
 from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
                                 coshMatrix, tanhMatrix, signumMatrix
 from typing import Union
@@ -77,6 +76,7 @@ functionDictionary = {("exp", int): exp,
                       ("signum", int): lambda value: 1 if value > 0 else -1 if value < 0 else 0,
                       ("signum", float): lambda value: 1 if value > 0 else -1 if value < 0 else 0,
                       ("signum", Complex): signumComplex,
+                      ("signum", Quaternion): signumQuaternion,
                       ("signum", Matrix): signumMatrix}
 
 
@@ -248,11 +248,3 @@ def signumMath(mathEntity: MathEntity) -> Union[MathEntity, float]:
         return func(mathEntity)
     else:
         return nan
-
-
-def floorMath(mathEntity: MathEntity) -> Union[MathEntity, float]:
-    return floor(mathEntity)
-
-
-def ceilMath(mathEntity: MathEntity) -> Union[MathEntity, float]:
-    return ceil(mathEntity)

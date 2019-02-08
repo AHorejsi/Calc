@@ -77,11 +77,3 @@ def tanhMatrix(matrix: Matrix) -> Matrix:
 def signumMatrix(matrix: Matrix) -> Matrix:
     scipyArray = signm(_createScipyArray(matrix))
     return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
-
-
-def floorMatrix(matrix: Matrix) -> Matrix:
-    return matrix.__floor__()
-
-
-def ceilMatrix(matrix: Matrix) -> Matrix:
-    return matrix.__ceil__()

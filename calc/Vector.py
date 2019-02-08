@@ -185,55 +185,6 @@ class Vector(MathEntity):
 
         return copy(self.__point)
 
-    def __floor__(self) -> Vector:
-        """
-        Rounds all the components of this vector down
-
-        :return: A new vector with the same values as
-            this vector with all values rounded down
-        """
-
-        point = []
-
-        for value in self:
-            point.append(floor(value))
-
-        return Vector(point)
-
-    def __ceil__(self) -> Vector:
-        """
-        Rounds all the components of this vector up
-
-        :return: A new vector with the same values as
-            this vector with all values rounded up
-        """
-
-        point = []
-
-        for value in self:
-            point.append(ceil(value))
-
-        return Vector(point)
-
-    def __round__(self, numDecimals: Optional[int]=None) -> Vector:
-        """
-        Rounds all the components of this vector to a
-        given number of decimal places
-
-        :param numDecimals: The number of decimal places
-            to round each value
-        :return: A new vector with the same values as
-            this vector with all values rounded to a
-            given number of decimal places
-        """
-
-        point = []
-
-        for value in self:
-            point.append(round(value, numDecimals))
-
-        return Vector(point)
-
     def __contains__(self, searchValue: Union[int, float]) -> bool:
         """
         Checks if this vector contains a specific value

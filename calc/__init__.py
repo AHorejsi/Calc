@@ -7,11 +7,9 @@ from calc.ComplexFunction import expComplex, logComplex, log10Complex, sqrtCompl
                                  tanComplex, sinhComplex, coshComplex, tanhComplex, asinComplex, acosComplex, \
                                  atanComplex, asinhComplex, acoshComplex, atanhComplex, ceilComplex, floorComplex, \
                                  signumComplex
-from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, ceilQuaternion, \
-                                    floorQuaternion
+from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, signumQuaternion
 from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
-                                coshMatrix, tanhMatrix, signumMatrix, floorMatrix, ceilMatrix
+                                coshMatrix, tanhMatrix, signumMatrix
 from calc.MathFunction import expMath, logMath, log10Math, sqrtMath, sinMath, cosMath, tanMath, sinhMath, coshMath, \
-                              tanhMath, asinMath, acosMath, atanMath, asinhMath, acoshMath, atanhMath, floorMath, \
-                              ceilMath
+                              tanhMath, asinMath, acosMath, atanMath, asinhMath, acoshMath, atanhMath
 from calc.MathConstant import PI, EULER, POSITIVE_INFINITY, NEGATIVE_INFINITY, NOT_A_NUMBER, IMAG_0, IMAG_1, IMAG_2

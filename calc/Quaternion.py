@@ -23,10 +23,10 @@ class Quaternion(MathEntity):
             quaternion
         """
 
-        self._real = real
-        self._imag0 = imag0
-        self._imag1 = imag1
-        self._imag2 = imag2
+        self.__real = real
+        self.__imag0 = imag0
+        self.__imag1 = imag1
+        self.__imag2 = imag2
 
     @property
     def real(self) -> Union[int, float]:
@@ -36,7 +36,7 @@ class Quaternion(MathEntity):
         :return: The real component of this quaternion
         """
 
-        return self._real
+        return self.__real
 
     @property
     def imag0(self) -> Union[int, float]:
@@ -48,7 +48,7 @@ class Quaternion(MathEntity):
             this quaternion
         """
 
-        return self._imag0
+        return self.__imag0
 
     @property
     def imag1(self) -> Union[int, float]:
@@ -60,7 +60,7 @@ class Quaternion(MathEntity):
             this quaternion
         """
 
-        return self._imag1
+        return self.__imag1
 
     @property
     def imag2(self) -> Union[int, float]:
@@ -72,7 +72,7 @@ class Quaternion(MathEntity):
             this quaternion
         """
 
-        return self._imag2
+        return self.__imag2
 
     def __abs__(self) -> float:
         """
@@ -100,56 +100,6 @@ class Quaternion(MathEntity):
         """
 
         return self / abs(self)
-
-    def __floor__(self) -> Quaternion:
-        """
-        Rounds the real and imaginary components of quaternion
-        down
-
-        :return: A new quaternion with the values of this quaternion
-            rounded down
-        """
-
-        real = floor(self.real)
-        imag0 = floor(self.imag0)
-        imag1 = floor(self.imag1)
-        imag2 = floor(self.imag2)
-
-        return Quaternion(real, imag0, imag1, imag2)
-
-    def __ceil__(self) -> Quaternion:
-        """
-        Rounds the real and imaginary components of quaternion
-        up
-
-        :return: A new quaternion with the values of this quaternion
-            rounded up
-        """
-
-        real = ceil(self.real)
-        imag0 = ceil(self.imag0)
-        imag1 = ceil(self.imag1)
-        imag2 = ceil(self.imag2)
-
-        return Quaternion(real, imag0, imag1, imag2)
-
-    def __round__(self, numDecimals: int=None):
-        """
-        Rounds the real and imaginary components of quaternion
-        to the given number of decimal places
-
-        :param numDecimals: The number of decimals that the components of this
-            quaternion should be rounded to
-        :return: A new quaternion with the values of this quaternion
-            rounded up
-        """
-
-        real = round(self.real, numDecimals)
-        imag0 = round(self.imag0, numDecimals)
-        imag1 = round(self.imag1, numDecimals)
-        imag2 = round(self.imag2, numDecimals)
-
-        return Quaternion(real, imag0, imag1, imag2)
 
     def __iter__(self) -> Iterable[Union[int, float]]:
         """
