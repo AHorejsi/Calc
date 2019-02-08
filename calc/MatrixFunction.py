@@ -5,6 +5,16 @@ import scipy
 
 
 def _createScipyArray(matrix: Matrix) -> scipy.ndarray:
+    """
+    Places the elements of a given matrix into an
+    ndarray
+
+    :param matrix: The matrix whose elements will
+        be placed into a an ndarray
+    :return: An ndarray with the same dimensions
+        and elements as the given matrix
+    """
+
     table = []
 
     for rowIndex in range(matrix.rowLength):
@@ -19,6 +29,17 @@ def _createScipyArray(matrix: Matrix) -> scipy.ndarray:
 
 
 def _replaceBuiltInComplex(scipyArray: scipy.ndarray, rowLength: int, columnLength: int) -> Matrix:
+    """
+    Places the elements of a given ndarray into a matrix
+
+    :param scipyArray: The ndarray to have its elements placed
+        into a matrix
+    :param rowLength: The number of rows the ndarray has
+    :param columnLength: The number of coumns the ndarray has
+    :return: A matrix with the same dimensions and elements
+        as the given ndarray
+    """
+
     newTable = []
 
     for rowIndex in range(rowLength):
@@ -31,16 +52,42 @@ def _replaceBuiltInComplex(scipyArray: scipy.ndarray, rowLength: int, columnLeng
 
 
 def expMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the exponential of the given
+    matrix
+
+    :param matrix: The matrix whose exponential
+        will be computed
+    :return: The exponential of the given matrix
+    """
+
     scipyArray = expm(_createScipyArray(matrix))
     return Matrix(scipyArray.tolist())
 
 
 def logMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the logarithm of the given
+    matrix
+
+    :param matrix: The matrix whose logarithm
+        will be computed
+    :return: The logarithm of the given matrix
+    """
+
     scipyArray = logm(_createScipyArray(matrix))
     return Matrix(scipyArray.tolist())
 
 
 def sqrtMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the square root of the given matrix
+
+    :param matrix: The matrix whose square root
+        will be computed
+    :return: The square root of the given matrix
+    """
+
     return matrix ** 0.5
 
 

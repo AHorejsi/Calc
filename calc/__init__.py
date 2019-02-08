@@ -5,8 +5,7 @@ from calc.Vector import Vector
 from calc.Matrix import Matrix
 from calc.ComplexFunction import expComplex, logComplex, log10Complex, sqrtComplex, sinComplex, cosComplex, \
                                  tanComplex, sinhComplex, coshComplex, tanhComplex, asinComplex, acosComplex, \
-                                 atanComplex, asinhComplex, acoshComplex, atanhComplex, ceilComplex, floorComplex, \
-                                 signumComplex
+                                 atanComplex, asinhComplex, acoshComplex, atanhComplex, signumComplex
 from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, signumQuaternion
 from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
                                 coshMatrix, tanhMatrix, signumMatrix
