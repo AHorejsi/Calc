@@ -92,35 +92,97 @@ def sqrtMatrix(matrix: Matrix) -> Matrix:
 
 
 def sinMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the sine of the given matrix
+
+    :param matrix: The matrix which will
+        have the sine function applied to
+        it
+    :return: The sine of the given matrix
+    """
+
     scipyArray = sinm(_createScipyArray(matrix))
     return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
 
 
 def cosMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the cosine of the given matrix
+
+    :param matrix: The matrix which will
+        have the cosine function applied to
+        it
+    :return: The cosine of the given matrix
+    """
+
     scipyArray = cosm(_createScipyArray(matrix))
     return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
 
 
 def tanMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the tangent of the given matrix
+
+    :param matrix: The matrix which will
+        have the tangent function applied to
+        it
+    :return: The tangent of the given matrix
+    """
+
     scipyArray = tanm(_createScipyArray(matrix))
     return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
 
 
 def sinhMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the hyperbolic sine of the given matrix
+
+    :param matrix: The matrix which will
+        have the hyperbolic sine function applied to
+        it
+    :return: The hyperbolic sine of the given matrix
+    """
+
     scipyArray = sinhm(_createScipyArray(matrix))
     return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
 
 
 def coshMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the hyperbolic cosine of the given matrix
+
+    :param matrix: The matrix which will
+        have the hyperbolic cosine function applied to
+        it
+    :return: The hyperbolic cosine of the given matrix
+    """
+
     scipyArray = coshm(_createScipyArray(matrix))
     return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
 
 
 def tanhMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the hyperbolic tangent of the given matrix
+
+    :param matrix: The matrix which will
+        have the hyperbolic tangent function applied to
+        it
+    :return: The hyperbolic tangent of the given matrix
+    """
+
     scipyArray = tanhm(_createScipyArray(matrix))
-    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
+    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()))
 
 
 def signumMatrix(matrix: Matrix) -> Matrix:
+    """
+    Computes the sign of the given matrix
+
+    :param matrix: The matrix whose sign
+        will be computed
+    :return: The sign of the given matrix
+    """
+
     scipyArray = signm(_createScipyArray(matrix))
     return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
