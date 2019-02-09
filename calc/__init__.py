@@ -12,7 +12,3 @@ from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cos
 from calc.MathFunction import expMath, logMath, log10Math, sqrtMath, sinMath, cosMath, tanMath, sinhMath, coshMath, \
                               tanhMath, asinMath, acosMath, atanMath, asinhMath, acoshMath, atanhMath
 from calc.MathConstant import PI, EULER, POSITIVE_INFINITY, NEGATIVE_INFINITY, NOT_A_NUMBER, IMAG_0, IMAG_1, IMAG_2
-import scipy
-
-x = [[7,7,7],[9,9,9],[1,1,1]]
-print(scipy.array(x).tolist())

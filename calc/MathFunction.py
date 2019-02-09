@@ -81,6 +81,16 @@ functionDictionary = {("exp", int): exp,
 
 
 def expMath(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union[int, float, Complex, Quaternion, Matrix]:
+    """
+    Computes the exponential of the given mathematical entity if it has one.
+    If it is does not have an exponential, nan is returned
+
+    :param mathEntity: The mathematical entity whose exponential will be
+        computed
+    :return: The exponential of the given mathematical entity if it has
+        one. If it does not have an exponential, nan is returned
+    """
+
     key = ("exp", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -91,6 +101,16 @@ def expMath(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union
 
 
 def logMath(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union[int, float, Complex, Quaternion, Matrix]:
+    """
+    Computes the logarithm of the given mathematical entity if it has one.
+    If it does not have a logarithm, nan is returned
+
+    :param mathEntity: The mathematical entity whose logarithm will be
+        computed
+    :return: The logarithm of the given mathematical entity if it has one.
+        If it does not have a logarithm, nan is returned
+    """
+
     key = ("log", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -101,6 +121,16 @@ def logMath(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union
 
 
 def log10Math(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union[int, float, Complex, Quaternion, Matrix]:
+    """
+    Computes the logarithm of the given mathematical entity if it has one
+    with a base of 10. If it does not have a logarithm, nan is returned
+
+    :param mathEntity: The mathematical entity whose logarithm with a base
+        of 10 will be computed
+    :return: The logarithm of the given mathematical entity with a base of 10
+        if it has one. If it does not have a logarithm, nan is returned
+    """
+
     key = ("log10", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -111,6 +141,16 @@ def log10Math(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Uni
 
 
 def sqrtMath(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Union[int, float, Complex, Quaternion, Matrix]:
+    """
+    Computes the square root of the given mathematical entity if it has one.
+    If it does not have a square root, nan is returned
+
+    :param mathEntity: The mathematical entity whose square root will be
+        computed
+    :return: The square root of the given mathematical entity if it has one.
+        If it does not have a square root, nan is returned
+    """
+
     key = ("sqrt", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -121,6 +161,15 @@ def sqrtMath(mathEntity: Union[int, float, Complex, Quaternion, Matrix]) -> Unio
 
 
 def sinMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
+    """
+    Computes the sine of the given mathematical entity if it has one. If it does
+    not have a sine, nan is returned
+
+    :param mathEntity: The mathematical entity whose sine will be computed
+    :return: The sine of the given mathematical entity if it has one. If it
+        does not have a sine, nan is returned
+    """
+
     key = ("sin", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -131,6 +180,15 @@ def sinMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float,
 
 
 def cosMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
+    """
+    Computes the cosine of the given mathematical entity if it has one. If it does
+    not have a cosine, nan is returned
+
+    :param mathEntity: The mathematical entity whose cosine will be computed
+    :return: The cosine of the given mathematical entity if it has one. If it
+        does not have a cosine, nan is returned
+    """
+
     key = ("cos", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -141,6 +199,15 @@ def cosMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float,
 
 
 def tanMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
+    """
+    Computes the tangent of the given mathematical entity if it has one. If it does
+    not have a tangent, nan is returned
+
+    :param mathEntity: The mathematical entity whose tangent will be computed
+    :return: The tangent of the given mathematical entity if it has one. If it
+        does not have a tangent, nan is returned
+    """
+
     key = ("tan", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -151,6 +218,15 @@ def tanMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float,
 
 
 def sinhMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
+    """
+    Computes the hyperbolic sine of the given mathematical entity if it has one. If it does
+    not have a hyperbolic sine, nan is returned
+
+    :param mathEntity: The mathematical entity whose hyperbolic sine will be computed
+    :return: The hyperbolic sine of the given mathematical entity if it has one. If it
+        does not have a hyperbolic sine, nan is returned
+    """
+
     key = ("sinh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -161,6 +237,15 @@ def sinhMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float
 
 
 def coshMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
+    """
+    Computes the hyperbolic cosine of the given mathematical entity if it has one. If it does
+    not have a hyperbolic cosine, nan is returned
+
+    :param mathEntity: The mathematical entity whose hyperbolic cosine will be computed
+    :return: The hyperbolic cosine of the given mathematical entity if it has one. If it
+        does not have a hyperbolic cosine, nan is returned
+    """
+
     key = ("cosh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -171,6 +256,15 @@ def coshMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float
 
 
 def tanhMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float, Complex, Matrix]:
+    """
+    Computes the hyperbolic tangent of the given mathematical entity if it has one. If it does
+    not have a hyperbolic tangent, nan is returned
+
+    :param mathEntity: The mathematical entity whose hyperbolic tangent will be computed
+    :return: The hyperbolic tangent of the given mathematical entity if it has one. If it
+        does not have a hyperbolic tangent, nan is returned
+    """
+
     key = ("tanh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -181,6 +275,15 @@ def tanhMath(mathEntity: Union[int, float, Complex, Matrix]) -> Union[int, float
 
 
 def asinMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
+    """
+    Computes the arcsine of the given mathematical entity if it has one. If it does
+    not have an arcsine, nan is returned
+
+    :param mathEntity: The mathematical entity whose arcsine will be computed
+    :return: The arcsine of the given mathematical entity if it has one. If it
+        does not have a arcsine, nan is returned
+    """
+
     key = ("asin", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -191,6 +294,15 @@ def asinMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Comple
 
 
 def acosMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
+    """
+    Computes the arccosine of the given mathematical entity if it has one. If it does
+    not have an arccosine, nan is returned
+
+    :param mathEntity: The mathematical entity whose arccosine will be computed
+    :return: The arccosine of the given mathematical entity if it has one. If it
+        does not have an arccosine, nan is returned
+    """
+
     key = ("acos", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -201,6 +313,15 @@ def acosMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Comple
 
 
 def atanMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
+    """
+    Computes the arctangent of the given mathematical entity if it has one. If it does
+    not have an arctangent, nan is returned
+
+    :param mathEntity: The mathematical entity whose arctangent will be computed
+    :return: The arctangent of the given mathematical entity if it has one. If it
+        does not have an arctangent, nan is returned
+    """
+
     key = ("atan", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -211,6 +332,15 @@ def atanMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Comple
 
 
 def asinhMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
+    """
+    Computes the hyperbolic arcsine of the given mathematical entity if it has one. If it
+    does not have a hyperbolic arcsine, nan is returned
+
+    :param mathEntity: The mathematical entity whose hyperbolic arcsine will be computed
+    :return: The hyperbolic arcsine of the given mathematical entity if it has one. If it
+        does not have a hyperbolic arcsine, nan is returned
+    """
+
     key = ("asinh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -221,6 +351,15 @@ def asinhMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Compl
 
 
 def acoshMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
+    """
+    Computes the hyperbolic arccosine of the given mathematical entity if it has one. If it
+    does not have a hyperbolic arccosine, nan is returned
+
+    :param mathEntity: The mathematical entity whose hyperbolic arccosine will be computed
+    :return: The hyperbolic arccosine of the given mathematical entity if it has one. If it
+        does not have a hyperbolic arccosine, nan is returned
+    """
+
     key = ("acosh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -231,6 +370,15 @@ def acoshMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Compl
 
 
 def atanhMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Complex]:
+    """
+    Computes the hyperbolic arctangent of the given mathematical entity if it has one. If it
+    does not have a hyperbolic arctangent, nan is returned
+
+    :param mathEntity: The mathematical entity whose hyperbolic arctangent will be computed
+    :return: The hyperbolic arctangent of the given mathematical entity if it has one. If it
+        does not have a hyperbolic arctangent, nan is returned
+    """
+
     key = ("atanh", type(mathEntity))
     func = functionDictionary.get(key)
 
@@ -241,6 +389,13 @@ def atanhMath(mathEntity: Union[int, float, Complex]) -> Union[int, float, Compl
 
 
 def signumMath(mathEntity: MathEntity) -> Union[MathEntity, float]:
+    """
+    Computes the sign of the given mathematical entity
+
+    :param mathEntity: The mathematical entity whose sign will be computed
+    :return: The sign of the given mathematical entity
+    """
+
     key = ("signum", type(mathEntity))
     func = functionDictionary.get(key)
 

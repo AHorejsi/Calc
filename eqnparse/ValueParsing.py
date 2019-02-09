@@ -4,6 +4,17 @@ from typing import Optional
 
 
 def parseInt(valueString: str) -> Optional[int]:
+    """
+    Checks if the given string represents a valid int.
+    If it does, returns the int value that it corresponds
+    to. Otherwise returns None
+
+    :param valueString: The string to be parsed to an int
+    :return: The int value represented by the given string.
+        If the string does not represent a valid int, returns
+        None
+    """
+
     if fullmatch("\s*(\-?\d+)\s*", valueString) is not None:
         return int(valueString)
     else:
@@ -11,6 +22,17 @@ def parseInt(valueString: str) -> Optional[int]:
 
 
 def parseFloat(valueString: str) -> Optional[float]:
+    """
+    Checks if the given string represents a valid float.
+    If it does, returns the float value that it corresponds
+    to. Otherwise, returns None
+
+    :param valueString: The string to be parsed to a float
+    :return: The float value represented by the given string.
+        If the string does not represent a valid float, returns
+        None
+    """
+
     if fullmatch("\s*((\-?\d+\.\d+)(e[\+|\-]?\d+)?)\s*", valueString) is not None:
         return float(valueString)
     else:
@@ -18,6 +40,17 @@ def parseFloat(valueString: str) -> Optional[float]:
 
 
 def parseComplex(valueString: str) -> Optional[Complex]:
+    """
+    Checks if the given string represents a valid Complex number.
+    If it does, returns the Complex value that it corresponds to.
+    Otherwise, returns None
+
+    :param valueString: The string to be parsed to a Complex number
+    :return: The Complex value represented by the given string.
+        If the string does not represent a valid Complex number,
+        returns None
+    """
+
     if fullmatch("\s*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?i)\s*", valueString) is not None:
         strValue = valueString.replace("i", "j")
         builtInComplex = complex(strValue)
@@ -28,8 +61,19 @@ def parseComplex(valueString: str) -> Optional[Complex]:
 
 
 def parseQuaternion(valueString: str) -> Optional[Quaternion]:
-    if fullmatch(
-            "\s*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?i[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?j[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?k)\s*",
+    """
+    Checks if the given string represents a valid Quaternion.
+    If it does, returns the Quaternion value that it corresponds
+    to. Otherwise, returns None
+
+    :param valueString: The string to be parsed to a Quaternion
+    :return: The Quaternion value represented by the given string.
+        If the string does not represent a valid Quaternion, returns
+        None
+    """
+
+    if fullmatch("\s*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?i"
+                 "[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?j[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?k)\s*",
             valueString) is not None:
         nums = split("[ijk]", valueString)
         com = complex(nums[0] + "j")
@@ -38,8 +82,19 @@ def parseQuaternion(valueString: str) -> Optional[Quaternion]:
 
 
 def parseVector(valueString: str) -> Optional[Vector]:
-    if fullmatch("\s*(<((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?\s*\,\s*)*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?)?>)\s*", valueString) is not None:
-        nums = split(",", valueString[1 : len(valueString) - 1])
+    """
+    Checks if the given string represents a valid Vector.
+    If it does, returns the Vector value that it corresponds
+    to. Otherwise, returns None
+
+    :param valueString: The string to be parsed to a Vector
+    :return: The Vector value represented by the given string.
+        If the string does not represent a valid Vector, returns
+        None
+    """
+
+    if fullmatch("\s*<((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?\s*\,\s*)*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?)?>\s*", valueString) is not None:
+        nums = split("\s*\,\s*", valueString[1 : len(valueString) - 1])
         listOfNums = []
 
         for numStr in nums:
@@ -51,26 +106,36 @@ def parseVector(valueString: str) -> Optional[Vector]:
 
 
 def parseMatrix(valueString: str) -> Optional[Matrix]:
-    if fullmatch(
-    "\s*(\["
-    "(\["
-    "((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?"
-    "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?i)"
-    "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?j)([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?k)))?)?"
-    "\s*\,\s*)*"
-    "((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?"
-    "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?i)"
-    "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?j)([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?k)))?)?)?"
-    "\]\s*\,\s*)*"
-    "(\["
-    "((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?"
-    "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?i)"
-    "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?j)([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?k)))?)?"
-    "\s*\,\s*)*"
-    "((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?"
-    "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?i)"
-    "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?j)([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?k)))?)?)?"
-    "\])?\])\s*", valueString) is not None:
+    """
+    Checks if the given string represents a valid Matrix.
+    If it does, returns the Matrix value that it corresponds
+    to. Otherwise, returns None
+
+    :param valueString: The string to be parsed to a Matrix
+    :return: The Matrix value represented by the given string.
+        If the string does not represent a valid Matrix, returns
+        None
+    """
+
+    if fullmatch("\s*(\["
+                 "(\["
+                 "((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?"
+                 "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?i)"
+                 "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?j)([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?k)))?)?"
+                 "\s*\,\s*)*"
+                 "((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?"
+                 "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?i)"
+                 "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?j)([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?k)))?)?)?"
+                 "\]\s*\,\s*)*"
+                 "(\["
+                 "((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?"
+                 "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?i)"
+                 "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?j)([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?k)))?)?"
+                 "\s*\,\s*)*"
+                 "((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?"
+                 "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?i)"
+                 "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?j)([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?k)))?)?)?"
+                 "\])?\])\s*", valueString) is not None:
         rows = list(filter(lambda string: string != "", split("\[\[|\]\]|\]\s*\,\s*\[", valueString)))
         table = []
 
@@ -93,15 +158,39 @@ def parseMatrix(valueString: str) -> Optional[Matrix]:
 
 
 def parseBool(valueString: str) -> Optional[bool]:
-    if fullmatch("[t|T][r|R][u|U][e|E]", valueString) is not None:
+    """
+    Checks if the given string represents a valid Bool.
+    If it does, returns the Bool value that it corresponds
+    to. Otherwise, returns None
+
+    :param valueString: The string to be parsed to a Bool
+    :return: The Bool value that is represented by the
+        given string. If the string does not represent a
+        valid Bool, returns None
+    """
+
+    if fullmatch("\s*[t|T][r|R][u|U][e|E]\s*", valueString) is not None:
         return True
-    elif fullmatch("[f|F][a|A][l|L][s|S][e|E]", valueString) is not None:
+    elif fullmatch("\s*[f|F][a|A][l|L][s|S][e|E]\s*", valueString) is not None:
         return False
     else:
         return None
 
 
-def parseVariableValue(valueString: str) -> Optional[MathEntity]:
+def parseVariableValue(valueString: str) -> Optional[MathEntity, int, float, bool]:
+    """
+    Checks if the given string represents a valid
+    mathematical entity. If it does, returns the
+    given mathematical entity with the given value
+    represented by the string. If it does not, returns
+    None
+
+    :param valueString: The string to be parsed into
+        a mathematical entity
+    :return: Returns the mathematical entity represented
+        by the given string
+    """
+
     for func in [parseInt, parseFloat, parseComplex, parseQuaternion, parseVector, parseMatrix, parseBool]:
         value = func(valueString)
 
