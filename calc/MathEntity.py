@@ -1,6 +1,5 @@
 from __future__ import annotations
 from typing import Union, Optional
-from math import nan
 
 
 class MathEntity(object):
@@ -180,49 +179,6 @@ class MathEntity(object):
         from calc._DivisionMediator import doDivision
 
         return doDivision(mathEntity, self)
-
-    def __floordiv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
-        """
-        Performs floor division with this entity on the left side of the
-        floor division operator and another mathematical entity on the
-        right side
-
-        :param mathEntity: The mathematical entity being divided from
-            this entity
-        :return: The floor quotient of this entity and the given entity
-        """
-
-        from calc._DivisionMediator import doFloorDivision
-
-        return doFloorDivision(self, mathEntity)
-
-    def __ifloordiv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
-        """
-        Updates the value of this entity by performing floor division with
-        this entity on the left side of the floor division operator and another
-        mathematical entity on the right side
-
-        :param mathEntity: The mathematical entity being floor divided from
-            this entity
-        :return: The floor quotient of this entity and the given entity
-        """
-
-        return self // mathEntity
-
-    def __rfloordiv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
-        """
-        Performs floor division with this entity on the right side of the
-        floor division operator and another mathematical entity on the
-        left side
-
-        :param mathEntity: The mathematical entity that this entity
-            is being floor divided from
-        :return: The floor quotient of the given entity and this entity
-        """
-
-        from calc._DivisionMediator import doFloorDivision
-
-        return doFloorDivision(mathEntity, self)
 
     def __pow__(self, mathEntity: Union[MathEntity, int, float], modulo: Optional[int]=None) -> Union[MathEntity, float]:
         """

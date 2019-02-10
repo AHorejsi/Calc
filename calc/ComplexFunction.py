@@ -255,3 +255,17 @@ def atanhComplex(complex: Complex) -> Complex:
     """
 
     return (logComplex(1 + complex) - logComplex(1 - complex)) / 2
+
+
+def argComplex(complex: Complex) -> float:
+    """
+    Computes the complex argument of the given complex
+    number
+
+    :param complex: The complex number whose complex
+        argument will be computed
+    :return: The complex argument of the given complex
+        number
+    """
+
+    return math.atan(complex.imag0 / complex.real)

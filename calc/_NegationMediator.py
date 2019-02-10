@@ -17,6 +17,16 @@ negDict = {Complex: lambda complex: Complex(-complex.real, -complex.imag0),
 
 
 def doNegation(mathEntity: MathEntity) -> Union[MathEntity, float]:
+    """
+    Computes the negation of the given mathematical entity.
+    If the given mathematical entity cannot be negated, nan
+    is returned
+
+    :param mathEntity: The mathematical entity to be negated
+    :return: The negation of the given mathematical entity if
+        it can be negated. If it cannot be negated, nan is returned
+    """
+
     operation = negDict.get(type(mathEntity))
 
     if operation is not None:

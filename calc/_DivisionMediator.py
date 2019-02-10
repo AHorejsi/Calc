@@ -8,12 +8,34 @@ from calc.Matrix import Matrix
 
 
 def __realDividedByComplex(leftReal: Union[int, float], rightComplex: Complex) -> Complex:
+    """
+    Divides the given real number by the given complex number
+
+    :param leftReal: The real number on the left side of the
+        division sign
+    :param rightComplex: The complex number on the right side
+        of the division sign
+    :return: The quotient of the given real number and the
+        given complex number
+    """
+
     conj = rightComplex.conjugate()
 
     return (leftReal * conj) / (rightComplex * conj).real
 
 
 def __realDividedByQuaternion(leftReal: Union[int, float], rightQuaternion: Quaternion) -> Quaternion:
+    """
+    Divides the given real number by the given quaternion
+
+    :param leftReal: The real number on the left side of
+        the division sign
+    :param rightQuaternion: The quaternion on the right
+        side of the division sign
+    :return: The quotient of the given real number and
+        the given quaternion
+    """
+
     absoluteValueOfRight = abs(rightQuaternion)
 
     return Quaternion((leftReal * rightQuaternion.real) / absoluteValueOfRight,
@@ -23,6 +45,17 @@ def __realDividedByQuaternion(leftReal: Union[int, float], rightQuaternion: Quat
 
 
 def __complexDividedByComplex(leftComplex: Complex, rightComplex: Complex) -> Complex:
+    """
+    Divides the first given complex number by the second
+    given complex number
+
+    :param leftComplex: The complex number on the left
+        side of the division sign
+    :param rightComplex: The complex number on the right
+        side of the division sign
+    :return: The quotient of the two given complex numbers
+    """
+
     conj = rightComplex.conjugate()
     numerator = leftComplex * conj
     denominator = (rightComplex * conj).real
@@ -31,6 +64,17 @@ def __complexDividedByComplex(leftComplex: Complex, rightComplex: Complex) -> Co
 
 
 def __complexDividedByQuaternion(leftComplex: Complex, rightQuaternion: Quaternion) -> Quaternion:
+    """
+    Divides the given complex number by the given quaternion
+
+    :param leftComplex: The complex number on the left side
+        of the division sign
+    :param rightQuaternion: The quaternion on the right side
+        of the division sign
+    :return: The quotient of the given complex number and the
+        given quaternion
+    """
+
     absoluteValueOfRight = abs(rightQuaternion)
 
     realOfResult = leftComplex.real * rightQuaternion.real + leftComplex.imag0 * rightQuaternion.imag0
@@ -45,6 +89,17 @@ def __complexDividedByQuaternion(leftComplex: Complex, rightQuaternion: Quaterni
 
 
 def __quaternionDividedByComplex(leftQuaternion: Quaternion, rightComplex: Complex) -> Quaternion:
+    """
+    Divides the given quaternion by the given complex number
+
+    :param leftQuaternion: The quaternion on the left side of
+        the division sign
+    :param rightComplex: The complex number on the right side
+        of the division sign
+    :return: The quotient of the given quaternion and the given
+        complex number
+    """
+
     conjugateOfRightComplex = rightComplex.conjugate()
     numerator = leftQuaternion * conjugateOfRightComplex
     denominator = rightComplex * conjugateOfRightComplex
@@ -54,6 +109,17 @@ def __quaternionDividedByComplex(leftQuaternion: Quaternion, rightComplex: Compl
 
 
 def __quaternionDividedByQuaternion(leftQuaternion: Quaternion, rightQuaternion: Quaternion) -> Quaternion:
+    """
+    Divides the first given quaternion by the second given
+    quaternion
+
+    :param leftQuaternion: The quaternion on the left side of
+        the division sign
+    :param rightQuaternion: The quaternion on the right side
+        of the division sign
+    :return: The quotient of the two quaternions
+    """
+
     absoluteValueOfLeft = abs(rightQuaternion)
 
     realOfResult = leftQuaternion.real * rightQuaternion.real + leftQuaternion.imag0 * rightQuaternion.imag0 + \
@@ -110,20 +176,23 @@ divDict = {(int, Complex): __realDividedByComplex,
 
 def doDivision(mathEntity1: Union[int, float, MathEntity],
                mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
+    """
+    Divides the first given mathematical entity by the
+    second given mathematical entity
+
+    :param mathEntity1: The mathematical entity on the
+        left side of the division sign
+    :param mathEntity2: The mathematical entity on the
+        right side of the division sign
+    :return: The quotient of the two given mathematical
+        entities. If the first cannot be divided by the
+        second, nan is returned
+    """
+
     key = (type(mathEntity1), type(mathEntity2))
     operation = divDict.get(key)
 
     if operation is not None:
         return operation(mathEntity1, mathEntity2)
-    else:
-        return nan
-
-
-def doFloorDivision(mathEntity1: Union[int, float, MathEntity],
-                    mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
-    trueDiv = doDivision(mathEntity1, mathEntity2)
-
-    if (trueDiv is not None) and (trueDiv is not nan):
-        return trueDiv.__floor__()
     else:
         return nan
