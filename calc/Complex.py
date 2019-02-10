@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Union, Iterable
 from calc.MathEntity import MathEntity
-from math import sqrt, floor, ceil
+from math import sqrt
 
 
 class Complex(MathEntity):

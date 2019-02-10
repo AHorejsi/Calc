@@ -71,9 +71,9 @@ eqDict = {(int, Complex): lambda leftInt, rightComplex: leftInt == rightComplex.
           (Complex, Complex): lambda leftComplex, rightComplex: leftComplex.real == rightComplex.real and
                                                                       leftComplex.imag0 == rightComplex.imag0,
           (Complex, Quaternion): lambda leftComplex, rightQuaternion: leftComplex.real == rightQuaternion.real and
-                                                                            leftComplex.imag0 == rightQuaternion.imag0 and
-                                                                            leftComplex.imag1 == 0 and
-                                                                            leftComplex.imag2 == 0,
+                                                                      leftComplex.imag0 == rightQuaternion.imag0 and
+                                                                      leftComplex.imag1 == 0 and
+                                                                      leftComplex.imag2 == 0,
           (Quaternion, int): lambda leftQuaternion, rightInt: leftQuaternion.real == rightInt and
                                                                     leftQuaternion.imag0 == 0 and
                                                                     leftQuaternion.imag1 == 0 and
@@ -87,9 +87,9 @@ eqDict = {(int, Complex): lambda leftInt, rightComplex: leftInt == rightComplex.
                                                                             leftQuaternion.imag1 == 0 and
                                                                             leftQuaternion.imag2 == 0,
           (Quaternion, Quaternion): lambda leftQuaternion, rightQuaternion: leftQuaternion.real == rightQuaternion.real and
-                                                                                  leftQuaternion.imag0 == rightQuaternion.imag0 and
-                                                                                  leftQuaternion.imag1 == rightQuaternion.imag1 and
-                                                                                  leftQuaternion.imag2 == rightQuaternion.imag2,
+                                                                            leftQuaternion.imag0 == rightQuaternion.imag0 and
+                                                                            leftQuaternion.imag1 == rightQuaternion.imag1 and
+                                                                            leftQuaternion.imag2 == rightQuaternion.imag2,
           (Vector, Vector): __vectorEqualsVector,
           (Matrix, Matrix): __matrixEqualsMatrix}
 

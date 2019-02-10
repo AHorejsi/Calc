@@ -32,7 +32,7 @@ def __vectorTimesMatrix(leftVector: Vector, rightMatrix: Matrix) -> Matrix:
         value = 0.0
 
         for rowIndex in range(rightMatrix.rowLength):
-            value += rightMatrix[rowIndex, colIndex] * leftVector[rowIndex]
+            value += rightMatrix[(rowIndex, colIndex)] * leftVector[rowIndex]
 
         table.append(value)
 
@@ -84,7 +84,7 @@ def __matrixTimesVector(leftMatrix: Matrix, rightVector: Vector) -> Matrix:
         value = 0.0
 
         for colIndex in range(leftMatrix.columnLength):
-            value += leftMatrix[rowIndex, colIndex] * rightVector[colIndex]
+            value += leftMatrix[(rowIndex, colIndex)] * rightVector[colIndex]
 
         table.append(value)
 
@@ -115,7 +115,7 @@ def __matrixTimesMatrix(leftMatrix: Matrix, rightMatrix: Matrix) -> Matrix:
             value = 0.0
 
             for index in range(leftMatrix.rowLength):
-                value += leftMatrix[rowIndex, index] * rightMatrix[index, colIndex]
+                value += leftMatrix[(rowIndex, index)] * rightMatrix[(index, colIndex)]
 
             table.append(value)
 
@@ -129,9 +129,10 @@ multDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt * righ
                                                                                 leftInt * rightQuaternion.imag1,
                                                                                 leftInt * rightQuaternion.imag2),
             (int, Vector): lambda leftInt, rightVector: Vector([leftInt * value for value in rightVector]),
-            (int, Matrix): lambda leftInt, rightMatrix: Matrix.createMatrixFrom1DList([leftInt * value for value in rightMatrix],
-                                                                                      rightMatrix.rowLength,
-                                                                                      rightMatrix.columnLength),
+            (int, Matrix): lambda leftInt, rightMatrix: Matrix.createMatrixFrom1DList(
+                    [leftInt * value for value in rightMatrix],
+                    rightMatrix.rowLength,
+                    rightMatrix.columnLength),
             (float, Complex): lambda leftInt, rightComplex: Complex(leftInt * rightComplex.real,
                                                                          leftInt * rightComplex.imag0),
             (float, Quaternion): lambda leftFloat, rightQuaternion: Quaternion(leftFloat * rightQuaternion.real,
@@ -189,18 +190,21 @@ multDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt * righ
             (Vector, float): lambda leftVector, rightFloat: Vector([rightFloat * value for value in leftVector]),
             (Vector, Matrix): __vectorTimesMatrix,
             (Matrix, int): lambda leftMatrix, rightInt: Matrix.createMatrixFrom1DList(
-                [value * rightInt for value in leftMatrix],
-                leftMatrix.rowLength,
-                leftMatrix.columnLength),
-            (Matrix, float): lambda leftMatrix, rightFloat: Matrix.createMatrixFrom1DList([value * rightFloat for value in leftMatrix],
-                                                                                          leftMatrix.rowLength,
-                                                                                          leftMatrix.columnLength),
-            (Matrix, Complex): lambda leftMatrix, rightComplex: Matrix.createMatrixFrom1DList([value * rightComplex for value in leftMatrix],
-                                                                                              leftMatrix.rowLength,
-                                                                                              leftMatrix.columnLength),
-            (Matrix, Quaternion): lambda leftMatrix, rightQuaternion: Matrix.createMatrixFrom1DList([value * rightQuaternion for value in leftMatrix],
-                                                                                                    leftMatrix.rowLength,
-                                                                                                    leftMatrix.columnLength),
+                    [value * rightInt for value in leftMatrix],
+                    leftMatrix.rowLength,
+                    leftMatrix.columnLength),
+            (Matrix, float): lambda leftMatrix, rightFloat: Matrix.createMatrixFrom1DList(
+                    [value * rightFloat for value in leftMatrix],
+                    leftMatrix.rowLength,
+                    leftMatrix.columnLength),
+            (Matrix, Complex): lambda leftMatrix, rightComplex: Matrix.createMatrixFrom1DList(
+                    [value * rightComplex for value in leftMatrix],
+                    leftMatrix.rowLength,
+                    leftMatrix.columnLength),
+            (Matrix, Quaternion): lambda leftMatrix, rightQuaternion: Matrix.createMatrixFrom1DList(
+                    [value * rightQuaternion for value in leftMatrix],
+                    leftMatrix.rowLength,
+                    leftMatrix.columnLength),
             (Matrix, Vector): __matrixTimesVector,
             (Matrix, Matrix): __matrixTimesMatrix}
 

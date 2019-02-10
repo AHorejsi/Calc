@@ -33,30 +33,22 @@ class Matrix(MathEntity):
         for row in table:
             self.__table.extend(row)
 
-    def setNewTable(self, newTable: List[List[Union[int, float, Complex, Quaternion]]]) -> None:
-        """
-        Reconstructs this matrix with a new table of values
-
-        :param newTable: The new table of values for this
-            matrix
-        :param rowLength: The new number of rows for this matrix
-        :param columnLength: The new number of columns for this matrix
-        :return: None
-        """
-
-        self.__table = []
-        self.__rowLength = len(newTable)
-
-        if self.__rowLength == 0:
-            self.__columnLength = 0
-        else:
-            self.__columnLength = len(newTable[0])
-
-        for row in newTable:
-            self.__table.extend(row)
-
     @staticmethod
-    def createMatrixFrom1DList(table: List[Union[int, float, Complex, Quaternion]], rowLength: int, columnLength: int) -> Matrix:
+    def createMatrixFrom1DList(table: List[Union[int, float, Complex, Quaternion]],
+                               rowLength: int, columnLength: int) -> Matrix:
+        """
+        Creates a matrix using the given list
+
+        :param table: The list whose elements will be placed into
+            the new matrix
+        :param rowLength: The number of rows that the new matrix
+            will have
+        :param columnLength: The number of columns that the new
+            matrix will have
+        :return: A matrix consisting of the same elements as the
+            given list with the given number of rows and columns
+        """
+
         mat = Matrix([[]])
         mat.__table = table
         mat.__rowLength = rowLength
@@ -65,6 +57,12 @@ class Matrix(MathEntity):
         return mat
 
     def __len__(self) -> int:
+        """
+        Returns the number of elements contained in this matrix
+
+        :return: The number of elements contained in this matrix
+        """
+
         return self.rowLength * self.columnLength
 
     @property
