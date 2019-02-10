@@ -1,6 +1,6 @@
 from re import fullmatch, split
 from calc import Complex, Quaternion, Vector, Matrix, MathEntity
-from typing import Optional
+from typing import Optional, Union
 
 
 def parseInt(valueString: str) -> Optional[int]:
@@ -177,7 +177,7 @@ def parseBool(valueString: str) -> Optional[bool]:
         return None
 
 
-def parseVariableValue(valueString: str) -> Optional[MathEntity, int, float, bool]:
+def parseVariableValue(valueString: str) -> Union[MathEntity, int, float, bool, None]:
     """
     Checks if the given string represents a valid
     mathematical entity. If it does, returns the

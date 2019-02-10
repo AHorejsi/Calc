@@ -3,9 +3,12 @@ from typing import TextIO, Union, Iterable, Tuple, Optional
 from calc.MathConstant import PI, EULER, IMAG_0, IMAG_1, IMAG_2, POSITIVE_INFINITY, NEGATIVE_INFINITY
 from calc import MathEntity, Complex, Quaternion
 from eqnparse.ValueParsing import parseVariableValue
-from os import mkdir, chdir, getcwd, path
+from os import chdir, getcwd, makedirs
+from os.path import exists, getsize
 from itertools import chain
 from re import split
+
+import sys
 
 
 class _VariableDictionary:
@@ -24,7 +27,6 @@ class _VariableDictionary:
                                     "neg_infinity" : NEGATIVE_INFINITY}
             self.__tempVars = {}
             self.__permVars = {}
-            self.__mainDirectory = getcwd()
             self.__dataDirectory = "C:\\Users\\alexh\\Documents"
             self.__readPermVars()
         else:
@@ -38,8 +40,16 @@ class _VariableDictionary:
             return _VariableDictionary.__instance
 
     def __readPermVars(self) -> None:
-        file = self.__findFile("r")
-        lines = file.readlines(path.getsize(self.__dataDirectory + "\\Calc\\Perms\\CalcVars.txt"))
+        path = self.__dataDirectory + "\\Calc\\Perms"
+
+        if not exists(path):
+            chdir(self.__dataDirectory)
+            makedirs(path)
+            chdir(path)
+            open("CalcVars.txt", "x")
+
+        file = open("CalcVars.txt", "r")
+        lines = file.readlines(getsize(self.__dataDirectory + "\\Calc\\Perms\\CalcVars.txt"))
 
         for line in lines:
             parts = split("\s*:\s*", line)
@@ -50,28 +60,26 @@ class _VariableDictionary:
                 self.__permVars[name] = value
 
         file.close()
-        chdir(self.__mainDirectory)
 
     def savePermVars(self) -> None:
-        file = self.__findFile("w")
-        file.truncate(0)
+        file = open("CalcVars.txt", "w")
 
         for varName, varValue in self.__permVars.items():
             varData = str(varName) + ":" + str(varValue) + "\n"
             file.write(varData)
 
         file.close()
-        chdir(self.__mainDirectory)
 
-    def __findFile(self, modeInput: str) -> TextIO:
+    def __findFile(self, modeType: str) -> TextIO:
         path = self.__dataDirectory + "\\Calc\\Perms"
-        chdir(path)
 
-        if getcwd() != path:
-            mkdir(path)
-            chdir(path)
+        if not exists(path):
+            chdir(self.__dataDirectory)
+            makedirs(path)
 
-        return open(path + "\\CalcVars.txt", mode=modeInput)
+        file = open("CalcVars.txt", mode=modeType)
+
+        return file
 
     def getTempVar(self, varName: str) -> Optional[Union[int, float, bool, MathEntity]]:
         return self.__tempVars.get(varName)

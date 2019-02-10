@@ -1,8 +1,9 @@
 from __future__ import annotations
 from typing import Optional, Iterable, Tuple
-from math import factorial, ceil, floor
+from math import factorial, ceil, floor, gcd
 from random import randrange, random
 from itertools import chain
+from calc.ComplexFunction import argComplex
 from calc.MathFunction import expMath, logMath, signumMath, sqrtMath, sinMath, cosMath, tanMath, sinhMath, coshMath, \
                               tanhMath, asinMath, acosMath, atanMath, asinhMath, acoshMath, atanhMath
 
@@ -37,9 +38,10 @@ class _FunctionDictionary:
                                      "sgn" : signumMath,
                                      "sqrt" : sqrtMath,
                                      "cbrt" : lambda entity: entity ** 0.33333333333333,
+                                     "gcd" : gcd,
                                      "rand_int" : randrange,
                                      "rand" : random,
-                                     "arg" : lambda complex: atanMath(complex.imag0 / complex.real),
+                                     "arg" : argComplex,
                                      "sin" : sinMath,
                                      "cos" : cosMath,
                                      "tan" : tanMath,
