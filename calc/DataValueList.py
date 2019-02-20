@@ -34,7 +34,10 @@ class DataValueList(MathEntity):
             return self.__data[mid]
 
     def mode(self) -> Union[int, float]:
+        counts = {}
 
+        for value in self:
+            pass
 
     def __iter__(self) -> Iterator[Union[int, float]]:
         return iter(self.__data)

@@ -1,5 +1,4 @@
 from calc.Matrix import Matrix
-from calc.Complex import Complex
 from scipy.linalg import expm, logm, sinm, cosm, tanm, sinhm, coshm, tanhm, signm
 import scipy
 
@@ -26,29 +25,6 @@ def _createScipyArray(matrix: Matrix) -> scipy.ndarray:
         table.append(row)
 
     return scipy.array(table)
-
-
-def _replaceBuiltInComplex(scipyArray: scipy.ndarray, rowLength: int, columnLength: int) -> Matrix:
-    """
-    Places the elements of a given ndarray into a matrix
-
-    :param scipyArray: The ndarray to have its elements placed
-        into a matrix
-    :param rowLength: The number of rows the ndarray has
-    :param columnLength: The number of coumns the ndarray has
-    :return: A matrix with the same dimensions and elements
-        as the given ndarray
-    """
-
-    newTable = []
-
-    for rowIndex in range(rowLength):
-        for columnIndex in range(columnLength):
-            if type(scipyArray[(rowIndex, columnIndex)]) is complex:
-                com = Complex.fromBuiltInComplex(scipyArray[(rowIndex, columnIndex)])
-                newTable.append(com)
-
-    return Matrix.createMatrixFrom1DList(newTable, rowLength, columnLength)
 
 
 def expMatrix(matrix: Matrix) -> Matrix:
@@ -102,7 +78,7 @@ def sinMatrix(matrix: Matrix) -> Matrix:
     """
 
     scipyArray = sinm(_createScipyArray(matrix))
-    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
+    return Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength
 
 
 def cosMatrix(matrix: Matrix) -> Matrix:
@@ -116,7 +92,7 @@ def cosMatrix(matrix: Matrix) -> Matrix:
     """
 
     scipyArray = cosm(_createScipyArray(matrix))
-    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
+    return Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength
 
 
 def tanMatrix(matrix: Matrix) -> Matrix:
@@ -130,7 +106,7 @@ def tanMatrix(matrix: Matrix) -> Matrix:
     """
 
     scipyArray = tanm(_createScipyArray(matrix))
-    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
+    return Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength
 
 
 def sinhMatrix(matrix: Matrix) -> Matrix:
@@ -144,7 +120,7 @@ def sinhMatrix(matrix: Matrix) -> Matrix:
     """
 
     scipyArray = sinhm(_createScipyArray(matrix))
-    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
+    return Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength
 
 
 def coshMatrix(matrix: Matrix) -> Matrix:
@@ -158,7 +134,7 @@ def coshMatrix(matrix: Matrix) -> Matrix:
     """
 
     scipyArray = coshm(_createScipyArray(matrix))
-    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
+    return Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength
 
 
 def tanhMatrix(matrix: Matrix) -> Matrix:
@@ -172,7 +148,7 @@ def tanhMatrix(matrix: Matrix) -> Matrix:
     """
 
     scipyArray = tanhm(_createScipyArray(matrix))
-    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()))
+    return Matrix(scipyArray.tolist())
 
 
 def signumMatrix(matrix: Matrix) -> Matrix:
@@ -185,4 +161,4 @@ def signumMatrix(matrix: Matrix) -> Matrix:
     """
 
     scipyArray = signm(_createScipyArray(matrix))
-    return _replaceBuiltInComplex(Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength)
+    return Matrix(scipyArray.tolist()), matrix.rowLength, matrix.columnLength

@@ -1,7 +1,6 @@
 from __future__ import annotations
 from typing import Union, List, Tuple, Iterable
 from calc.MathEntity import MathEntity
-from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from copy import copy, deepcopy
 
@@ -14,7 +13,7 @@ class Matrix(MathEntity):
     into rows and columns
     """
 
-    def __init__(self, table: List[List[Union[int, float, Complex, Quaternion]]]):
+    def __init__(self, table: List[List[Union[int, float, complex, Quaternion]]]):
         """
         Constructs a matrix based on the 2D list of real numbers,
         complex numbers and quaternions
@@ -34,7 +33,7 @@ class Matrix(MathEntity):
             self.__table.extend(row)
 
     @staticmethod
-    def createMatrixFrom1DList(table: List[Union[int, float, Complex, Quaternion]],
+    def createMatrixFrom1DList(table: List[Union[int, float, complex, Quaternion]],
                                rowLength: int, columnLength: int) -> Matrix:
         """
         Creates a matrix using the given list
@@ -144,7 +143,7 @@ class Matrix(MathEntity):
 
         return self.rowLength == self.columnLength
 
-    def __getitem__(self, coordinates: Tuple[int, int]) -> Union[int, float, Complex, Quaternion]:
+    def __getitem__(self, coordinates: Tuple[int, int]) -> Union[int, float, complex, Quaternion]:
         """
         Returns the element at the given row and column indices
 
@@ -160,7 +159,7 @@ class Matrix(MathEntity):
 
         return self.__table[coordinates[0] * self.columnLength + coordinates[1]]
 
-    def __setitem__(self, coordinates: Tuple[int, int], value: Union[int, float, Complex, Quaternion]) -> None:
+    def __setitem__(self, coordinates: Tuple[int, int], value: Union[int, float, complex, Quaternion]) -> None:
         """
         Sets the elements at the given row and column indices
 
@@ -178,7 +177,7 @@ class Matrix(MathEntity):
 
         self.__table[coordinates[0] * self.columnLength + coordinates[1]] = value
 
-    def __contains__(self, searchValue: Union[int, float, Complex, Quaternion]) -> bool:
+    def __contains__(self, searchValue: Union[int, float, complex, Quaternion]) -> bool:
         """
         Checks if this matrix contains a certain value
 
@@ -249,7 +248,7 @@ class Matrix(MathEntity):
         return Matrix.__determinant(self.__table, self.rowLength)
 
     @staticmethod
-    def __determinant(table: List[Union[int, float, Complex, Quaternion]], size: int) -> float:
+    def __determinant(table: List[Union[int, float, complex, Quaternion]], size: int) -> float:
         """
         Computes the determinant of the matrix represented
         by the given table
@@ -329,7 +328,7 @@ class Matrix(MathEntity):
 
         return Matrix.createMatrixFrom1DList(table, self.columnLength, self.rowLength)
 
-    def to2DList(self) -> List[List[Union[int, float, Complex, Quaternion]]]:
+    def to2DList(self) -> List[List[Union[int, float, complex, Quaternion]]]:
         """
         Converts this matrix to a 2D list
 
@@ -349,7 +348,7 @@ class Matrix(MathEntity):
 
         return table
 
-    def __iter__(self) -> Iterable[Union[int, float, Complex, Quaternion]]:
+    def __iter__(self) -> Iterable[Union[int, float, complex, Quaternion]]:
         """
         Returns a row-by-row iterator over the elements
         of this matrix
