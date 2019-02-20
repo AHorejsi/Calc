@@ -1,7 +1,7 @@
 from __future__ import annotations
 from calc.MathEntity import MathEntity
 from math import sqrt
-from typing import Union, Iterable
+from typing import Union, Iterator
 
 
 class Quaternion(MathEntity):
@@ -101,7 +101,7 @@ class Quaternion(MathEntity):
 
         return self / abs(self)
 
-    def __iter__(self) -> Iterable[Union[int, float]]:
+    def __iter__(self) -> Iterator[Union[int, float]]:
         """
         Returns an iterator over the components of this quaternion
 

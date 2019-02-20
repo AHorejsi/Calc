@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Union, List, Tuple, Iterable
+from typing import Union, List, Tuple, Iterator
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
 from copy import copy, deepcopy
@@ -348,7 +348,7 @@ class Matrix(MathEntity):
 
         return table
 
-    def __iter__(self) -> Iterable[Union[int, float, complex, Quaternion]]:
+    def __iter__(self) -> Iterator[Union[int, float, complex, Quaternion]]:
         """
         Returns a row-by-row iterator over the elements
         of this matrix

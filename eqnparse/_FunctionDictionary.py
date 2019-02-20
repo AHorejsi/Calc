@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import Optional, Iterable, Tuple
 from math import factorial, ceil, floor, gcd
 from random import randrange, random
-from itertools import chain
-from calc.ComplexFunction import argComplex
 from calc.MathFunction import expMath, logMath, signumMath, sqrtMath, sinMath, cosMath, tanMath, sinhMath, coshMath, \
                               tanhMath, asinMath, acosMath, atanMath, asinhMath, acoshMath, atanhMath
 
@@ -41,7 +39,7 @@ class _FunctionDictionary:
                                      "gcd" : gcd,
                                      "rand_int" : randrange,
                                      "rand" : random,
-                                     "arg" : argComplex,
+                                     "arg" : lambda complexVal: atanMath(complexVal.imag / complexVal.real),
                                      "sin" : sinMath,
                                      "cos" : cosMath,
                                      "tan" : tanMath,
@@ -83,8 +81,6 @@ class _FunctionDictionary:
                                      "transpose" : lambda matrix: matrix.transpose(),
                                      "norm" : lambda entity: entity.normalize(),
                                      "conj" : lambda entity: entity.conjugate()}
-            self.__tempFuncs = {}
-            self.__permFuncs = {}
         else:
             raise Exception("This is a singleton class")
 
@@ -98,53 +94,11 @@ class _FunctionDictionary:
     def getUniversalFunc(self, funcName: str) -> Optional[function]:
         return self.__universalFuncs.get(funcName)
 
-    def getPermFunc(self, funcName: str) -> Optional[function]:
-        return self.__permFuncs.get(funcName)
-
-    def getTempFunc(self, funcName: str) -> Optional[function]:
-        return self.__tempFuncs.get(funcName)
-
-    def __getitem__(self, funcName: str) -> Optional[function]:
-        # Search "UniversalFunc" dictionary
-        universalFunc = self.getUniversalFunc(funcName)
-        if universalFunc is not None:
-            return universalFunc
-
-        # Search "TempFunc" dictionary
-        tempFunc = self.getTempFunc(funcName)
-        if tempFunc is not None:
-            return tempFunc
-
-        # Search "PermFunc" dictionary
-        permFunc = self.getPermFunc(funcName)
-        if permFunc is not None:
-            return permFunc
-
-        return None
-
     def hasUniversalFunc(self, funcName: str) -> bool:
         return funcName in self.__universalFuncs
 
-    def hasPermFunc(self, funcName: str) -> bool:
-        return funcName in self.__permFuncs
-
-    def hasTempFunc(self, funcName: str) -> bool:
-        return funcName in self.__tempFuncs
-
-    def __contains__(self, funcName: str) -> bool:
-        return self.hasUniversalFunc(funcName) or self.hasPermFunc(funcName) or self.hasTempFunc(funcName)
-
     def iterUniversalFuncs(self) -> Iterable[Tuple[str, function]]:
         return iter(self.__universalFuncs.items())
-
-    def iterPermFuncs(self) -> Iterable[Tuple[str, function]]:
-        return iter(self.__permFuncs.items())
-
-    def iterTempFuncs(self) -> Iterable[Tuple[str, function]]:
-        return iter(self.__tempFuncs.items())
-
-    def __iter__(self) -> Iterable[Tuple[str, function]]:
-        return chain(self.__universalFuncs)
 
     def __eq__(self, other: _FunctionDictionary) -> bool:
         return self is other

@@ -1,5 +1,5 @@
 from re import fullmatch, split
-from calc import Complex, Quaternion, Vector, Matrix, MathEntity
+from calc import Quaternion, Vector, Matrix, MathEntity
 from typing import Optional, Union
 
 
@@ -16,7 +16,7 @@ def parseInt(valueString: str) -> Optional[int]:
     """
 
     if fullmatch("\s*(\-?\d+)\s*", valueString) is not None:
-        return int(valueString)
+        return int(valueString.strip(" \t\n\r"))
     else:
         return None
 
@@ -34,12 +34,12 @@ def parseFloat(valueString: str) -> Optional[float]:
     """
 
     if fullmatch("\s*((\-?\d+\.\d+)(e[\+|\-]?\d+)?)\s*", valueString) is not None:
-        return float(valueString)
+        return float(valueString.strip(" \t\n\r"))
     else:
         return None
 
 
-def parseComplex(valueString: str) -> Optional[Complex]:
+def parseComplex(valueString: str) -> Optional[complex]:
     """
     Checks if the given string represents a valid Complex number.
     If it does, returns the Complex value that it corresponds to.
@@ -51,11 +51,10 @@ def parseComplex(valueString: str) -> Optional[Complex]:
         returns None
     """
 
-    if fullmatch("\s*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?i)\s*", valueString) is not None:
-        strValue = valueString.replace("i", "j")
-        builtInComplex = complex(strValue)
+    if fullmatch("\s*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?[i|j])\s*", valueString) is not None:
+        strValue = valueString.replace("i", "j").strip(" \t\n\r")
 
-        return Complex.fromBuiltInComplex(builtInComplex)
+        return complex(strValue)
     else:
         return None
 
@@ -75,7 +74,7 @@ def parseQuaternion(valueString: str) -> Optional[Quaternion]:
     if fullmatch("\s*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?i"
                  "[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?j[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?k)\s*",
             valueString) is not None:
-        nums = split("[ijk]", valueString)
+        nums = split("[ijk]", valueString.strip(" \t\n\r"))
         com = complex(nums[0] + "j")
 
         return Quaternion(com.real, com.imag, float(nums[1]), float(nums[2]))
@@ -94,7 +93,8 @@ def parseVector(valueString: str) -> Optional[Vector]:
     """
 
     if fullmatch("\s*<((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?\s*\,\s*)*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?)?>\s*", valueString) is not None:
-        nums = split("\s*\,\s*", valueString[1 : len(valueString) - 1])
+        strValue = valueString.strip(" \t\n\r")
+        nums = split("\s*\,\s*", strValue[1 : len(strValue) - 1])
         listOfNums = []
 
         for numStr in nums:
@@ -136,7 +136,7 @@ def parseMatrix(valueString: str) -> Optional[Matrix]:
                  "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?i)"
                  "([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?j)([\+|\-]((\d+(\.\d+)?)(e[\+|\-]?\d+)?k)))?)?)?"
                  "\])?\])\s*", valueString) is not None:
-        rows = list(filter(lambda string: string != "", split("\[\[|\]\]|\]\s*\,\s*\[", valueString)))
+        rows = list(filter(lambda string: string != "", split("\[\[|\]\]|\]\s*\,\s*\[", valueString.strip(" \t\n\r"))))
         table = []
 
         for row in rows:

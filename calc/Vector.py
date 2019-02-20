@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Union, List, Iterable
+from typing import Union, List, Iterator
 from calc.MathEntity import MathEntity
 from math import sqrt, acos
 from copy import copy
@@ -197,7 +197,7 @@ class Vector(MathEntity):
 
         return searchValue in self.__point
 
-    def __iter__(self) -> Iterable[Union[int, float]]:
+    def __iter__(self) -> Iterator[Union[int, float]]:
         """
         Returns an iterator over the components of
         this vector

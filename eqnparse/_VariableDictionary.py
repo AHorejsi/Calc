@@ -1,14 +1,12 @@
 from __future__ import annotations
-from typing import TextIO, Union, Iterable, Tuple, Optional
+from typing import Union, Iterator, Tuple, Optional
 from calc.MathConstant import PI, EULER, IMAG_0, IMAG_1, IMAG_2, POSITIVE_INFINITY, NEGATIVE_INFINITY
-from calc import MathEntity, Complex, Quaternion
+from calc import MathEntity, Quaternion
 from eqnparse.ValueParsing import parseVariableValue
-from os import chdir, getcwd, makedirs
+from os import chdir, makedirs
 from os.path import exists, getsize
 from itertools import chain
 from re import split
-
-import sys
 
 
 class _VariableDictionary:
@@ -25,7 +23,6 @@ class _VariableDictionary:
                                     "k" : IMAG_2,
                                     "pos_infinity" : POSITIVE_INFINITY,
                                     "neg_infinity" : NEGATIVE_INFINITY}
-            self.__tempVars = {}
             self.__permVars = {}
             self.__dataDirectory = "C:\\Users\\alexh\\Documents"
             self.__readPermVars()
@@ -70,32 +67,13 @@ class _VariableDictionary:
 
         file.close()
 
-    def __findFile(self, modeType: str) -> TextIO:
-        path = self.__dataDirectory + "\\Calc\\Perms"
-
-        if not exists(path):
-            chdir(self.__dataDirectory)
-            makedirs(path)
-
-        file = open("CalcVars.txt", mode=modeType)
-
-        return file
-
-    def getTempVar(self, varName: str) -> Optional[Union[int, float, bool, MathEntity]]:
-        return self.__tempVars.get(varName)
-
     def getPermVar(self, varName: str) -> Optional[Union[int, float, bool, MathEntity]]:
         return self.__permVars.get(varName)
 
-    def getUniversalVar(self, varName: str) -> Optional[Union[int, float, Complex, Quaternion]]:
+    def getUniversalVar(self, varName: str) -> Optional[Union[int, float, complex, Quaternion]]:
         return self.__universalVars.get(varName)
 
     def __getitem__(self, varName: str) -> Optional[Union[float, bool, MathEntity]]:
-        # Search "TempVar" dictionary
-        var = self.getTempVar(varName)
-        if var is not None:
-            return var
-
         # Search "PermVar" dictionary
         permVar = self.getPermVar(varName)
         if permVar is not None:
@@ -108,24 +86,11 @@ class _VariableDictionary:
 
         return None
 
-    def setTempVar(self, varName: str, varValue: Union[int, float, bool, MathEntity]) -> None:
-        if varName in self.__permVars:
-            raise KeyError("Variable named \"" + varName + "\" already exists in permanent variables")
-        if varName in self.__universalVars:
-            raise KeyError("Invalid variable name \"" + varName + "\"")
-
-        self.__tempVars[varName] = varValue
-
     def setPermVar(self, varName: str, varValue: Union[int, float, bool, MathEntity]) -> None:
-        if varName in self.__tempVars:
-            raise KeyError("Variable names \"" + varName + "\" already exists in temporary variables")
         if varName in self.__universalVars:
             raise KeyError("Invalid variable name \"" + varName + "\"")
 
         self.__permVars[varName] = varValue
-
-    def hasTempVar(self, varName: str) -> bool:
-        return varName in self.__tempVars
 
     def hasPermVar(self, varName: str) -> bool:
         return varName in self.__permVars
@@ -134,14 +99,7 @@ class _VariableDictionary:
         return varName in self.__universalVars
 
     def __contains__(self, varName: str) -> bool:
-        return self.hasTempVar(varName) or self.hasPermVar(varName) or self.hasUniversalVar(varName)
-
-    def removeTempVar(self, varName: str) -> None:
-        try:
-            del self.__tempVars[varName]
-        except KeyError:
-            # Do nothing
-            pass
+        return self.hasPermVar(varName) or self.hasUniversalVar(varName)
 
     def removePermVar(self, varName: str) -> None:
         try:
@@ -150,20 +108,14 @@ class _VariableDictionary:
             # Do nothing
             pass
 
-    def iterTempVars(self) -> Iterable[Union[Tuple[str, int], Tuple[str, float], Tuple[str, bool], Tuple[str, MathEntity]]]:
-        return iter(self.__tempVars.items())
-
-    def iterPermVars(self) -> Iterable[Union[Tuple[str, int], Tuple[str, float], Tuple[str, bool], Tuple[str, MathEntity]]]:
+    def iterPermVars(self) -> Iterator[Union[Tuple[str, int], Tuple[str, float], Tuple[str, bool], Tuple[str, MathEntity]]]:
         return iter(self.__permVars.items())
 
-    def iterUniversalVars(self) -> Iterable[Union[Tuple[str, float], Tuple[str, Complex], Tuple[str, Quaternion]]]:
+    def iterUniversalVars(self) -> Iterator[Union[Tuple[str, float], Tuple[str, complex], Tuple[str, Quaternion]]]:
         return iter(self.__universalVars.items())
 
-    def __iter__(self) -> Iterable[Union[Tuple[str, int], Tuple[str, float], Tuple[str, bool], Tuple[str, MathEntity]]]:
-        return chain(self.iterUniversalVars(), self.iterPermVars(), self.iterTempVars())
-
-    def clearTempVars(self) -> None:
-        self.__tempVars.clear()
+    def __iter__(self) -> Iterator[Union[Tuple[str, int], Tuple[str, float], Tuple[str, bool], Tuple[str, MathEntity]]]:
+        return chain(self.iterUniversalVars(), self.iterPermVars())
 
     def clearPermVars(self) -> None:
         self.__permVars.clear()
