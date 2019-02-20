@@ -1,7 +1,7 @@
 from __future__ import annotations
-from typing import Union, List, Iterable, Optional
+from typing import Union, List, Iterable
 from calc.MathEntity import MathEntity
-from math import sqrt, acos, floor, ceil
+from math import sqrt, acos
 from copy import copy
 
 

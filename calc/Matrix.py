@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Union, List, Optional, Tuple, Iterable
+from typing import Union, List, Tuple, Iterable
 from calc.MathEntity import MathEntity
 from calc.Complex import Complex
 from calc.Quaternion import Quaternion
@@ -49,7 +49,7 @@ class Matrix(MathEntity):
             given list with the given number of rows and columns
         """
 
-        mat = Matrix([[]])
+        mat = Matrix([])
         mat.__table = table
         mat.__rowLength = rowLength
         mat.__columnLength = columnLength
@@ -155,8 +155,7 @@ class Matrix(MathEntity):
             indices are outside the bounds of this matrix
         """
 
-        if coordinates[0] < 0 or coordinates[0] >= self.rowLength or \
-           coordinates[1] < 0 or coordinates[1] >= self.columnLength:
+        if coordinates[0] < 0 or coordinates[0] >= self.rowLength or coordinates[1] < 0 or coordinates[1] >= self.columnLength:
             raise IndexError("Invalid indices")
 
         return self.__table[coordinates[0] * self.columnLength + coordinates[1]]
@@ -174,8 +173,7 @@ class Matrix(MathEntity):
             indices are outside the bounds of this matrix
         """
 
-        if coordinates[0] < 0 or coordinates[0] >= self.rowLength or \
-           coordinates[1] < 0 or coordinates[1] >= self.columnLength:
+        if coordinates[0] < 0 or coordinates[0] >= self.rowLength or coordinates[1] < 0 or coordinates[1] >= self.columnLength:
             raise IndexError("Invalid indices")
 
         self.__table[coordinates[0] * self.columnLength + coordinates[1]] = value
@@ -245,6 +243,9 @@ class Matrix(MathEntity):
         if not self.isSquare:
             raise ArithmeticError("Only square matrices have determinants")
 
+        if self.rowLength == 1:
+            return self[(0, 0)]
+
         return Matrix.__determinant(self.__table, self.rowLength)
 
     @staticmethod
@@ -260,9 +261,7 @@ class Matrix(MathEntity):
             by the table
         """
 
-        if size == 1:
-            return table[0]
-        elif size == 2:
+        if size == 2:
             return table[0] * table[3] - table[2] * table[1]
         else:
             det = 0.0

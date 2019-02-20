@@ -1,7 +1,6 @@
 from typing import Union
 from math import nan
 from calc.MathEntity import MathEntity
-from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Vector import Vector
 from calc.Matrix import Matrix
@@ -51,26 +50,16 @@ def __matrixPlusMatrix(leftMatrix: Matrix, rightMatrix: Matrix) -> Matrix:
     return Matrix.createMatrixFrom1DList(table, leftMatrix.rowLength, leftMatrix.columnLength)
 
 
-addDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt + rightComplex.real,
-                                                                      rightComplex.imag0),
-           (int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftInt + rightQuaternion.real,
+addDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftInt + rightQuaternion.real,
                                                                                rightQuaternion.imag0,
                                                                                rightQuaternion.imag1,
                                                                                rightQuaternion.imag2),
-           (float, Complex): lambda leftFloat, rightComplex: Complex(leftFloat + rightComplex.real,
-                                                                          rightComplex.imag0),
            (float, Quaternion): lambda leftFloat, rightQuaternion: Quaternion(leftFloat + rightQuaternion.real,
                                                                                    rightQuaternion.imag0,
                                                                                    rightQuaternion.imag1,
                                                                                    rightQuaternion.imag2),
-           (Complex, int): lambda leftComplex, rightInt: Complex(leftComplex.real + rightInt,
-                                                                      leftComplex.imag0),
-           (Complex, float): lambda leftComplex, rightFloat: Complex(leftComplex.real + rightFloat,
-                                                                          leftComplex.imag0),
-           (Complex, Complex): lambda leftComplex, rightComplex: Complex(leftComplex.real + rightComplex.real,
-                                                                              leftComplex.imag0 + rightComplex.imag0),
-           (Complex, Quaternion): lambda leftComplex, rightQuaternion: Quaternion(leftComplex.real + rightQuaternion.real,
-                                                                                  leftComplex.imag0 + rightQuaternion.imag0,
+           (complex, Quaternion): lambda leftComplex, rightQuaternion: Quaternion(leftComplex.real + rightQuaternion.real,
+                                                                                  leftComplex.imag + rightQuaternion.imag0,
                                                                                   rightQuaternion.imag1,
                                                                                   rightQuaternion.imag2),
            (Quaternion, int): lambda leftQuaternion, rightInt: Quaternion(leftQuaternion.real + rightInt,
@@ -81,8 +70,8 @@ addDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt + right
                                                                                      leftQuaternion.imag0,
                                                                                      leftQuaternion.imag1,
                                                                                      leftQuaternion.imag2),
-           (Quaternion, Complex): lambda leftQuaternion, rightComplex: Quaternion(leftQuaternion.real + rightComplex.real,
-                                                                                  leftQuaternion.imag0 + rightComplex.imag0,
+           (Quaternion, complex): lambda leftQuaternion, rightComplex: Quaternion(leftQuaternion.real + rightComplex.real,
+                                                                                  leftQuaternion.imag + rightComplex.imag0,
                                                                                   leftQuaternion.imag1,
                                                                                   leftQuaternion.imag2),
            (Quaternion, Quaternion): lambda leftQuaternion, rightQuaternion: Quaternion(

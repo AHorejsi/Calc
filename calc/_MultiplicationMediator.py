@@ -2,7 +2,6 @@ from typing import Union
 from math import nan
 from copy import deepcopy
 from calc.MathEntity import MathEntity
-from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Vector import Vector
 from calc.Matrix import Matrix
@@ -122,9 +121,7 @@ def __matrixTimesMatrix(leftMatrix: Matrix, rightMatrix: Matrix) -> Matrix:
     return Matrix.createMatrixFrom1DList(table, leftMatrix.rowLength, rightMatrix.columnLength)
 
 
-multDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt * rightComplex.real,
-                                                                       leftInt * rightComplex.imag0),
-            (int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftInt * rightQuaternion.real,
+multDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftInt * rightQuaternion.real,
                                                                                 leftInt * rightQuaternion.imag0,
                                                                                 leftInt * rightQuaternion.imag1,
                                                                                 leftInt * rightQuaternion.imag2),
@@ -133,8 +130,6 @@ multDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt * righ
                     [leftInt * value for value in rightMatrix],
                     rightMatrix.rowLength,
                     rightMatrix.columnLength),
-            (float, Complex): lambda leftInt, rightComplex: Complex(leftInt * rightComplex.real,
-                                                                         leftInt * rightComplex.imag0),
             (float, Quaternion): lambda leftFloat, rightQuaternion: Quaternion(leftFloat * rightQuaternion.real,
                                                                                     leftFloat * rightQuaternion.imag0,
                                                                                     leftFloat * rightQuaternion.imag1,
@@ -144,19 +139,12 @@ multDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt * righ
                     [leftFloat * value for value in rightMatrix],
                     rightMatrix.rowLength,
                     rightMatrix.columnLength),
-            (Complex, int): lambda leftComplex, rightInt: Complex(leftComplex.real * rightInt,
-                                                                  leftComplex.imag0 * rightInt),
-            (Complex, float): lambda leftComplex, rightFloat: Complex(leftComplex.real * rightFloat,
-                                                                      leftComplex.imag0 * rightFloat),
-            (Complex, Complex): lambda leftComplex, rightComplex: Complex(
-                   leftComplex.real * rightComplex.real - leftComplex.imag0 * rightComplex.imag0,
-                   leftComplex.real * rightComplex.imag0 + leftComplex.imag0 * rightComplex.real),
-            (Complex, Quaternion): lambda leftComplex, rightQuaternion: Quaternion(
-                      leftComplex.real * rightQuaternion.real - leftComplex.imag0 * rightQuaternion.imag0,
-                      leftComplex.real * rightQuaternion.imag0 + rightQuaternion.real * leftComplex.imag0,
-                      leftComplex.real * rightQuaternion.imag1 - leftComplex.imag0 * rightQuaternion.imag2,
-                      leftComplex.real * rightQuaternion.imag2 + leftComplex.imag0 * rightQuaternion.imag1),
-            (Complex, Matrix): lambda leftComplex, rightMatrix: Matrix.createMatrixFrom1DList(
+            (complex, Quaternion): lambda leftComplex, rightQuaternion: Quaternion(
+                      leftComplex.real * rightQuaternion.real - leftComplex.imag * rightQuaternion.imag0,
+                      leftComplex.real * rightQuaternion.imag0 + rightQuaternion.real * leftComplex.imag,
+                      leftComplex.real * rightQuaternion.imag1 - leftComplex.imag * rightQuaternion.imag2,
+                      leftComplex.real * rightQuaternion.imag2 + leftComplex.imag * rightQuaternion.imag1),
+            (complex, Matrix): lambda leftComplex, rightMatrix: Matrix.createMatrixFrom1DList(
                     [leftComplex * value for value in rightMatrix],
                     rightMatrix.rowLength,
                     rightMatrix.columnLength),
@@ -168,11 +156,11 @@ multDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt * righ
                                                                                leftQuaternion.imag0 * rightFloat,
                                                                                leftQuaternion.imag1 * rightFloat,
                                                                                leftQuaternion.imag2 * rightFloat),
-            (Quaternion, Complex): lambda leftQuaternion, rightComplex: Quaternion(
-                      leftQuaternion.real * rightComplex.real - leftQuaternion.imag0 * rightComplex.imag0,
-                      leftQuaternion.real * rightComplex.imag0 + leftQuaternion.imag0 * rightComplex.real,
-                      leftQuaternion.imag1 * rightComplex.real + leftQuaternion.imag2 * rightComplex.imag0,
-                      -leftQuaternion.imag1 * rightComplex.imag0 + leftQuaternion.imag2 * rightComplex.real),
+            (Quaternion, complex): lambda leftQuaternion, rightComplex: Quaternion(
+                      leftQuaternion.real * rightComplex.real - leftQuaternion.imag0 * rightComplex.imag,
+                      leftQuaternion.real * rightComplex.imag + leftQuaternion.imag0 * rightComplex.real,
+                      leftQuaternion.imag1 * rightComplex.real + leftQuaternion.imag2 * rightComplex.imag,
+                      -leftQuaternion.imag1 * rightComplex.imag + leftQuaternion.imag2 * rightComplex.real),
             (Quaternion, Quaternion): lambda leftQuaternion, rightQuaternion: Quaternion(
                       leftQuaternion.real * rightQuaternion.real - leftQuaternion.imag0 * rightQuaternion.imag0 -
                       leftQuaternion.imag1 * rightQuaternion.imag1 - leftQuaternion.imag2 * rightQuaternion.imag2,
@@ -197,7 +185,7 @@ multDict = {(int, Complex): lambda leftInt, rightComplex: Complex(leftInt * righ
                     [value * rightFloat for value in leftMatrix],
                     leftMatrix.rowLength,
                     leftMatrix.columnLength),
-            (Matrix, Complex): lambda leftMatrix, rightComplex: Matrix.createMatrixFrom1DList(
+            (Matrix, complex): lambda leftMatrix, rightComplex: Matrix.createMatrixFrom1DList(
                     [value * rightComplex for value in leftMatrix],
                     leftMatrix.rowLength,
                     leftMatrix.columnLength),

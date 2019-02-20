@@ -10,7 +10,7 @@ class MathEntity(object):
     these operations
     """
 
-    def __add__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __add__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Performs addition with this entity on the left side of the
         addition operator and another mathematical entity on the
@@ -24,7 +24,7 @@ class MathEntity(object):
 
         return doAddition(self, mathEntity)
 
-    def __iadd__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __iadd__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing addition with
         this entity on the left side of the addition operator and another
@@ -36,7 +36,7 @@ class MathEntity(object):
 
         return self + mathEntity
 
-    def __radd__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __radd__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Performs addition with this entity on the right side of the
         addition operator and another mathematical entity on the
@@ -51,7 +51,7 @@ class MathEntity(object):
 
         return doAddition(mathEntity, self)
 
-    def __sub__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __sub__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Performs subtraction with this entity on the left side of the
         subtraction operator and another mathematical entity on the
@@ -66,7 +66,7 @@ class MathEntity(object):
 
         return doSubtraction(self, mathEntity)
 
-    def __isub__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __isub__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing subtraction with
         this entity on the left side of the subtraction operator and another
@@ -79,7 +79,7 @@ class MathEntity(object):
 
         return self - mathEntity
 
-    def __rsub__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __rsub__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Performs subtraction with this entity on the right side of the
         subtraction operator and another mathematical entity on the
@@ -94,7 +94,7 @@ class MathEntity(object):
 
         return doSubtraction(mathEntity, self)
 
-    def __mul__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __mul__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Performs multiplication with this entity on the left side of the
         multiplication operator and another mathematical entity on the
@@ -109,7 +109,7 @@ class MathEntity(object):
 
         return doMultiplication(self, mathEntity)
 
-    def __imul__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __imul__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing multiplication with
         this entity on the left side of the multiplication operator and another
@@ -122,7 +122,7 @@ class MathEntity(object):
 
         return self * mathEntity
 
-    def __rmul__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __rmul__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Performs multiplication with this entity on the right side of the
         multiplication operator and another mathematical entity on the
@@ -137,7 +137,7 @@ class MathEntity(object):
 
         return doMultiplication(mathEntity, self)
 
-    def __truediv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __truediv__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Performs division with this entity on the left side of the
         division operator and another mathematical entity on the
@@ -152,7 +152,7 @@ class MathEntity(object):
 
         return doDivision(self, mathEntity)
 
-    def __itruediv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __itruediv__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Updates the value of this entity by performing division with
         this entity on the left side of the division operator and another
@@ -165,7 +165,7 @@ class MathEntity(object):
 
         return self / mathEntity
 
-    def __rtruediv__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __rtruediv__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Performs division with this entity on the right side of the
         division operator and another mathematical entity on the
@@ -180,7 +180,7 @@ class MathEntity(object):
 
         return doDivision(mathEntity, self)
 
-    def __pow__(self, mathEntity: Union[MathEntity, int, float], modulo: Optional[int]=None) -> Union[MathEntity, float]:
+    def __pow__(self, mathEntity: Union[MathEntity, int, float, complex], modulo: Optional[int]=None) -> Union[MathEntity, float]:
         """
         Takes this mathematical entity to the power of
         another mathematical entity
@@ -201,7 +201,7 @@ class MathEntity(object):
 
         return doExponentiation(self, mathEntity)
 
-    def __ipow__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __ipow__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Updates this mathematical entity by taking this
         mathematical entity to the power of
@@ -217,7 +217,7 @@ class MathEntity(object):
 
         return self ** mathEntity
 
-    def __rpow__(self, mathEntity: Union[MathEntity, int, float]) -> Union[MathEntity, float]:
+    def __rpow__(self, mathEntity: Union[MathEntity, int, float, complex]) -> Union[MathEntity, float]:
         """
         Takes another mathematical entity to the power of
         this mathematical entity

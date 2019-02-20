@@ -1,6 +1,5 @@
 from typing import Union
 from calc.MathEntity import MathEntity
-from calc.Complex import Complex
 from calc.Quaternion import Quaternion
 from calc.Vector import Vector
 from calc.Matrix import Matrix
@@ -52,26 +51,16 @@ def __matrixEqualsMatrix(leftMatrix: Matrix, rightMatrix: Matrix) -> bool:
     return True
 
 
-eqDict = {(int, Complex): lambda leftInt, rightComplex: leftInt == rightComplex.real and
-                                                              rightComplex.imag0 == 0,
-          (int, Quaternion): lambda leftInt, rightQuaternion: leftInt == rightQuaternion.real and
+eqDict = {(int, Quaternion): lambda leftInt, rightQuaternion: leftInt == rightQuaternion.real and
                                                                     rightQuaternion.imag0 == 0 and
                                                                     rightQuaternion.imag1 == 0 and
                                                                     rightQuaternion.imag2 == 0,
-          (float, Complex): lambda leftFloat, rightComplex: leftFloat == rightComplex.real and
-                                                                  rightComplex.imag0 == 0,
           (float, Quaternion): lambda leftFloat, rightQuaternion: leftFloat == rightQuaternion.real and
                                                                         rightQuaternion.imag0 == 0 and
                                                                         rightQuaternion.imag1 == 0 and
                                                                         rightQuaternion.imag2 == 0,
-          (Complex, int): lambda leftComplex, rightInt: leftComplex.real == rightInt and
-                                                              leftComplex.imag0 == 0,
-          (Complex, float): lambda leftComplex, rightFloat: leftComplex.real == rightFloat and
-                                                                  leftComplex.imag0 == 0,
-          (Complex, Complex): lambda leftComplex, rightComplex: leftComplex.real == rightComplex.real and
-                                                                      leftComplex.imag0 == rightComplex.imag0,
-          (Complex, Quaternion): lambda leftComplex, rightQuaternion: leftComplex.real == rightQuaternion.real and
-                                                                      leftComplex.imag0 == rightQuaternion.imag0 and
+          (complex, Quaternion): lambda leftComplex, rightQuaternion: leftComplex.real == rightQuaternion.real and
+                                                                      leftComplex.imag == rightQuaternion.imag0 and
                                                                       leftComplex.imag1 == 0 and
                                                                       leftComplex.imag2 == 0,
           (Quaternion, int): lambda leftQuaternion, rightInt: leftQuaternion.real == rightInt and
@@ -82,8 +71,8 @@ eqDict = {(int, Complex): lambda leftInt, rightComplex: leftInt == rightComplex.
                                                                         leftQuaternion.imag0 == 0 and
                                                                         leftQuaternion.imag1 == 0 and
                                                                         leftQuaternion.imag2 == 0,
-          (Quaternion, Complex): lambda leftQuaternion, rightComplex: leftQuaternion.real == rightComplex.real and
-                                                                            leftQuaternion.imag0 == rightComplex.imag0 and
+          (Quaternion, complex): lambda leftQuaternion, rightComplex: leftQuaternion.real == rightComplex.real and
+                                                                            leftQuaternion.imag0 == rightComplex.imag and
                                                                             leftQuaternion.imag1 == 0 and
                                                                             leftQuaternion.imag2 == 0,
           (Quaternion, Quaternion): lambda leftQuaternion, rightQuaternion: leftQuaternion.real == rightQuaternion.real and
