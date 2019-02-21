@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import List, Union, Optional, Iterator
 from bisect import bisect_left
 from math import ceil
+from copy import copy
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
 from calc.MathFunction import sqrtMath
@@ -254,6 +255,25 @@ class DataValueList(MathEntity):
                 position = ceil(position)
 
                 return self.__sorted[position]
+
+    def __copy__(self) -> DataValueList:
+        """
+        Creates a shallow copy of this data value list
+
+        :return: A shallow copy of this data value list
+        """
+
+        return DataValueList(self.__data)
+
+    def __deepcopy__(self, memodict: dict={}) -> DataValueList:
+        """
+        Creates a deep copy of this data value list
+
+        :param memodict: N/A
+        :return: A deep copy of this data value list
+        """
+
+        return DataValueList(copy(self.__data))
 
     def __iter__(self) -> Iterator[Union[int, float, complex, Quaternion]]:
         """

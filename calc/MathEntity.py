@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Union, Optional
 
 
-class MathEntity(object):
+class MathEntity:
     """
     Superclass for all mathematical entities that represent some type of mathematical
     value. Contains the operations of addition, subtraction, multiplication, division
