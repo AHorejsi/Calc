@@ -251,12 +251,13 @@ class MathEntity(object):
         """
         Negates this mathematical entity
 
-        :return: The negation of this mathematical entity
+        :return: The negation of this
+            mathematical entity
         """
 
         return self * -1
 
-    def __eq__(self, mathEntity: Union[MathEntity, int, float]) -> bool:
+    def __eq__(self, mathEntity: Union[MathEntity, int, float, complex]) -> bool:
         """
         Checks if this mathematical entity is equal to
         another mathematical entity
@@ -271,7 +272,7 @@ class MathEntity(object):
 
         return doEquality(self, mathEntity)
 
-    def __ne__(self, mathEntity: Union[MathEntity, int, float]) -> bool:
+    def __ne__(self, mathEntity: Union[MathEntity, int, float, complex]) -> bool:
         """
         Checks if this mathematical entity is not equal to
         another mathematical entity
