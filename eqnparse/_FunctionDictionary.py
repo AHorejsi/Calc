@@ -2,8 +2,8 @@ from __future__ import annotations
 from typing import Optional, Iterable, Tuple
 from math import factorial, ceil, floor, gcd
 from random import randrange, random
-from calc.MathFunction import expMath, logMath, signumMath, sqrtMath, sinMath, cosMath, tanMath, sinhMath, coshMath, \
-                              tanhMath, asinMath, acosMath, atanMath, asinhMath, acoshMath, atanhMath
+from calc import expMath, logMath, signumMath, sqrtMath, sinMath, cosMath, tanMath, sinhMath, coshMath, \
+                 tanhMath, asinMath, acosMath, atanMath, asinhMath, acoshMath, atanhMath, Quaternion, Vector
 
 
 class _FunctionDictionary:
@@ -13,14 +13,16 @@ class _FunctionDictionary:
         if _FunctionDictionary.__instance is None:
             _FunctionDictionary.__instance = self
 
-            self.__universalFuncs = {"abs" : abs,
+            self.__universalFuncs = {"com" : lambda value1, value2: complex(value1, value2),
+                                     "quat" : lambda value1, value2, value3, value4: Quaternion(value1, value2, value3, value4),
+                                     "abs" : abs,
                                      "ceil" : ceil,
                                      "floor" : floor,
                                      "round" : round,
-                                     "re" : lambda value: value if (type(value) is int) or (type(value) is float) else value.real,
-                                     "im0" : lambda value: value.imag0,
-                                     "im1" : lambda quaternion: quaternion.imag1,
-                                     "im2" : lambda quaternion: quaternion.imag2,
+                                     "real" : lambda value: value if (type(value) is int) or (type(value) is float) else value.real,
+                                     "imag0" : lambda value: 0 if (type(value) is int) or (type(value) is float) else value.imag if type(value) is complex else value.imag1,
+                                     "imag1" : lambda value: 0 if type(value) is not Quaternion else value.imag1,
+                                     "imag2" : lambda value: 0 if type(value) is not Quaternion else value.imag2,
                                      "dim" : lambda vector: len(vector),
                                      "rows" : lambda matrix: matrix.rowLength,
                                      "cols" : lambda matrix: matrix.columnLength,
@@ -70,10 +72,10 @@ class _FunctionDictionary:
                                      "bit_xor" : lambda int1, int2: int1 ^ int2,
                                      "factorial" : factorial,
                                      "choose" : lambda value1, value2: factorial(value1) / (factorial(value2) * factorial(value1 - value2)),
-                                     "choose_repeat" : lambda value1, value2: self.__universalFuncs["choose"](value1 + value2 - 1, value2),
+                                     "permutation" : lambda value1, value2: factorial(value1) / factorial(value1 - value2),
                                      "dot" : lambda vec1, vec2: vec1.dot(vec2),
                                      "cross" : lambda vec1, vec2: vec1.cross(vec2),
-                                     "mag" : lambda vec: vec.magnitude,
+                                     "magn" : lambda vec: vec.magnitude,
                                      "angle" : lambda vec1, vec2: vec1.angleBetween(vec2),
                                      "dist" : lambda vec1, vec2: vec1.distanceFrom(vec2),
                                      "det" : lambda matrix: matrix.determinant,

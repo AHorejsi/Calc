@@ -51,7 +51,7 @@ def parseComplex(valueString: str) -> Optional[complex]:
         returns None
     """
 
-    if fullmatch("\s*((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?[i|j])\s*", valueString) is not None:
+    if fullmatch("\s*\(?((\-?\d+(\.\d+)?)(e[\+|\-]?\d+)?[\+|\-](\d+(\.\d+)?)(e[\+|\-]?\d+)?[i|j])\)?\s*", valueString) is not None:
         strValue = valueString.replace("i", "j").strip(" \t\n\r")
 
         return complex(strValue)

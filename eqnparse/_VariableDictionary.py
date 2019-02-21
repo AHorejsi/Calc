@@ -44,19 +44,19 @@ class _VariableDictionary:
             makedirs(path)
             chdir(path)
             open("CalcVars.txt", "x")
+        else:
+            file = open("CalcVars.txt", "r")
+            lines = file.readlines(getsize(self.__dataDirectory + "\\Calc\\Perms\\CalcVars.txt"))
 
-        file = open("CalcVars.txt", "r")
-        lines = file.readlines(getsize(self.__dataDirectory + "\\Calc\\Perms\\CalcVars.txt"))
+            for line in lines:
+                parts = split("\s*:\s*", line)
+                name = parts[0]
+                value = parseVariableValue(parts[1])
 
-        for line in lines:
-            parts = split("\s*:\s*", line)
-            name = parts[0]
-            value = parseVariableValue(parts[1])
+                if value is not None:
+                    self.__permVars[name] = value
 
-            if value is not None:
-                self.__permVars[name] = value
-
-        file.close()
+            file.close()
 
     def savePermVars(self) -> None:
         file = open("CalcVars.txt", "w")
