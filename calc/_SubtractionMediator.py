@@ -2,8 +2,21 @@ from typing import Union
 from math import nan
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
+from calc.DataValueList import DataValueList
 from calc.Vector import Vector
 from calc.Matrix import Matrix
+
+
+def __dataValueListMinusDataValueList(leftData: DataValueList, rightData: DataValueList) -> DataValueList:
+    if not leftData.equalDimensions(rightData):
+        raise ArithmeticError("Data value lists must contain the same number of elements to be subtracted from each other")
+
+    values = []
+
+    for (leftValue, rightValue) in zip(leftData, rightData):
+        values.append(leftValue - rightValue)
+
+    return DataValueList(values)
 
 
 def __vectorMinusVector(leftVector: Vector, rightVector: Vector) -> Vector:
@@ -34,14 +47,17 @@ subtDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                                                                                 -rightQuaternion.imag0,
                                                                                 -rightQuaternion.imag1,
                                                                                 -rightQuaternion.imag2),
+            (int, DataValueList): lambda leftInt, rightData: DataValueList([leftInt - value for value in rightData]),
             (float, Quaternion): lambda leftFloat, rightQuaternion: Quaternion(leftFloat - rightQuaternion.real,
                                                                                     -rightQuaternion.imag0,
                                                                                     -rightQuaternion.imag1,
                                                                                     -rightQuaternion.imag2),
+            (float, DataValueList): lambda leftFloat, rightData: DataValueList([leftFloat - value for value in rightData]),
             (complex, Quaternion): lambda leftComplex, rightQuaternion: Quaternion(leftComplex.real - rightQuaternion.real,
                                                                                         leftComplex.imag - rightQuaternion.imag0,
                                                                                         -rightQuaternion.imag1,
                                                                                         -rightQuaternion.imag2),
+            (complex, DataValueList): lambda leftComplex, rightData: DataValueList([leftComplex - value for value in rightData]),
             (Quaternion, int): lambda leftQuaternion, rightInt: Quaternion(leftQuaternion.real - rightInt,
                                                                                 leftQuaternion.imag0,
                                                                                 leftQuaternion.imag1,
@@ -58,6 +74,14 @@ subtDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                                                                                               leftQuaternion.imag0 - rightQuaternion.imag0,
                                                                                               leftQuaternion.imag1 - rightQuaternion.imag1,
                                                                                               leftQuaternion.imag2 - rightQuaternion.imag2),
+            (Quaternion, DataValueList): lambda leftQuaternion, rightData: DataValueList(
+                                                                            [leftQuaternion - value for value in rightData]),
+            (DataValueList, int): lambda leftData, rightInt: DataValueList([value - rightInt for value in leftData]),
+            (DataValueList, float): lambda leftData, rightFloat: DataValueList([value - rightFloat for value in leftData]),
+            (DataValueList, complex): lambda leftData, rightComplex: DataValueList([value - rightComplex for value in leftData]),
+            (DataValueList, Quaternion): lambda leftData, rightQuaternion: DataValueList(
+                                                                            [value - rightQuaternion for value in leftData]),
+            (DataValueList, DataValueList): __dataValueListMinusDataValueList,
             (Vector, Vector): __vectorMinusVector,
             (Matrix, Matrix): __matrixMinusMatrix}
 

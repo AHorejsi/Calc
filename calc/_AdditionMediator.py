@@ -2,8 +2,21 @@ from typing import Union
 from math import nan
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
+from calc.DataValueList import DataValueList
 from calc.Vector import Vector
 from calc.Matrix import Matrix
+
+
+def __dataValueListPlusDataValueList(leftData: DataValueList, rightData: DataValueList) -> DataValueList:
+    if not leftData.equalDimensions(rightData):
+        raise ArithmeticError("Data value lists must contain the same number of elements to be added together")
+
+    values = []
+
+    for (leftValue, rightValue) in zip(leftData, rightData):
+        values.append(leftValue + rightValue)
+
+    return DataValueList(values)
 
 
 def __vectorPlusVector(leftVector: Vector, rightVector: Vector) -> Vector:
@@ -54,14 +67,17 @@ addDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftIn
                                                                                rightQuaternion.imag0,
                                                                                rightQuaternion.imag1,
                                                                                rightQuaternion.imag2),
+           (int, DataValueList): lambda leftInt, rightData: DataValueList([value + leftInt for value in rightData]),
            (float, Quaternion): lambda leftFloat, rightQuaternion: Quaternion(leftFloat + rightQuaternion.real,
                                                                                    rightQuaternion.imag0,
                                                                                    rightQuaternion.imag1,
                                                                                    rightQuaternion.imag2),
+           (float, DataValueList): lambda leftFloat, rightData: DataValueList([value + leftFloat for value in rightData]),
            (complex, Quaternion): lambda leftComplex, rightQuaternion: Quaternion(leftComplex.real + rightQuaternion.real,
                                                                                   leftComplex.imag + rightQuaternion.imag0,
                                                                                   rightQuaternion.imag1,
                                                                                   rightQuaternion.imag2),
+           (complex, DataValueList): lambda leftComplex, rightData: DataValueList([value + leftComplex for value in rightData]),
            (Quaternion, int): lambda leftQuaternion, rightInt: Quaternion(leftQuaternion.real + rightInt,
                                                                                leftQuaternion.imag0,
                                                                                leftQuaternion.imag1,
@@ -74,11 +90,19 @@ addDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftIn
                                                                                   leftQuaternion.imag + rightComplex.imag0,
                                                                                   leftQuaternion.imag1,
                                                                                   leftQuaternion.imag2),
+           (Quaternion, DataValueList): lambda leftQuaternion, rightData: DataValueList(
+                                                                            [value + leftQuaternion for value in rightData]),
            (Quaternion, Quaternion): lambda leftQuaternion, rightQuaternion: Quaternion(
                leftQuaternion.real + rightQuaternion.real,
                leftQuaternion.imag0 + rightQuaternion.imag0,
                leftQuaternion.imag1 + rightQuaternion.imag1,
                leftQuaternion.imag2 + rightQuaternion.imag2),
+           (DataValueList, int): lambda leftData, rightInt: DataValueList([value + rightInt for value in leftData]),
+           (DataValueList, float): lambda leftData, rightFloat: DataValueList([value + rightFloat for value in leftData]),
+           (DataValueList, complex): lambda leftData, rightComplex: DataValueList([value + rightComplex for value in leftData]),
+           (DataValueList, Quaternion): lambda leftData, rightQuaternion: DataValueList(
+                                                                            [value + rightQuaternion for value in leftData]),
+           (DataValueList, DataValueList): __dataValueListPlusDataValueList,
            (Vector, Vector): __vectorPlusVector,
            (Matrix, Matrix): __matrixPlusMatrix}
 

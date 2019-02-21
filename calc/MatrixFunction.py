@@ -1,6 +1,6 @@
+import scipy
 from calc.Matrix import Matrix
 from scipy.linalg import expm, logm, sinm, cosm, tanm, sinhm, coshm, tanhm, signm
-import scipy
 
 
 def _createScipyArray(matrix: Matrix) -> scipy.ndarray:

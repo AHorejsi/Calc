@@ -3,8 +3,21 @@ from math import nan
 from copy import deepcopy
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
+from calc.DataValueList import DataValueList
 from calc.Vector import Vector
 from calc.Matrix import Matrix
+
+
+def __dataValueListTimesDataValueList(leftData: DataValueList, rightData: DataValueList) -> DataValueList:
+    if not leftData.equalDimensions(rightData):
+        raise ArithmeticError("Data value lists must contain the same number of elements to be multiplied together")
+
+    values = []
+
+    for (leftValue, rightValue) in zip(leftData, rightData):
+        values.append(leftValue * rightValue)
+
+    return DataValueList(values)
 
 
 def __vectorTimesMatrix(leftVector: Vector, rightMatrix: Matrix) -> Matrix:
@@ -38,7 +51,7 @@ def __vectorTimesMatrix(leftVector: Vector, rightMatrix: Matrix) -> Matrix:
     return Matrix.createMatrixFrom1DList(table, 1, rightMatrix.columnLength)
 
 
-def __matrixTimesScalar(leftMatrix: Matrix, rightScalar: Union[int, float, Complex, Quaternion]) -> Matrix:
+def __matrixTimesScalar(leftMatrix: Matrix, rightScalar: Union[int, float, complex, Quaternion]) -> Matrix:
     """
     Multiplies the given matrix by the given scalar value. Scalar values
     include ints, floats, Complex numbers and Quaternions
@@ -125,6 +138,7 @@ multDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                                                                                 leftInt * rightQuaternion.imag0,
                                                                                 leftInt * rightQuaternion.imag1,
                                                                                 leftInt * rightQuaternion.imag2),
+            (int, DataValueList): lambda leftInt, rightData: DataValueList([leftInt * value for value in rightData]),
             (int, Vector): lambda leftInt, rightVector: Vector([leftInt * value for value in rightVector]),
             (int, Matrix): lambda leftInt, rightMatrix: Matrix.createMatrixFrom1DList(
                     [leftInt * value for value in rightMatrix],
@@ -134,6 +148,7 @@ multDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                                                                                     leftFloat * rightQuaternion.imag0,
                                                                                     leftFloat * rightQuaternion.imag1,
                                                                                     leftFloat * rightQuaternion.imag2),
+            (float, DataValueList): lambda leftFloat, rightData: DataValueList([leftFloat * value for value in rightData]),
             (float, Vector): lambda leftFloat, rightVector: Vector([leftFloat * value for value in rightVector]),
             (float, Matrix): lambda leftFloat, rightMatrix: Matrix.createMatrixFrom1DList(
                     [leftFloat * value for value in rightMatrix],
@@ -144,6 +159,7 @@ multDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                       leftComplex.real * rightQuaternion.imag0 + rightQuaternion.real * leftComplex.imag,
                       leftComplex.real * rightQuaternion.imag1 - leftComplex.imag * rightQuaternion.imag2,
                       leftComplex.real * rightQuaternion.imag2 + leftComplex.imag * rightQuaternion.imag1),
+            (complex, DataValueList): lambda leftComplex, rightData: DataValueList([leftComplex * value for value in rightData]),
             (complex, Matrix): lambda leftComplex, rightMatrix: Matrix.createMatrixFrom1DList(
                     [leftComplex * value for value in rightMatrix],
                     rightMatrix.rowLength,
@@ -170,10 +186,18 @@ multDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                       leftQuaternion.imag1 * rightQuaternion.real - leftQuaternion.imag2 * rightQuaternion.imag0,
                       leftQuaternion.real * rightQuaternion.imag2 - leftQuaternion.imag0 * rightQuaternion.imag1 +
                       leftQuaternion.imag1 * rightQuaternion.imag0 + leftQuaternion.imag2 * rightQuaternion.real),
+            (Quaternion, DataValueList): lambda leftQuaternion, rightData: DataValueList(
+                                                                            [leftQuaternion * value for value in rightData]),
             (Quaternion, Matrix): lambda leftQuaternion, rightMatrix: Matrix.createMatrixFrom1DList(
                     [leftQuaternion * value for value in rightMatrix],
                     rightMatrix.rowLength,
                     rightMatrix.columnLength),
+            (DataValueList, int): lambda leftData, rightInt: DataValueList([value * rightInt for value in leftData]),
+            (DataValueList, float): lambda leftData, rightFloat: DataValueList([value * rightFloat for value in leftData]),
+            (DataValueList, complex): lambda leftData, rightComplex: DataValueList([value * rightComplex for value in leftData]),
+            (DataValueList, Quaternion): lambda leftData, rightQuaternion: DataValueList(
+                                                                            [value * rightQuaternion for value in leftData]),
+            (DataValueList, DataValueList): __dataValueListTimesDataValueList,
             (Vector, int): lambda leftVector, rightInt: Vector([rightInt * value for value in leftVector]),
             (Vector, float): lambda leftVector, rightFloat: Vector([rightFloat * value for value in leftVector]),
             (Vector, Matrix): __vectorTimesMatrix,

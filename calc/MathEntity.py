@@ -254,9 +254,7 @@ class MathEntity(object):
         :return: The negation of this mathematical entity
         """
 
-        from calc._NegationMediator import doNegation
-
-        return doNegation(self)
+        return self * -1
 
     def __eq__(self, mathEntity: Union[MathEntity, int, float]) -> bool:
         """

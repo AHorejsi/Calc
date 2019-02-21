@@ -1,6 +1,6 @@
 import math
-from calc.Quaternion import Quaternion
 from typing import Union
+from calc.Quaternion import Quaternion
 
 
 def signumQuaternion(quaternion: Quaternion) -> int:
