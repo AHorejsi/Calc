@@ -57,7 +57,6 @@ subtDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                                                                                         leftComplex.imag - rightQuaternion.imag0,
                                                                                         -rightQuaternion.imag1,
                                                                                         -rightQuaternion.imag2),
-            (complex, DataValueList): lambda leftComplex, rightData: DataValueList([leftComplex - value for value in rightData]),
             (Quaternion, int): lambda leftQuaternion, rightInt: Quaternion(leftQuaternion.real - rightInt,
                                                                                 leftQuaternion.imag0,
                                                                                 leftQuaternion.imag1,
@@ -74,13 +73,8 @@ subtDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                                                                                               leftQuaternion.imag0 - rightQuaternion.imag0,
                                                                                               leftQuaternion.imag1 - rightQuaternion.imag1,
                                                                                               leftQuaternion.imag2 - rightQuaternion.imag2),
-            (Quaternion, DataValueList): lambda leftQuaternion, rightData: DataValueList(
-                                                                            [leftQuaternion - value for value in rightData]),
             (DataValueList, int): lambda leftData, rightInt: DataValueList([value - rightInt for value in leftData]),
             (DataValueList, float): lambda leftData, rightFloat: DataValueList([value - rightFloat for value in leftData]),
-            (DataValueList, complex): lambda leftData, rightComplex: DataValueList([value - rightComplex for value in leftData]),
-            (DataValueList, Quaternion): lambda leftData, rightQuaternion: DataValueList(
-                                                                            [value - rightQuaternion for value in leftData]),
             (DataValueList, DataValueList): __dataValueListMinusDataValueList,
             (Vector, Vector): __vectorMinusVector,
             (Matrix, Matrix): __matrixMinusMatrix}

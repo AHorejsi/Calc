@@ -4,7 +4,6 @@ from bisect import bisect_left
 from math import ceil
 from copy import copy
 from calc.MathEntity import MathEntity
-from calc.Quaternion import Quaternion
 from calc.MathFunction import sqrtMath
 
 
@@ -14,7 +13,7 @@ class DataValueList(MathEntity):
     that can be used for statistical calculations
     """
 
-    def __init__(self, values: List[Union[int, float, complex, Quaternion]]):
+    def __init__(self, values: List[Union[int, float]]):
         """
         Makes the given list of data values a representation
         of statistical information
@@ -31,7 +30,7 @@ class DataValueList(MathEntity):
             self.__sorted = sorted(values)
 
     @staticmethod
-    def __isSorted(values: List[Union[int, float, complex, Quaternion]]) -> bool:
+    def __isSorted(values: List[Union[int, float]]) -> bool:
         """
         Checks if the given list is sorted
 
@@ -71,7 +70,7 @@ class DataValueList(MathEntity):
 
         return len(self) == len(dataValueList)
 
-    def __getitem__(self, index: int) -> Union[int, float, complex, Quaternion]:
+    def __getitem__(self, index: int) -> Union[int, float]:
         """
         Returns the elements at the given index
 
@@ -88,7 +87,23 @@ class DataValueList(MathEntity):
 
         return self.__data[index]
 
-    def mean(self) -> Optional[Union[int, float, complex, Quaternion]]:
+    def __contains__(self, element: Union[int, float]) -> bool:
+        low = 0
+        high = len(self) - 1
+
+        while low <= high:
+            mid = int((low + high) / 2)
+
+            if self.__sorted[mid] == element:
+                return True
+            elif self.__sorted[mid] < element:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+        return False
+
+    def mean(self) -> Optional[Union[int, float]]:
         """
         Returns the mean of this data value list
 
@@ -102,7 +117,7 @@ class DataValueList(MathEntity):
         else:
             return sum(self.__data) / len(self)
 
-    def median(self) -> Optional[Union[int, float, complex, Quaternion]]:
+    def median(self) -> Optional[Union[int, float]]:
         """
         Returns the median of this data value list
 
@@ -154,7 +169,7 @@ class DataValueList(MathEntity):
 
             return DataValueList(currentModes)
 
-    def midrange(self) -> Union[int, float, complex, Quaternion]:
+    def midrange(self) -> Union[int, float]:
         """
         Returns the midrange of this data value list
 
@@ -168,7 +183,7 @@ class DataValueList(MathEntity):
         else:
             return (self.__sorted[0] + self.__sorted[len(self) - 1]) / 2
 
-    def range(self) -> Union[int, float, complex, Quaternion]:
+    def range(self) -> Union[int, float]:
         """
         Returns the range of this data value list
 
@@ -181,7 +196,7 @@ class DataValueList(MathEntity):
         else:
             return self.__sorted[len(self) - 1] - self.__sorted[0]
 
-    def variance(self) -> Union[int, float, complex, Quaternion]:
+    def variance(self) -> Union[int, float]:
         """
         Returns the variance of this data value list
 
@@ -203,7 +218,7 @@ class DataValueList(MathEntity):
 
             return variance
 
-    def standardDeviation(self) -> Union[int, float, complex, Quaternion]:
+    def standardDeviation(self) -> Union[int, float]:
         """
         Returns the standard deviation of this data value list
 
@@ -275,7 +290,7 @@ class DataValueList(MathEntity):
 
         return DataValueList(copy(self.__data))
 
-    def __iter__(self) -> Iterator[Union[int, float, complex, Quaternion]]:
+    def __iter__(self) -> Iterator[Union[int, float]]:
         """
         Returns an iterator over the elements of this data value list
 

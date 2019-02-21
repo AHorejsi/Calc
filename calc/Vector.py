@@ -70,7 +70,7 @@ class Vector(MathEntity):
 
         self.__point[index] = value
 
-    def dot(self, vector: Vector) -> float:
+    def dot(self, vector: Vector) -> Union[int, float]:
         """
         Computes the dot product of two vectors
 
@@ -85,7 +85,7 @@ class Vector(MathEntity):
         if not self.equalDimensions(vector):
             raise ArithmeticError("Vectors must be of equal dimensions")
 
-        dotProduct = 0.0
+        dotProduct = 0
 
         for (leftValue, rightValue) in zip(self, vector):
             dotProduct += leftValue * rightValue
