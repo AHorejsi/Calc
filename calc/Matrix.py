@@ -226,13 +226,11 @@ class Matrix(MathEntity):
         for value in self:
             if hasattr(value, "conjugate"):
                 newTable.append(value.conjugate())
-            else:
-                newTable.append(value)
 
         return Matrix.createMatrixFrom1DList(newTable, self.rowLength, self.columnLength)
 
     @property
-    def determinant(self) -> Union[int, float, complex, Quaternion]:
+    def determinant(self) -> float:
         """
         Returns the determinant of this matrix
 
@@ -250,7 +248,7 @@ class Matrix(MathEntity):
         return Matrix.__determinant(self.__table, self.rowLength)
 
     @staticmethod
-    def __determinant(table: List[Union[int, float, complex, Quaternion]], size: int) -> Union[int, float, complex, Quaternion]:
+    def __determinant(table: List[Union[int, float, complex, Quaternion]], size: int) -> float:
         """
         Computes the determinant of the matrix represented
         by the given table
@@ -265,7 +263,7 @@ class Matrix(MathEntity):
         if size == 2:
             return table[0] * table[3] - table[2] * table[1]
         else:
-            det = 0
+            det = 0.0
 
             # Move through the first row of this matrix
             # Ignore values in the current column

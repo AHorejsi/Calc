@@ -1,6 +1,6 @@
+from typing import Optional, Union
 from re import fullmatch, split
 from calc import Quaternion, Vector, Matrix, MathEntity
-from typing import Optional, Union
 
 
 def parseInt(valueString: str) -> Optional[int]:

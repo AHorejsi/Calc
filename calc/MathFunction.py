@@ -326,7 +326,7 @@ def atanMath(mathEntity: Union[int, float, complex]) -> Union[int, float, comple
     if func is not None:
         return func(mathEntity)
     else:
-        return nan
+        return math.nan
 
 
 def asinhMath(mathEntity: Union[int, float, complex]) -> Union[int, float, complex]:
@@ -401,3 +401,15 @@ def signumMath(mathEntity: MathEntity) -> Union[MathEntity, float]:
         return func(mathEntity)
     else:
         return math.nan
+
+
+def chooseMath(total: int, amountToTake: int) -> int:
+    return math.factorial(total) // (math.factorial(amountToTake) * math.factorial(total - amountToTake))
+
+
+def chooseRepeatMath(total: int, amountToTake: int) -> int:
+    return chooseMath(total + amountToTake - 1, amountToTake)
+
+
+def permutationMath(total: int, amountToTake: int) -> int:
+    return math.factorial(total) // math.factorial(total - amountToTake)
