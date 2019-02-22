@@ -1,20 +1,8 @@
 from typing import Union
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
-from calc.DataValueList import DataValueList
 from calc.Vector import Vector
 from calc.Matrix import Matrix
-
-
-def __dataValueListEqualsDataValueList(leftData: DataValueList, rightData: DataValueList) -> bool:
-    if not leftData.equalDimensions(rightData):
-        return False
-
-    for (leftValue, rightValue) in zip(leftData, rightData):
-        if leftValue != rightValue:
-            return False
-
-    return True
 
 
 def __vectorEqualsVector(leftVector: Vector, rightVector: Vector) -> bool:
@@ -91,7 +79,6 @@ eqDict = {(int, Quaternion): lambda leftInt, rightQuaternion: leftInt == rightQu
                                                                             leftQuaternion.imag0 == rightQuaternion.imag0 and
                                                                             leftQuaternion.imag1 == rightQuaternion.imag1 and
                                                                             leftQuaternion.imag2 == rightQuaternion.imag2,
-          (DataValueList, DataValueList): __dataValueListEqualsDataValueList,
           (Vector, Vector): __vectorEqualsVector,
           (Matrix, Matrix): __matrixEqualsMatrix}
 

@@ -2,7 +2,6 @@ from typing import Union
 from math import nan
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
-from calc.DataValueList import DataValueList
 from calc.Vector import Vector
 from calc.Matrix import Matrix
 
@@ -101,22 +100,8 @@ def __quaternionDividedByQuaternion(leftQuaternion: Quaternion, rightQuaternion:
                       imag2OfResult / absoluteValueOfLeft)
 
 
-def __dataValueListDividedByDataValueList(leftData: DataValueList, rightData: DataValueList) -> DataValueList:
-    if not leftData.equalDimensions(rightData):
-        raise ArithmeticError("Data value lists must contain the same number of elements to be divided from each other")
-
-    values = []
-
-    for (leftValue, rightValue) in zip(leftData, rightData):
-        values.append(leftValue / rightValue)
-
-    return DataValueList(values)
-
-
 divDict = {(int, Quaternion): __realDividedByQuaternion,
-           (int, DataValueList): lambda leftInt, rightData: DataValueList([leftInt / value for value in rightData]),
            (float, Quaternion): __realDividedByQuaternion,
-           (float, DataValueList): lambda leftFloat, rightData: DataValueList([leftFloat / value for value in rightData]),
            (complex, Quaternion): __complexDividedByQuaternion,
            (Quaternion, int): lambda leftQuaternion, rightInt: Quaternion(leftQuaternion.real / rightInt,
                                                                           leftQuaternion.imag0 / rightInt,
@@ -128,9 +113,6 @@ divDict = {(int, Quaternion): __realDividedByQuaternion,
                                                                               leftQuaternion.imag2 / rightFloat),
            (Quaternion, complex): __quaternionDividedByComplex,
            (Quaternion, Quaternion): __quaternionDividedByQuaternion,
-           (DataValueList, int): lambda leftData, rightInt: DataValueList([value / rightInt for value in leftData]),
-           (DataValueList, float): lambda leftData, rightFloat: DataValueList([value / rightFloat for value in leftData]),
-           (DataValueList, DataValueList): __dataValueListDividedByDataValueList,
            (Vector, int): lambda leftVector, rightInt: Vector([value / rightInt for value in leftVector]),
            (Vector, float): lambda leftVector, rightFloat: Vector([value / rightFloat for value in leftVector]),
            (Matrix, int): lambda leftMatrix, rightInt: Matrix.createMatrixFrom1DList([value / rightInt for value in leftMatrix],
