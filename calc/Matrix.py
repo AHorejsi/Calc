@@ -226,6 +226,8 @@ class Matrix(MathEntity):
         for value in self:
             if hasattr(value, "conjugate"):
                 newTable.append(value.conjugate())
+            else:
+                newTable.append(value)
 
         return Matrix.createMatrixFrom1DList(newTable, self.rowLength, self.columnLength)
 
