@@ -79,6 +79,7 @@ eqDict = {(int, Quaternion): lambda leftInt, rightQuaternion: leftInt == rightQu
                                                                             leftQuaternion.imag0 == rightQuaternion.imag0 and
                                                                             leftQuaternion.imag1 == rightQuaternion.imag1 and
                                                                             leftQuaternion.imag2 == rightQuaternion.imag2,
+          (NumberList, NumberList): __numberListEqualsNumberList,
           (Vector, Vector): __vectorEqualsVector,
           (Matrix, Matrix): __matrixEqualsMatrix}
 

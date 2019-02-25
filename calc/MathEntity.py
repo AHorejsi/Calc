@@ -240,7 +240,8 @@ class MathEntity:
 
     def __pos__(self) -> MathEntity:
         """
-        Returns a reference to this mathematical entity
+        Returns a reference to this
+        mathematical entity
 
         :return: This mathematical entity
         """
