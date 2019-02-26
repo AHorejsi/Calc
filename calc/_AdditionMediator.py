@@ -66,7 +66,6 @@ addDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftIn
                                                                                   leftComplex.imag + rightQuaternion.imag0,
                                                                                   rightQuaternion.imag1,
                                                                                   rightQuaternion.imag2),
-           (complex, NumberList): lambda leftComplex, rightList: NumberList([leftComplex + value for value in rightList]),
            (Quaternion, int): lambda leftQuaternion, rightInt: Quaternion(leftQuaternion.real + rightInt,
                                                                                leftQuaternion.imag0,
                                                                                leftQuaternion.imag1,
@@ -84,11 +83,8 @@ addDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftIn
                leftQuaternion.imag0 + rightQuaternion.imag0,
                leftQuaternion.imag1 + rightQuaternion.imag1,
                leftQuaternion.imag2 + rightQuaternion.imag2),
-           (Quaternion, NumberList): lambda leftQuaternion, rightList: NumberList([leftQuaternion + value for value in rightList]),
            (NumberList, int): lambda leftList, rightInt: NumberList([value + rightInt for value in leftList]),
            (NumberList, float): lambda leftList, rightFloat: NumberList([value + rightFloat for value in leftList]),
-           (NumberList, complex): lambda leftList, rightComplex: NumberList([value + rightComplex for value in leftList]),
-           (NumberList, Quaternion): lambda leftList, rightQuaternion: NumberList([value + rightQuaternion for value in leftList]),
            (NumberList, NumberList): lambda leftList, rightList: NumberList([leftValue + rightValue
                                                                              for (leftValue, rightValue)
                                                                              in zip_longest(leftList, rightList, fillvalue=0)]),

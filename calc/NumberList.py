@@ -1,11 +1,10 @@
 from __future__ import annotations
 from typing import List, Union, Iterator, NoReturn
 from calc.MathEntity import MathEntity
-from calc.Quaternion import Quaternion
 
 
 class NumberList(MathEntity):
-    def __init__(self, data: List[Union[int, float, complex, Quaternion]]):
+    def __init__(self, data: List[Union[int, float]]):
         self.__data = data
 
     def __len__(self) -> int:
@@ -17,13 +16,13 @@ class NumberList(MathEntity):
 
         return self.__data[index]
 
-    def __setitem__(self, index: int, value: Union[int, float, complex, Quaternion]) -> NoReturn:
+    def __setitem__(self, index: int, value: Union[int, float]) -> NoReturn:
         if index < 0 or index >= len(self):
             raise IndexError("Invalid index")
 
         self.__data[index] = value
 
-    def mean(self) -> Union[int, float, complex, Quaternion]:
+    def mean(self) -> Union[int, float]:
         return sum(self) / len(self)
 
     def median(self) -> Union[int, float]:
@@ -34,6 +33,8 @@ class NumberList(MathEntity):
             return (sortedData[mid] + sortedData[mid + 1]) / 2
         else:
             return sortedData[mid]
+
+    def midrange(self):
 
     def __iter__(self) -> Iterator[Union[int, float]]:
         return iter(self.__data)

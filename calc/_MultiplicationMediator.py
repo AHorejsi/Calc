@@ -148,7 +148,6 @@ multDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                       leftComplex.real * rightQuaternion.imag0 + rightQuaternion.real * leftComplex.imag,
                       leftComplex.real * rightQuaternion.imag1 - leftComplex.imag * rightQuaternion.imag2,
                       leftComplex.real * rightQuaternion.imag2 + leftComplex.imag * rightQuaternion.imag1),
-            (complex, NumberList): lambda leftComplex, rightList: NumberList([leftComplex * value for value in rightList]),
             (complex, Matrix): lambda leftComplex, rightMatrix: Matrix.createMatrixFrom1DList(
                     [leftComplex * value for value in rightMatrix],
                     rightMatrix.rowLength,
@@ -175,15 +174,12 @@ multDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                       leftQuaternion.imag1 * rightQuaternion.real - leftQuaternion.imag2 * rightQuaternion.imag0,
                       leftQuaternion.real * rightQuaternion.imag2 - leftQuaternion.imag0 * rightQuaternion.imag1 +
                       leftQuaternion.imag1 * rightQuaternion.imag0 + leftQuaternion.imag2 * rightQuaternion.real),
-            (Quaternion, NumberList): lambda leftQuaternion, rightList: NumberList([leftQuaternion * value for value in rightList]),
             (Quaternion, Matrix): lambda leftQuaternion, rightMatrix: Matrix.createMatrixFrom1DList(
                     [leftQuaternion * value for value in rightMatrix],
                     rightMatrix.rowLength,
                     rightMatrix.columnLength),
             (NumberList, int): lambda leftList, rightInt: NumberList([value * rightInt for value in leftList]),
             (NumberList, float): lambda leftList, rightFloat: NumberList([value * rightFloat for value in leftList]),
-            (NumberList, complex): lambda leftList, rightComplex: NumberList([value * rightComplex for value in leftList]),
-            (NumberList, Quaternion): lambda leftList, rightQuaternion: NumberList([value * rightQuaternion for value in leftList]),
             (NumberList, NumberList): lambda leftList, rightList: NumberList([leftValue * rightValue
                                                                               for (leftValue, rightValue)
                                                                               in zip_longest(leftList, rightList, fillvalue=0)]),
