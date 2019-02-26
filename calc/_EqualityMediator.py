@@ -1,8 +1,28 @@
 from typing import Union
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
+from calc.NumberList import NumberList
 from calc.Vector import Vector
 from calc.Matrix import Matrix
+
+
+def __numberListEqualsNumberList(leftList: NumberList, rightList: NumberList) -> bool:
+    """
+    Checks if the two number lists contain the same elements in the same order
+
+    :param leftList: The number list on the left side of the equality operator
+    :param rightList: The number list on the right side of the equality operator
+    :return: True if the two lists are equal, False otherwise
+    """
+
+    if len(leftList) != len(rightList):
+        return False
+
+    for (leftValue, rightValue) in zip(leftList, rightList):
+        if leftValue != rightValue:
+            return False
+
+    return True
 
 
 def __vectorEqualsVector(leftVector: Vector, rightVector: Vector) -> bool:

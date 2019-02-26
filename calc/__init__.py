@@ -1,5 +1,6 @@
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
+from calc.NumberList import NumberList
 from calc.Vector import Vector
 from calc.Matrix import Matrix
 from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, signumQuaternion

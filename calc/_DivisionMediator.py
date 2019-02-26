@@ -1,7 +1,9 @@
 from typing import Union
 from math import nan
+from itertools import zip_longest
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
+from calc.NumberList import NumberList
 from calc.Vector import Vector
 from calc.Matrix import Matrix
 
@@ -101,8 +103,11 @@ def __quaternionDividedByQuaternion(leftQuaternion: Quaternion, rightQuaternion:
 
 
 divDict = {(int, Quaternion): __realDividedByQuaternion,
+           (int, NumberList): lambda leftInt, rightList: NumberList([leftInt / value for value in rightList]),
            (float, Quaternion): __realDividedByQuaternion,
+           (float, NumberList): lambda leftFloat, rightList: NumberList([leftFloat / value for value in rightList]),
            (complex, Quaternion): __complexDividedByQuaternion,
+           (complex, NumberList): lambda leftComplex, rightList: NumberList([leftComplex / value for value in rightList]),
            (Quaternion, int): lambda leftQuaternion, rightInt: Quaternion(leftQuaternion.real / rightInt,
                                                                           leftQuaternion.imag0 / rightInt,
                                                                           leftQuaternion.imag1 / rightInt,
@@ -113,20 +118,31 @@ divDict = {(int, Quaternion): __realDividedByQuaternion,
                                                                               leftQuaternion.imag2 / rightFloat),
            (Quaternion, complex): __quaternionDividedByComplex,
            (Quaternion, Quaternion): __quaternionDividedByQuaternion,
+           (Quaternion, NumberList): lambda leftQuaternion, rightList: NumberList([leftQuaternion + value for value in rightList]),
            (Vector, int): lambda leftVector, rightInt: Vector([value / rightInt for value in leftVector]),
            (Vector, float): lambda leftVector, rightFloat: Vector([value / rightFloat for value in leftVector]),
+           (NumberList, int): lambda leftList, rightInt: NumberList([value / rightInt for value in leftList]),
+           (NumberList, float): lambda leftList, rightFloat: NumberList([value / rightFloat for value in leftList]),
+           (NumberList, complex): lambda leftList, rightComplex: NumberList([value / rightComplex for value in leftList]),
+           (NumberList, Quaternion): lambda leftList, rightQuaternion: NumberList([value / rightQuaternion for value in leftList]),
+           (NumberList, NumberList): lambda leftList, rightList: NumberList([leftValue / rightValue
+                                                                             for (leftValue, rightValue)
+                                                                             in zip_longest(leftList, rightList, fillvalue=0)]),
            (Matrix, int): lambda leftMatrix, rightInt: Matrix.createMatrixFrom1DList([value / rightInt for value in leftMatrix],
                                                                                      leftMatrix.rowLength,
                                                                                      leftMatrix.columnLength),
-           (Matrix, float): lambda leftMatrix, rightFloat: Matrix.createMatrixFrom1DList([value / rightFloat for value in leftMatrix],
-                                                                                         leftMatrix.rowLength,
-                                                                                         leftMatrix.columnLength),
-           (Matrix, complex): lambda leftMatrix, rightComplex: Matrix.createMatrixFrom1DList([value / rightComplex for value in leftMatrix],
-                                                                                             leftMatrix.rowLength,
-                                                                                             leftMatrix.columnLength),
-           (Matrix, Quaternion): lambda leftMatrix, rightQuaternion: Matrix.createMatrixFrom1DList([value / rightQuaternion for value in leftMatrix],
-                                                                                                   leftMatrix.rowLength,
-                                                                                                   leftMatrix.columnLength),
+           (Matrix, float): lambda leftMatrix, rightFloat: Matrix.createMatrixFrom1DList(
+                                                            [value / rightFloat for value in leftMatrix],
+                                                            leftMatrix.rowLength,
+                                                            leftMatrix.columnLength),
+           (Matrix, complex): lambda leftMatrix, rightComplex: Matrix.createMatrixFrom1DList(
+                                                                [value / rightComplex for value in leftMatrix],
+                                                                leftMatrix.rowLength,
+                                                                leftMatrix.columnLength),
+           (Matrix, Quaternion): lambda leftMatrix, rightQuaternion: Matrix.createMatrixFrom1DList(
+                                                                        [value / rightQuaternion for value in leftMatrix],
+                                                                        leftMatrix.rowLength,
+                                                                        leftMatrix.columnLength),
            (Matrix, Matrix): lambda leftMatrix, rightMatrix: leftMatrix * rightMatrix.inverse()}
 
 

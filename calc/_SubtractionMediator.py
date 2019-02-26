@@ -1,7 +1,9 @@
 from typing import Union
 from math import nan
+from itertools import zip_longest
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
+from calc.NumberList import NumberList
 from calc.Vector import Vector
 from calc.Matrix import Matrix
 
@@ -34,14 +36,17 @@ subtDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                                                                                 -rightQuaternion.imag0,
                                                                                 -rightQuaternion.imag1,
                                                                                 -rightQuaternion.imag2),
+            (int, NumberList): lambda leftInt, rightList: NumberList([leftInt - value for value in rightList]),
             (float, Quaternion): lambda leftFloat, rightQuaternion: Quaternion(leftFloat - rightQuaternion.real,
                                                                                     -rightQuaternion.imag0,
                                                                                     -rightQuaternion.imag1,
                                                                                     -rightQuaternion.imag2),
+            (float, NumberList): lambda leftFloat, rightList: NumberList([leftFloat - value for value in rightList]),
             (complex, Quaternion): lambda leftComplex, rightQuaternion: Quaternion(leftComplex.real - rightQuaternion.real,
                                                                                    leftComplex.imag - rightQuaternion.imag0,
                                                                                    -rightQuaternion.imag1,
                                                                                    -rightQuaternion.imag2),
+            (complex, NumberList): lambda leftComplex, rightList: NumberList([leftComplex - value for value in rightList]),
             (Quaternion, int): lambda leftQuaternion, rightInt: Quaternion(leftQuaternion.real - rightInt,
                                                                                 leftQuaternion.imag0,
                                                                                 leftQuaternion.imag1,
@@ -58,6 +63,14 @@ subtDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
                                                                                          leftQuaternion.imag0 - rightQuaternion.imag0,
                                                                                          leftQuaternion.imag1 - rightQuaternion.imag1,
                                                                                          leftQuaternion.imag2 - rightQuaternion.imag2),
+            (Quaternion, NumberList): lambda leftQuaternion, rightList: NumberList([leftQuaternion - value for value in rightList]),
+            (NumberList, int): lambda leftList, rightInt: NumberList([value - rightInt for value in leftList]),
+            (NumberList, float): lambda leftList, rightFloat: NumberList([value - rightFloat for value in leftList]),
+            (NumberList, complex): lambda leftList, rightComplex: NumberList([value - rightComplex for value in leftList]),
+            (NumberList, Quaternion): lambda leftList, rightQuaternion: NumberList([value - rightQuaternion for value in leftList]),
+            (NumberList, NumberList): lambda leftList, rightList: NumberList([leftValue - rightValue
+                                                                              for (leftValue, rightValue)
+                                                                              in zip_longest(leftList, rightList, fillvalue=0)]),
             (Vector, Vector): __vectorMinusVector,
             (Matrix, Matrix): __matrixMinusMatrix}
 
