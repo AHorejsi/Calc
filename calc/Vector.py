@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Union, List, Iterator
+from typing import Union, List, Iterator, NoReturn
 from calc.MathEntity import MathEntity
 from math import sqrt, acos
 from copy import copy
@@ -56,7 +56,7 @@ class Vector(MathEntity):
 
         return self.__point[index]
 
-    def __setitem__(self, index: int, value: Union[int, float]) -> None:
+    def __setitem__(self, index: int, value: Union[int, float]) -> NoReturn:
         """
         Resets a component of this vector with a new value
         based on an indexed position

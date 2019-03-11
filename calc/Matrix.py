@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Union, List, Tuple, Iterator
+from typing import Union, List, Tuple, Iterator, NoReturn
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
 from copy import copy, deepcopy
@@ -159,7 +159,7 @@ class Matrix(MathEntity):
 
         return self.__table[coordinates[0] * self.columnLength + coordinates[1]]
 
-    def __setitem__(self, coordinates: Tuple[int, int], value: Union[int, float, complex, Quaternion]) -> None:
+    def __setitem__(self, coordinates: Tuple[int, int], value: Union[int, float, complex, Quaternion]) -> NoReturn:
         """
         Sets the elements at the given row and column indices
 
@@ -232,7 +232,7 @@ class Matrix(MathEntity):
         return Matrix.createMatrixFrom1DList(newTable, self.rowLength, self.columnLength)
 
     @property
-    def determinant(self) -> float:
+    def determinant(self) -> Union[int, float, complex, Quaternion]:
         """
         Returns the determinant of this matrix
 
@@ -250,7 +250,7 @@ class Matrix(MathEntity):
         return Matrix.__determinant(self.__table, self.rowLength)
 
     @staticmethod
-    def __determinant(table: List[Union[int, float, complex, Quaternion]], size: int) -> float:
+    def __determinant(table: List[Union[int, float, complex, Quaternion]], size: int) -> Union[int, float, complex, Quaternion]:
         """
         Computes the determinant of the matrix represented
         by the given table
@@ -265,7 +265,7 @@ class Matrix(MathEntity):
         if size == 2:
             return table[0] * table[3] - table[2] * table[1]
         else:
-            det = 0.0
+            det = 0
 
             # Move through the first row of this matrix
             # Ignore values in the current column

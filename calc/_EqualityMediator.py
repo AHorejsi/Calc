@@ -8,11 +8,14 @@ from calc.Matrix import Matrix
 
 def __numberListEqualsNumberList(leftList: NumberList, rightList: NumberList) -> bool:
     """
-    Checks if the two number lists contain the same elements in the same order
+    Checks if the two given lists of numbers contain the same numbers
+    in the same order
 
-    :param leftList: The number list on the left side of the equality operator
-    :param rightList: The number list on the right side of the equality operator
-    :return: True if the two lists are equal, False otherwise
+    :param leftList: The list of numbers on the left side of the
+        equality operator
+    :param rightList: The list of numbers on the right side of the
+        equality operator
+    :return: True if both lists are equal, False otherwise
     """
 
     if len(leftList) != len(rightList):

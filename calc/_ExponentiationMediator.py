@@ -80,18 +80,22 @@ def __generalExponent(leftEntity: Union[int, float, complex, Quaternion, Matrix]
 
 
 expDict = {(int, Quaternion): __generalExponent,
-           (int, Matrix): __generalExponent,
            (int, NumberList): lambda leftInt, rightList: NumberList([leftInt ** value for value in rightList]),
+           (int, Matrix): __generalExponent,
            (float, Quaternion): __generalExponent,
            (float, NumberList): lambda leftFloat, rightList: NumberList([leftFloat ** value for value in rightList]),
            (float, Matrix): __generalExponent,
            (complex, Quaternion): __generalExponent,
+           (complex, NumberList): lambda leftComplex, rightList: NumberList([leftComplex ** value for value in rightList]),
            (Quaternion, int): __generalExponent,
            (Quaternion, float): __generalExponent,
            (Quaternion, complex): __generalExponent,
            (Quaternion, Quaternion): __generalExponent,
+           (Quaternion, NumberList): lambda leftQuaternion, rightList: NumberList([leftQuaternion ** value for value in rightList]),
            (NumberList, int): lambda leftList, rightInt: NumberList([value ** rightInt for value in leftList]),
            (NumberList, float): lambda leftList, rightFloat: NumberList([value ** rightFloat for value in leftList]),
+           (NumberList, complex): lambda leftList, rightComplex: NumberList([value ** rightComplex for value in leftList]),
+           (NumberList, Quaternion): lambda leftList, rightQuaternion: NumberList([value ** rightQuaternion for value in leftList]),
            (NumberList, NumberList): lambda leftList, rightList: NumberList([leftValue ** rightValue
                                                                              for (leftValue, rightValue)
                                                                              in zip_longest(leftList, rightList, fillvalue=0)]),
