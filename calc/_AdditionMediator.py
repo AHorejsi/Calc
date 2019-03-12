@@ -76,7 +76,7 @@ addDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftIn
                                                                                      leftQuaternion.imag1,
                                                                                      leftQuaternion.imag2),
            (Quaternion, complex): lambda leftQuaternion, rightComplex: Quaternion(leftQuaternion.real + rightComplex.real,
-                                                                                  leftQuaternion.imag + rightComplex.imag0,
+                                                                                  leftQuaternion.imag0 + rightComplex.imag,
                                                                                   leftQuaternion.imag1,
                                                                                   leftQuaternion.imag2),
            (Quaternion, Quaternion): lambda leftQuaternion, rightQuaternion: Quaternion(
