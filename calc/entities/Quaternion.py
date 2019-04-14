@@ -1,5 +1,5 @@
 from __future__ import annotations
-from calc.MathEntity import MathEntity
+from calc.entities.MathEntity import MathEntity
 from math import sqrt
 from typing import Union, Iterator
 

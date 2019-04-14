@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Union, List, Iterator, NoReturn
-from calc.MathEntity import MathEntity
+from calc.entities.MathEntity import MathEntity
 from math import sqrt, acos
 from copy import copy
 
