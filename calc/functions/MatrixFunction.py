@@ -1,5 +1,5 @@
 import scipy
-from calc.Matrix import Matrix
+from calc.entities.Matrix import Matrix
 from scipy.linalg import expm, logm, sinm, cosm, tanm, sinhm, coshm, tanhm, signm
 
 

@@ -1,10 +1,10 @@
 import math
 import cmath
-from calc.MathEntity import MathEntity
-from calc.Quaternion import Quaternion
-from calc.Matrix import Matrix
-from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, signumQuaternion
-from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
+from calc.entities.MathEntity import MathEntity
+from calc.entities.Quaternion import Quaternion
+from calc.entities.Matrix import Matrix
+from calc.functions.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, signumQuaternion
+from calc.functions.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
                                 coshMatrix, tanhMatrix, signumMatrix
 from typing import Union
 
