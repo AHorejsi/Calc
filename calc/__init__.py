@@ -3,6 +3,7 @@ from calc.Quaternion import Quaternion
 from calc.Vector import Vector
 from calc.Matrix import Matrix
 from calc.NumberList import NumberList
+from calc.QuadraticEquation import QuadEqn
 from calc.QuaternionFunction import expQuaternion, sqrtQuaternion, logQuaternion, log10Quaternion, signumQuaternion
 from calc.MatrixFunction import expMatrix, logMatrix, sqrtMatrix, sinMatrix, cosMatrix, tanMatrix, sinhMatrix, \
                                 coshMatrix, tanhMatrix, signumMatrix

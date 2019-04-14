@@ -153,6 +153,10 @@ def sqrtMath(mathEntity: Union[int, float, complex, Quaternion, Matrix]) -> Unio
     func = functionDictionary.get(key)
 
     if func is not None:
+        if (type(mathEntity) == int or type(mathEntity == float)):
+            if mathEntity < 0:
+                func = cmath.sqrt
+
         return func(mathEntity)
     else:
         return math.nan
