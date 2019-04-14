@@ -1,8 +1,8 @@
 from __future__ import annotations
 from typing import Union, List, Iterator, NoReturn
-from calc.MathEntity import MathEntity
-from calc.Quaternion import Quaternion
-from calc.MathFunction import sqrtMath
+from calc.entities.MathEntity import MathEntity
+from calc.entities.Quaternion import Quaternion
+from calc.entities.MathFunction import sqrtMath
 
 
 class NumberList(MathEntity):

@@ -92,6 +92,7 @@ addDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftIn
            (NumberList, NumberList): lambda leftList, rightList: NumberList([leftValue + rightValue
                                                                              for (leftValue, rightValue)
                                                                              in zip_longest(leftList, rightList, fillvalue=0)]),
+           (QuadEqn, int): lambda leftQuadEqn, rightInt: QuadEqn(leftQuadEqn.a, leftQuadEqn.b, leftQuadEqn.c + rightInt),
            (Vector, Vector): __vectorPlusVector,
            (Matrix, Matrix): __matrixPlusMatrix}
 
