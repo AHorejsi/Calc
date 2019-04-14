@@ -1,11 +1,11 @@
 from typing import Union
 from math import nan
 from itertools import zip_longest
-from calc.MathEntity import MathEntity
-from calc.Quaternion import Quaternion
-from calc.NumberList import NumberList
-from calc.Vector import Vector
-from calc.Matrix import Matrix
+from calc.entities.MathEntity import MathEntity
+from calc.entities.Quaternion import Quaternion
+from calc.stats.NumberList import NumberList
+from calc.entities.Vector import Vector
+from calc.entities.Matrix import Matrix
 
 
 def __vectorPlusVector(leftVector: Vector, rightVector: Vector) -> Vector:
