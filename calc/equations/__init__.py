@@ -1,1 +1,0 @@
-from calc.equations.QuadraticEquation import QuadraticEquation
