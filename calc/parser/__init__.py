@@ -1,2 +1,0 @@
-from calc.parser.ValueParsing import parseInt, parseFloat, parseComplex, parseBool, parseVector, parseQuaternion, \
-                                     parseMatrix, parseNumberList, parseVariableValue
