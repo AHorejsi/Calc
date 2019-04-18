@@ -12,3 +12,4 @@ from calc.MathFunction import expMath, logMath, log10Math, sqrtMath, signumMath,
                                         acoshMath, atanhMath, chooseMath, chooseRepeatMath, permutationMath
 from calc.ValueParsing import parseInt, parseFloat, parseComplex, parseBool, parseVector, parseQuaternion, \
                               parseMatrix, parseNumberList, parseVariableValue
+from calc.QuadraticEquation import QuadraticEquation
