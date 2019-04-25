@@ -97,6 +97,20 @@ subtDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftI
 
 def doSubtraction(mathEntity1: Union[int, float, MathEntity],
                   mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
+    """
+    Performs subtraction on the two given mathematical entities.
+    If the first entity cannot be subtracted from the second entity,
+    nan is returned
+
+    :param mathEntity1: The mathematical entity on the left side
+        of the subtraction sign
+    :param mathEntity2: The mathematical entity on the right side
+        of the subtraction sign
+    :return: The difference of the two given mathematical entities if they
+        can be subtracted from each other. If they cannot be subtracted from
+        each other, nan is returned
+    """
+
     key = (type(mathEntity1), type(mathEntity2))
     operation = subtDict.get(key)
 
