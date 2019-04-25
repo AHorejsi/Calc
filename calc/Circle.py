@@ -16,7 +16,12 @@ class Circle:
         center to its edge
 
         :param radius: The radius of this circle
+        :raises ArithmeticError: Raised if the value for radius
+            is not positive
         """
+
+        if radius <= 0:
+            raise ArithmeticError("Radius must be positive")
 
         self.__radius = radius
 

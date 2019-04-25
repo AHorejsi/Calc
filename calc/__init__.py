@@ -16,5 +16,6 @@ from calc.ValueParsing import parseInt, parseFloat, parseComplex, parseBool, par
                               parseMatrix, parseNumberList, parseVariableValue
 from calc.QuadraticEquation import QuadraticEquation
 from calc.Circle import Circle
+from calc.Ellipse import Ellipse
 from calc.RegularPolygon import RegularPolygon
 

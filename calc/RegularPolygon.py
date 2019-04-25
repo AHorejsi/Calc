@@ -17,9 +17,12 @@ class RegularPolygon:
 
         :param numberOfSides: The number of sides this polygon will have
         :param lengthOfSides: The length of the sides of this polygon
+        :raises ArithmeticError: Raised if the given number of sides is
+            less than 3 or the value for the length of the sides is not
+            positive
         """
 
-        if numberOfSides < 2:
+        if numberOfSides < 3:
             raise ArithmeticError("The number of sides must be greater than 2")
         if lengthOfSides <= 0:
             raise ArithmeticError("The length of each side must be positive")
