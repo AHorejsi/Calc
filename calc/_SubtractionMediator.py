@@ -9,6 +9,16 @@ from calc.Matrix import Matrix
 
 
 def __vectorMinusVector(leftVector: Vector, rightVector: Vector) -> Vector:
+    """
+    Subtracts one vector from another vector
+
+    :param leftVector: The vector on the left side of the subtraction sign
+    :param rightVector: The vector on the right side of the subtraction sign
+    :return: The difference of the two given vectors
+    :raises ArithmeticError: Raised if the two given vectors do not have
+        the same dimensions
+    """
+
     if not leftVector.equalDimensions(rightVector):
         raise ArithmeticError("Vectors must be of equal dimensions to be subtracted from each other")
 
@@ -21,6 +31,16 @@ def __vectorMinusVector(leftVector: Vector, rightVector: Vector) -> Vector:
 
 
 def __matrixMinusMatrix(leftMatrix: Matrix, rightMatrix: Matrix) -> Matrix:
+    """
+    Subtracts one matrix from another matrix
+
+    :param leftMatrix: The matrix on the left side of the subtraction sign
+    :param rightMatrix: The matrix on the right side of the subtraction sign
+    :return: The difference of the two given matrices
+    :raises ArithmeticError: Raised if the two given matrices do not have
+        the same dimensions
+    """
+
     if not leftMatrix.equalDimensions(rightMatrix):
         raise ArithmeticError("Matrices must be of equal dimensions to be subtracted from each other")
 
