@@ -15,3 +15,6 @@ from calc.MathFunction import expMath, logMath, log10Math, sqrtMath, signumMath,
 from calc.ValueParsing import parseInt, parseFloat, parseComplex, parseBool, parseVector, parseQuaternion, \
                               parseMatrix, parseNumberList, parseVariableValue
 from calc.QuadraticEquation import QuadraticEquation
+from calc.Circle import Circle
+from calc.RegularPolygon import RegularPolygon
+
