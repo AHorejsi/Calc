@@ -19,6 +19,11 @@ class RegularPolygon:
         :param lengthOfSides: The length of the sides of this polygon
         """
 
+        if numberOfSides < 2:
+            raise ArithmeticError("The number of sides must be greater than 2")
+        if lengthOfSides <= 0:
+            raise ArithmeticError("The length of each side must be positive")
+
         self.numberOfSides = numberOfSides
         self.lengthOfSides = lengthOfSides
 
