@@ -29,10 +29,22 @@ class RegularPolygon:
 
     @property
     def numberOfSides(self) -> int:
+        """
+        Returns the number of sides that this regular polygon has
+
+        :return: The number of sides that this regular polygon has
+        """
+
         return self.__numberOfSides
 
     @property
     def lengthOfSides(self) -> float:
+        """
+        Return the length of this regular polygon's sides
+
+        :return: The length of this regular polygon's sides
+        """
+
         return self.__lengthOfSides
 
     @property
