@@ -275,7 +275,7 @@ class Matrix(MathEntity):
                 for rowIndex in range(1, size):  # Start with 1 to ignore first row
                     for columnIndex in range(size):
 
-                        # Ignore the value that is in the column being ignore
+                        # Skip the value that is in the column being ignored
                         if columnIndex != column:
                             subtable.append(table[rowIndex * size + columnIndex])
 
