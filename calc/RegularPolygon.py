@@ -24,8 +24,16 @@ class RegularPolygon:
         if lengthOfSides <= 0:
             raise ArithmeticError("The length of each side must be positive")
 
-        self.numberOfSides = numberOfSides
-        self.lengthOfSides = lengthOfSides
+        self.__numberOfSides = numberOfSides
+        self.__lengthOfSides = lengthOfSides
+
+    @property
+    def numberOfSides(self) -> int:
+        return self.__numberOfSides
+
+    @property
+    def lengthOfSides(self) -> float:
+        return self.__lengthOfSides
 
     @property
     def perimeter(self) -> Union[int, float]:
@@ -35,7 +43,7 @@ class RegularPolygon:
         :return: The perimeter of this polygon
         """
 
-        return self.numberOfSides * self.lengthOfSides
+        return self.__numberOfSides * self.__lengthOfSides
 
     @property
     def area(self) -> Union[int, float]:
@@ -45,7 +53,8 @@ class RegularPolygon:
         :return: The area of this polygon
         """
 
-        return (self.lengthOfSides * self.lengthOfSides * self.numberOfSides) / (4 * tan(pi / self.numberOfSides))
+        return (self.__lengthOfSides * self.__lengthOfSides * self.__numberOfSides) / \
+               (4 * tan(pi / self.__numberOfSides))
 
     @property
     def apothem(self) -> Union[int, float]:
@@ -55,7 +64,7 @@ class RegularPolygon:
         :return: The length of the apothem of this regular polygon
         """
 
-        return self.lengthOfSides / (2 * tan(pi / self.numberOfSides))
+        return self.__lengthOfSides / (2 * tan(pi / self.__numberOfSides))
 
     @property
     def circumradius(self) -> Union[int, float]:
@@ -65,7 +74,7 @@ class RegularPolygon:
         :return: The length of the circumradius of this regular polygon
         """
 
-        return self.lengthOfSides / (2 * sin(pi / self.numberOfSides))
+        return self.__lengthOfSides / (2 * sin(pi / self.__numberOfSides))
 
     @property
     def sumOfInteriorAngles(self) -> Union[int, float]:
@@ -75,7 +84,7 @@ class RegularPolygon:
         :return: The sum of the interior angles of this regular polygon
         """
 
-        return (self.numberOfSides - 2) * pi
+        return (self.__numberOfSides - 2) * pi
 
     @property
     def interiorAngles(self) -> Union[int, float]:
@@ -85,7 +94,7 @@ class RegularPolygon:
         :return: The interior angles of this regular polygon
         """
 
-        return self.sumOfInteriorAngles / self.numberOfSides
+        return self.sumOfInteriorAngles / self.__numberOfSides
 
     def __eq__(self, other: RegularPolygon) -> bool:
         """
@@ -97,7 +106,7 @@ class RegularPolygon:
         :return: True if both regular polygon are equal, False otherwise
         """
 
-        return self.numberOfSides == other.numberOfSides and self.lengthOfSides == other.lengthOfSides
+        return self.__numberOfSides == other.__numberOfSides and self.__lengthOfSides == other.__lengthOfSides
 
     def __ne__(self, other: RegularPolygon) -> bool:
         """
