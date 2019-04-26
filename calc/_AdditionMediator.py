@@ -92,7 +92,6 @@ addDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftIn
            (NumberList, NumberList): lambda leftList, rightList: NumberList([leftValue + rightValue
                                                                              for (leftValue, rightValue)
                                                                              in zip_longest(leftList, rightList, fillvalue=0)]),
-           (QuadEqn, int): lambda leftQuadEqn, rightInt: QuadEqn(leftQuadEqn.a, leftQuadEqn.b, leftQuadEqn.c + rightInt),
            (Vector, Vector): __vectorPlusVector,
            (Matrix, Matrix): __matrixPlusMatrix}
 
@@ -100,7 +99,7 @@ addDict = {(int, Quaternion): lambda leftInt, rightQuaternion: Quaternion(leftIn
 def doAddition(mathEntity1: Union[int, float, MathEntity],
                mathEntity2: Union[int, float, MathEntity]) -> Union[MathEntity, float]:
     """
-    Performs addition of the two given mathematical entities. If
+    Performs addition on the two given mathematical entities. If
     the two mathematical entities cannot be added together, nan
     is returned
 
