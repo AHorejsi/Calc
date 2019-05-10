@@ -151,14 +151,14 @@ class NumberList(MathEntity):
         """
 
         meanValue = self.mean()
-        result = 0
+        varianceValue = 0
 
         for value in self:
-            result += (value - meanValue) ** 2
+            varianceValue += (value - meanValue) ** 2
 
-        result /= len(self) - 1
+        varianceValue /= len(self) - 1
 
-        return result
+        return varianceValue
 
     def standardDeviation(self) -> Union[int, float, complex, Quaternion]:
         """

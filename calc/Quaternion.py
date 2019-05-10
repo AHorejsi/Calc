@@ -81,7 +81,7 @@ class Quaternion(MathEntity):
         :return: The absolute value of this quaternion
         """
 
-        return sqrt((self.real ** 2) + (self.imag0 ** 2) + (self.imag1 ** 2) + (self.imag2 ** 2))
+        return sqrt((self.__real ** 2) + (self.__imag0 ** 2) + (self.__imag1 ** 2) + (self.__imag2 ** 2))
 
     def conjugate(self) -> Quaternion:
         """
@@ -90,7 +90,7 @@ class Quaternion(MathEntity):
         :return: The conjugate of this quaternion
         """
 
-        return Quaternion(self.real, -self.imag0, -self.imag1, -self.imag2)
+        return Quaternion(self.__real, -self.__imag0, -self.__imag1, -self.__imag2)
 
     def normalize(self) -> Quaternion:
         """
@@ -119,10 +119,10 @@ class Quaternion(MathEntity):
 
         MODIFIER = 31
 
-        return MODIFIER * hash(self.real) + \
-               MODIFIER * hash(self.imag0) + \
-               MODIFIER * hash(self.imag1) + \
-               MODIFIER * hash(self.imag2)
+        return MODIFIER * hash(self.__real) + \
+               MODIFIER * hash(self.__imag0) + \
+               MODIFIER * hash(self.__imag1) + \
+               MODIFIER * hash(self.__imag2)
 
     def __str__(self) -> str:
         """
@@ -131,10 +131,10 @@ class Quaternion(MathEntity):
         :return: A string representation of this quaternion
         """
 
-        strRep = Quaternion.__symbol(self.real, "") + \
-                 Quaternion.__symbol(self.imag0, "i") + \
-                 Quaternion.__symbol(self.imag1, "j") + \
-                 Quaternion.__symbol(self.imag2, "k")
+        strRep = Quaternion.__symbol(self.__real, "") + \
+                 Quaternion.__symbol(self.__imag0, "i") + \
+                 Quaternion.__symbol(self.__imag1, "j") + \
+                 Quaternion.__symbol(self.__imag2, "k")
 
         if strRep.startswith("+"):
             return strRep[1:]
