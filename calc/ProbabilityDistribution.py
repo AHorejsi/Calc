@@ -58,9 +58,46 @@ class ProbabilityDistribution:
         try:
             self.__sort()
 
+            countOfMode = 1
+            index = 0
 
+            while index < len(self):
+                current = self.__sortedData[index]
+                countOfCurrent = 0
+
+                while current[0] == self.__sortedData[index][0]:
+                    countOfCurrent += 1
+                    index += 1
+
+                    if index >= len(self):
+                        break
+
+                if countOfCurrent == countOfMode and countOfMode != 1:
+                    modes.append(current[0])
+                elif countOfCurrent > countOfMode:
+                    countOfMode = countOfCurrent
+
+                    modes.clear()
+                    modes.append(current[0])
         except TypeError:
-            pass
+            counts = {}
+
+            for (value, probability) in self:
+                if value in counts:
+                    counts[value] += 1
+                else:
+                    counts[value] = 1
+
+            modes = []
+            countOfModes = -1
+
+            for (value, count) in counts.items():
+                if count > countOfModes:
+                    modes.clear()
+                    modes.append(value)
+                    countOfModes = count
+                elif count == countOfModes and count != -1:
+                    modes.append(value)
 
         return modes
 
