@@ -61,7 +61,7 @@ class QuadraticEquation:
 		return self.__constant
 		
 	@property
-	def vertex(self) -> Tuple[Union[int, float]]:
+	def vertex(self) -> Tuple[Union[int, float], Union[int, float]]:
 		"""
 		Computes the vertex of this quadratic equation
 		
@@ -84,7 +84,7 @@ class QuadraticEquation:
 		return (self.__secondCoefficient ** 2) - (4 * self.__leadingCoefficient * self.__constant)
 		
 	@property
-	def xValue(self) -> Union[Union[int, float], Tuple[Union[int, float, complex]]]:
+	def xValue(self) -> Union[Union[int, float], Tuple[Union[int, float], Union[int, float]], Tuple[complex, complex]]:
 		"""
 		Computes the value(s) of this quadratic equation. If the
 		discriminant of this quadratic equation is positive, two
