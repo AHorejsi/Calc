@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Union, List, Tuple, Iterator, NoReturn
+from sys import float_info
 from calc.MathFunction import sqrtMath
 from calc.Quaternion import Quaternion
 
@@ -30,10 +31,22 @@ class ProbabilityDistribution:
         return self.__sortedData[index]
 
     def min(self) -> Tuple[Union[int, float], float]:
-        return self.getSortedItem(0)
+        minValue = float_info.max
+
+        for (value, _) in self:
+            if value < minValue:
+                minValue = value
+
+        return minValue
 
     def max(self) -> Tuple[Union[int, float], float]:
-        return self.getSortedItem(len(self) - 1)
+        maxValue = float_info.min
+
+        for (value, _) in self:
+            if value > maxValue:
+                maxValue = value
+
+        return maxValue
 
     def mean(self) -> Union[int, float, complex, Quaternion]:
         meanValue = 0
@@ -88,15 +101,15 @@ class ProbabilityDistribution:
                 else:
                     counts[value] = 1
 
-            modes = []
-            countOfModes = -1
+            countOfMode = None
 
             for (value, count) in counts.items():
-                if count > countOfModes:
+                if count > countOfMode:
                     modes.clear()
                     modes.append(value)
-                    countOfModes = count
-                elif count == countOfModes and count != -1:
+
+                    countOfMode = count
+                elif count == countOfMode and count != -1:
                     modes.append(value)
 
         return modes

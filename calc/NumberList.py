@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Union, List, Iterator, NoReturn
+from sys import float_info
 from calc.MathEntity import MathEntity
 from calc.Quaternion import Quaternion
 from calc.MathFunction import sqrtMath
@@ -16,6 +17,7 @@ class NumberList(MathEntity):
         """
 
         self.__data = data
+        self.__sortedData = None
 
     def __len__(self) -> int:
         """
@@ -61,6 +63,25 @@ class NumberList(MathEntity):
             raise IndexError("Invalid index")
 
         self.__data[index] = value
+        self.__sortedData = None
+
+    def min(self) -> Union[int, float]:
+        minValue = float_info.max
+
+        for value in self:
+            if value < minValue:
+                minValue = value
+
+        return minValue
+
+    def max(self) -> Union[int, float]:
+        maxValue = float_info.min
+
+        for value in self:
+            if value > maxValue:
+                maxValue = value
+
+        return maxValue
 
     def mean(self) -> Union[int, float, complex, Quaternion]:
         """
@@ -81,13 +102,15 @@ class NumberList(MathEntity):
             quaternions
         """
 
-        sortedData = sorted(self.__data)
+        if self.__sortedData is None:
+            self.__sortedData = sorted(self.__data)
+
         mid = round(len(self) / 2)
 
         if len(self) % 2 == 0:
-            return (sortedData[mid] + sortedData[mid + 1]) / 2
+            return (self.__sortedData[mid] + self.__sortedData[mid + 1]) / 2
         else:
-            return sortedData[mid]
+            return self.__sortedData[mid]
 
     def mode(self) -> List[Union[int, float, complex, Quaternion]]:
         """
@@ -126,9 +149,10 @@ class NumberList(MathEntity):
             contains complex numbers or quaternions
         """
 
-        sortedData = sorted(self.__data)
+        if self.__sortedData is None:
+            self.__sortedData = sorted(self.__data)
 
-        return (sortedData[0] + sortedData[len(self) - 1]) / 2
+        return (self.__sortedData[0] + self.__sortedData[len(self) - 1]) / 2
 
     def range(self) -> Union[int, float]:
         """
@@ -139,9 +163,10 @@ class NumberList(MathEntity):
             contains complex numbers or quaternions
         """
 
-        sortedData = sorted(self.__data)
+        if self.__sortedData is None:
+            self.__sortedData = sorted(self.__data)
 
-        return sortedData[len(self) - 1] - sortedData[0]
+        return self.__sortedData[len(self) - 1] - self.__sortedData[0]
 
     def variance(self) -> Union[int, float, complex, Quaternion]:
         """
