@@ -7,8 +7,10 @@ from calc.Quaternion import Quaternion
 
 class ProbabilityDistribution:
     """
-    Represents a probability distribution. While a data value can be a int, float, complex or Quaternion, not all
-    functions will not work if a given ProbabilityDistribution contains a complex and/or a Quaternion
+    Represents a probability distribution. A probability distribution contains data values and each data value has
+    a corresponding probability. The sum of all probabilities must be equal to 1. While a data value can be a int,
+    float, complex or Quaternion, not all functions will not work if a given ProbabilityDistribution contains a complex
+    and/or a Quaternion
     """
 
     def __init__(self, data: List[Tuple[Union[int, float, complex, Quaternion], float]]):
